@@ -1,5 +1,44 @@
 import yfinance as yf
 import sys
+import os
+
+
+def resolve_ticker(query: str, interactive: bool = True) -> str | None:
+    """会社名またはティッカーシンボルからティッカーを返す。"""
+    # まずティッカーとして直接試す（エラー出力を抑制）
+    devnull = open(os.devnull, "w")
+    old_stderr = sys.stderr
+    sys.stderr = devnull
+    try:
+        info = yf.Ticker(query).info
+        has_price = bool(info.get("currentPrice") or info.get("regularMarketPrice"))
+    finally:
+        sys.stderr = old_stderr
+        devnull.close()
+
+    if has_price:
+        return query
+
+    # 会社名として検索
+    results = yf.Search(query).quotes
+    equities = [r for r in results if r.get("quoteType") == "EQUITY"]
+    if not equities:
+        return None
+
+    if len(equities) == 1 or not interactive:
+        return equities[0]["symbol"]
+
+    # 複数候補がある場合は選ばせる
+    print(f"\n'{query}' の検索結果:")
+    for i, r in enumerate(equities[:5], 1):
+        name = r.get("longname") or r.get("shortname", "")
+        exch = r.get("exchDisp", "")
+        print(f"  {i}. {r['symbol']:<12} {name} ({exch})")
+
+    choice = input("番号を選んでください (1-5, Enterで1番): ").strip()
+    idx = int(choice) - 1 if choice.isdigit() else 0
+    idx = max(0, min(idx, len(equities) - 1))
+    return equities[idx]["symbol"]
 
 
 def get_stock_info(ticker: str) -> None:
@@ -12,12 +51,12 @@ def get_stock_info(ticker: str) -> None:
     prev_close = info.get("previousClose") or info.get("regularMarketPreviousClose")
 
     if current is None:
-        print(f"'{ticker}' の株価データを取得できませんでした。ティッカーシンボルを確認してください。")
+        print(f"'{ticker}' の株価データを取得できませんでした。")
         return
 
-    change = current - prev_close if prev_close else None
-    change_pct = (change / prev_close * 100) if change and prev_close else None
-    sign = "+" if change and change >= 0 else ""
+    change = current - prev_close if prev_close is not None else None
+    change_pct = (change / prev_close * 100) if change is not None and prev_close else None
+    sign = "+" if change is not None and change >= 0 else ""
 
     print(f"\n{'=' * 45}")
     print(f"  {name} ({ticker.upper()})")
@@ -43,17 +82,23 @@ def get_stock_info(ticker: str) -> None:
 
 def main() -> None:
     if len(sys.argv) > 1:
-        tickers = sys.argv[1:]
+        queries = sys.argv[1:]
     else:
-        user_input = input("ティッカーシンボルを入力してください (例: AAPL, 7203.T): ").strip()
+        user_input = input("会社名またはティッカーを入力してください (例: Apple, トヨタ, AAPL): ").strip()
         if not user_input:
             print("入力がありませんでした。")
             return
-        tickers = [t.strip() for t in user_input.split(",")]
+        queries = [q.strip() for q in user_input.split(",")]
 
-    for ticker in tickers:
+    interactive = len(sys.argv) == 1
+    for query in queries:
+        if not query:
+            continue
+        ticker = resolve_ticker(query, interactive=interactive)
         if ticker:
             get_stock_info(ticker)
+        else:
+            print(f"'{query}' に一致する銘柄が見つかりませんでした。")
 
 
 if __name__ == "__main__":
