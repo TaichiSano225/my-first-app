@@ -117,7 +117,7 @@ export default function Recommend() {
       {stocks && stocks.length > 0 && (
         <>
           <p className="rec-count">
-            {sector}：買い時順に <strong>{stocks.length}</strong> 銘柄（日本企業を優先）
+            {sector}：買い時順に <strong>{stocks.length}</strong> 銘柄（日本企業）
           </p>
           <div className="rec-list">
             {stocks.map((s, i) => (
@@ -126,8 +126,15 @@ export default function Recommend() {
                 <div className="rec-main">
                   <div className="rec-head">
                     <div>
-                      {s.ticker.endsWith('.T') && <span className="jp-flag">🇯🇵</span>}
-                      <span className="rec-name">{s.name}</span>
+                      {/* 企業名をクリックすると別タブで詳細（どんな企業か等）を開く */}
+                      <a
+                        className="rec-name rec-link"
+                        href={`/?q=${encodeURIComponent(s.ticker)}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {s.name}
+                      </a>
                       <span className="rec-ticker">{s.ticker}</span>
                       {s.sector && <span className="rec-sector">{s.sector}</span>}
                     </div>

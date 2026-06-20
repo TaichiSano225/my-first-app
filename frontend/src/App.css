@@ -566,14 +566,22 @@ button {
   gap: 10px;
 }
 
-.jp-flag {
-  margin-right: 5px;
-  font-size: 0.9rem;
-}
-
 .rec-name {
   font-weight: 700;
   font-size: 0.98rem;
+}
+
+/* 企業名リンク（別タブで詳細を開く） */
+.rec-link {
+  color: var(--text);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.rec-link:hover {
+  color: #c7d2fe;
+  text-decoration: underline;
 }
 
 .rec-ticker {

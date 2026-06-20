@@ -1,19 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { API_BASE, formatSigned, timingClass } from './utils.js'
 import RangeBar from './RangeBar.jsx'
 
 // 銘柄を1つ検索して、株価・買い時・アナリスト予想・企業概要・ニュースを表示する画面
-export default function StockSearch() {
-  const [query, setQuery] = useState('')
+export default function StockSearch({ initialQuery = '' }) {
+  const [query, setQuery] = useState(initialQuery)
   const [result, setResult] = useState(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  async function handleSearch(e) {
-    e.preventDefault()
-    const symbol = query.trim()
+  async function runSearch(symbol) {
     if (!symbol) return
-
     setLoading(true)
     setError('')
     setResult(null)
@@ -29,6 +26,17 @@ export default function StockSearch() {
     } finally {
       setLoading(false)
     }
+  }
+
+  // 別タブから ?q=銘柄 で開かれたときは自動で検索する
+  useEffect(() => {
+    if (initialQuery) runSearch(initialQuery)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialQuery])
+
+  function handleSearch(e) {
+    e.preventDefault()
+    runSearch(query.trim())
   }
 
   const up = result && result.change != null && result.change >= 0
