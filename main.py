@@ -1,3 +1,6 @@
+import threading
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
@@ -8,11 +11,25 @@ from app import (
     fetch_stock_data,
     fetch_stock_detail,
     resolve_ticker,
-    screen_sector,
+    screen_recommendations,
     screen_stocks,
 )
 
-app = FastAPI(title="株価チェッカー")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """起動時に全銘柄の株価を裏で先読みし、初回のおすすめ表示を速くする。"""
+    def _warm():
+        try:
+            screen_recommendations(300000)
+        except Exception:
+            pass
+
+    threading.Thread(target=_warm, daemon=True).start()
+    yield
+
+
+app = FastAPI(title="株価チェッカー", lifespan=lifespan)
 templates = Jinja2Templates(directory="templates")
 
 # React 開発サーバー(Vite, ポート5173)からの API 呼び出しを許可する
@@ -80,13 +97,15 @@ def sectors_json():
 
 
 @app.get("/recommendations")
-def recommendations_json(sector: str, budget: int = 300000):
-    """指定した業界の中で、予算内で買えるおすすめ銘柄を「買い時」順で返す。
+def recommendations_json(sector: str = "", budget: int = 300000):
+    """予算内で買えるおすすめ銘柄を「買い時」順（日本企業優先）で返す。
 
-    例: GET /recommendations?sector=テクノロジー&budget=300000
+    sector を省略すると全業界が対象。
+    例: GET /recommendations?budget=300000
+        GET /recommendations?sector=テクノロジー&budget=300000
     """
     budget = max(0, budget)
-    stocks = screen_sector(sector, budget)
+    stocks = screen_recommendations(budget, sector or None)
     return {"sector": sector, "budget": budget, "stocks": stocks}
 
 

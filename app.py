@@ -1,9 +1,15 @@
 import yfinance as yf
 import pandas as pd
 import difflib
+import time
 import sys
 import os
 import re
+
+try:
+    from deep_translator import GoogleTranslator
+except Exception:  # ライブラリ未導入でも英語表示で動作させる
+    GoogleTranslator = None
 
 # 社名末尾によくある法人格・属性語（マッチ判定の際に無視する）
 _NAME_NOISE = {
@@ -154,6 +160,58 @@ SECTOR_TICKERS = {
         ("ESS", "Essex Property"), ("MAA", "Mid-America"), ("ARE", "Alexandria"),
     ],
 }
+
+# 日本の主要銘柄 [(ティッカー, 表示名, 業界)]。おすすめでは日本企業を優先表示する。
+JAPAN_TICKERS = [
+    ("7203.T", "トヨタ自動車", "一般消費財"), ("7267.T", "ホンダ", "一般消費財"),
+    ("7201.T", "日産自動車", "一般消費財"), ("7269.T", "スズキ", "一般消費財"),
+    ("9983.T", "ファーストリテイリング", "一般消費財"), ("3382.T", "セブン&アイ", "生活必需品"),
+    ("6758.T", "ソニーグループ", "テクノロジー"), ("6861.T", "キーエンス", "テクノロジー"),
+    ("6098.T", "リクルート", "テクノロジー"), ("6902.T", "デンソー", "一般消費財"),
+    ("6981.T", "村田製作所", "テクノロジー"), ("8035.T", "東京エレクトロン", "テクノロジー"),
+    ("6594.T", "ニデック", "テクノロジー"), ("6954.T", "ファナック", "資本財・サービス"),
+    ("6857.T", "アドバンテスト", "テクノロジー"), ("6920.T", "レーザーテック", "テクノロジー"),
+    ("6503.T", "三菱電機", "テクノロジー"), ("6702.T", "富士通", "テクノロジー"),
+    ("6752.T", "パナソニック", "テクノロジー"), ("6367.T", "ダイキン工業", "資本財・サービス"),
+    ("8306.T", "三菱UFJ", "金融"), ("8316.T", "三井住友FG", "金融"),
+    ("8411.T", "みずほFG", "金融"), ("8766.T", "東京海上HD", "金融"),
+    ("8591.T", "オリックス", "金融"), ("8604.T", "野村HD", "金融"),
+    ("9432.T", "NTT", "通信サービス"), ("9433.T", "KDDI", "通信サービス"),
+    ("9984.T", "ソフトバンクグループ", "通信サービス"), ("9434.T", "ソフトバンク", "通信サービス"),
+    ("2914.T", "日本たばこ産業", "生活必需品"), ("2802.T", "味の素", "生活必需品"),
+    ("2503.T", "キリンHD", "生活必需品"), ("4452.T", "花王", "生活必需品"),
+    ("4502.T", "武田薬品工業", "ヘルスケア"), ("4503.T", "アステラス製薬", "ヘルスケア"),
+    ("4519.T", "中外製薬", "ヘルスケア"), ("4568.T", "第一三共", "ヘルスケア"),
+    ("6301.T", "コマツ", "資本財・サービス"), ("7011.T", "三菱重工業", "資本財・サービス"),
+    ("6501.T", "日立製作所", "資本財・サービス"), ("8001.T", "伊藤忠商事", "資本財・サービス"),
+    ("8058.T", "三菱商事", "資本財・サービス"), ("8031.T", "三井物産", "資本財・サービス"),
+    ("9101.T", "日本郵船", "資本財・サービス"), ("4063.T", "信越化学工業", "素材"),
+    ("5108.T", "ブリヂストン", "一般消費財"), ("8801.T", "三井不動産", "不動産"),
+    ("8802.T", "三菱地所", "不動産"), ("5020.T", "ENEOS HD", "エネルギー"),
+    ("9531.T", "東京ガス", "公益事業"), ("9020.T", "JR東日本", "資本財・サービス"),
+]
+
+_UNIVERSE = None  # おすすめ用の全銘柄 [(ticker, name, sector)]（重複除去済み）
+
+
+def _universe() -> list[tuple]:
+    """おすすめ対象の全銘柄リストを組み立てる（業界リスト + 日本株、初回のみ）。"""
+    global _UNIVERSE
+    if _UNIVERSE is None:
+        seen = set()
+        universe = []
+        # 日本株を先に入れて優先度を持たせる
+        for ticker, name, sector in JAPAN_TICKERS:
+            if ticker not in seen:
+                seen.add(ticker)
+                universe.append((ticker, name, sector))
+        for sector, entries in SECTOR_TICKERS.items():
+            for ticker, name in entries:
+                if ticker not in seen:
+                    seen.add(ticker)
+                    universe.append((ticker, name, sector))
+        _UNIVERSE = universe
+    return _UNIVERSE
 
 
 # よく検索される日本語名・別名 → ティッカー（Yahoo検索が苦手な入力を補う）
@@ -543,24 +601,72 @@ def usd_to_jpy_rate() -> float:
     return _FX_RATE_CACHE["USDJPY"]
 
 
-def screen_sector(sector_jp: str, budget_jpy: int = 300000, limit: int = 30) -> list[dict]:
-    """指定した業界の銘柄を、予算内で買えるものに絞り「買い時」順で返す。
+_TRANS_CACHE: dict = {}
 
-    株価は yfinance の一括ダウンロード（1リクエスト）で取得するため高速。
-    アナリスト評価などの重い info 取得は行わず、価格データだけで判定する。
-    """
-    entries = SECTOR_TICKERS.get(sector_jp, [])
-    if not entries:
-        return []
 
-    tickers = [t for t, _ in entries]
-    names = dict(entries)
+def _translate_ja(text: str) -> str:
+    """英語テキストを日本語に翻訳する（失敗時は原文のまま返す）。"""
+    if not text or GoogleTranslator is None:
+        return text
+    key = text[:120]
+    if key in _TRANS_CACHE:
+        return _TRANS_CACHE[key]
+    try:
+        out = GoogleTranslator(source="auto", target="ja").translate(text[:4500]) or text
+    except Exception:
+        out = text
+    _TRANS_CACHE[key] = out
+    return out
 
-    # 1リクエストで全銘柄の1年分の日足を取得
+
+def _translate_many_ja(texts: list[str]) -> list[str]:
+    """複数テキストをまとめて日本語に翻訳する（失敗時は原文のまま）。"""
+    if not texts or GoogleTranslator is None:
+        return texts
+    try:
+        out = GoogleTranslator(source="auto", target="ja").translate_batch(texts)
+        return [o or t for o, t in zip(out, texts)]
+    except Exception:
+        return texts
+
+
+# 株価一括ダウンロードのキャッシュ（同じ銘柄群への連続アクセスを高速化）
+_PRICE_CACHE: dict = {}
+_PRICE_TTL = 600  # 秒
+
+
+def _download_prices(tickers: list[str]):
+    """銘柄群の1年分の日足を一括取得する（TTL付きキャッシュ）。"""
+    key = tuple(sorted(tickers))
+    now = time.time()
+    cached = _PRICE_CACHE.get(key)
+    if cached and now - cached[0] < _PRICE_TTL:
+        return cached[1]
     data = yf.download(
-        tickers, period="1y", interval="1d",
+        list(tickers), period="1y", interval="1d",
         group_by="ticker", auto_adjust=True, progress=False, threads=True,
     )
+    _PRICE_CACHE[key] = (now, data)
+    return data
+
+
+def screen_recommendations(budget_jpy: int = 300000, sector_jp: str | None = None,
+                           limit: int = 30) -> list[dict]:
+    """全銘柄（業界指定があればその業界）から、予算内で買えるものを「買い時」順で返す。
+
+    - 価格は一括ダウンロードで取得するため高速。
+    - 同程度の買い時なら日本企業を優先する。
+    """
+    pool = _universe()
+    if sector_jp:
+        pool = [u for u in pool if u[2] == sector_jp]
+    if not pool:
+        return []
+
+    tickers = [t for t, _, _ in pool]
+    meta = {t: (name, sector) for t, name, sector in pool}
+
+    data = _download_prices(tickers)
     if data is None or data.empty:
         return []
 
@@ -591,11 +697,13 @@ def screen_sector(sector_jp: str, budget_jpy: int = 300000, limit: int = 30) -> 
 
         timing = compute_timing(price, high, low, ma200)
         change_pct = ((price - prev) / prev * 100) if prev else None
+        name, sector = meta[ticker]
 
         rows.append({
             "ticker": ticker,
-            "name": names.get(ticker, ticker),
-            "sector": sector_jp,
+            "name": name,
+            "sector": sector,
+            "is_jp": is_jp,
             "currency": "JPY" if is_jp else "USD",
             "price_jpy": round(price_jpy),
             "min_cost": round(min_cost),
@@ -608,9 +716,15 @@ def screen_sector(sector_jp: str, budget_jpy: int = 300000, limit: int = 30) -> 
             "range_pct": timing["range_pct"],
         })
 
-    # 買い時スコア降順 → 同点ならレンジ内位置が低い（割安）順
-    rows.sort(key=lambda r: (r["timing_score"], -(r["range_pct"] if r["range_pct"] is not None else 50)),
-              reverse=True)
+    # 買い時スコア降順 → 日本企業優先 → レンジ内位置が低い（割安）順
+    rows.sort(
+        key=lambda r: (
+            r["timing_score"],
+            1 if r["is_jp"] else 0,
+            -(r["range_pct"] if r["range_pct"] is not None else 50),
+        ),
+        reverse=True,
+    )
     return rows[:limit]
 
 
@@ -662,6 +776,14 @@ def fetch_stock_detail(ticker: str) -> dict | None:
     rec_key = info.get("recommendationKey") or "none"
     sector_en = info.get("sector") or ""
 
+    # 企業概要・ニュース見出しを日本語に翻訳する
+    summary = _translate_ja(info.get("longBusinessSummary") or "")
+    news = _fetch_news(stock)
+    if news:
+        ja_titles = _translate_many_ja([n["title"] for n in news])
+        for n, title in zip(news, ja_titles):
+            n["title"] = title
+
     return {
         "symbol": base["ticker"],
         "name": base["name"],
@@ -672,7 +794,7 @@ def fetch_stock_detail(ticker: str) -> dict | None:
         "currency": base["currency"],
         "sector": SECTOR_LABEL.get(sector_en, sector_en or ""),
         "industry": info.get("industry") or "",
-        "summary": info.get("longBusinessSummary") or "",
+        "summary": summary,
         "high_52w": _r2(base["high_52w"]),
         "low_52w": _r2(base["low_52w"]),
         "market_cap_str": base["market_cap_str"],
@@ -687,7 +809,7 @@ def fetch_stock_detail(ticker: str) -> dict | None:
         "upside": _r2(upside),
         "rec_label": REC_LABEL.get(rec_key, rec_key),
         # 最近のトピック
-        "news": _fetch_news(stock),
+        "news": news,
     }
 
 

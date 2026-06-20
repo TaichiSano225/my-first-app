@@ -5,6 +5,9 @@ import RangeBar from './RangeBar.jsx'
 // 予算のクイック選択（円）
 const PRESETS = [100000, 300000, 500000, 1000000]
 
+// 「すべての業界」を表す擬似的な選択肢
+const ALL = 'すべての業界'
+
 // 購入可能数の表示（日本株は単元、それ以外は株）
 function buyUnit(s) {
   return s.units === 100
@@ -14,34 +17,33 @@ function buyUnit(s) {
 
 // 業界を選び、その中で予算内・買い時順のおすすめ銘柄を表示する画面
 export default function Recommend() {
-  const [sectors, setSectors] = useState([])
-  const [sector, setSector] = useState('')
+  const [sectors, setSectors] = useState([ALL])
+  const [sector, setSector] = useState(ALL)
   const [budget, setBudget] = useState(300000)
   const [stocks, setStocks] = useState(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  // 起動時に業界の一覧を取得してセレクトに入れる
+  // 起動時に業界の一覧を取得してセレクトに入れる（先頭は「すべての業界」）
   useEffect(() => {
     fetch(`${API_BASE}/sectors`)
       .then((res) => res.json())
-      .then((data) => {
-        setSectors(data.sectors)
-        setSector(data.sectors[0] || '')
-      })
+      .then((data) => setSectors([ALL, ...data.sectors]))
       .catch(() => setError('業界一覧を取得できませんでした。'))
   }, [])
 
   async function fetchRecommend(targetSector, targetBudget) {
-    if (!targetSector) return
     setLoading(true)
     setError('')
     setStocks(null)
     try {
+      // 「すべての業界」のときは sector を付けない（＝全業界が対象）
+      const sectorParam =
+        targetSector && targetSector !== ALL
+          ? `sector=${encodeURIComponent(targetSector)}&`
+          : ''
       const res = await fetch(
-        `${API_BASE}/recommendations?sector=${encodeURIComponent(
-          targetSector,
-        )}&budget=${targetBudget}`,
+        `${API_BASE}/recommendations?${sectorParam}budget=${targetBudget}`,
       )
       if (!res.ok) throw new Error('おすすめ銘柄を取得できませんでした。')
       const data = await res.json()
@@ -115,7 +117,7 @@ export default function Recommend() {
       {stocks && stocks.length > 0 && (
         <>
           <p className="rec-count">
-            {sector}：買い時順に <strong>{stocks.length}</strong> 銘柄
+            {sector}：買い時順に <strong>{stocks.length}</strong> 銘柄（日本企業を優先）
           </p>
           <div className="rec-list">
             {stocks.map((s, i) => (
@@ -124,8 +126,10 @@ export default function Recommend() {
                 <div className="rec-main">
                   <div className="rec-head">
                     <div>
+                      {s.ticker.endsWith('.T') && <span className="jp-flag">🇯🇵</span>}
                       <span className="rec-name">{s.name}</span>
                       <span className="rec-ticker">{s.ticker}</span>
+                      {s.sector && <span className="rec-sector">{s.sector}</span>}
                     </div>
                     <span className={`timing timing-${timingClass(s.timing_label)}`}>
                       {s.timing_label}

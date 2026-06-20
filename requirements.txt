@@ -2,3 +2,4 @@ yfinance
 fastapi
 uvicorn
 jinja2
+deep-translator

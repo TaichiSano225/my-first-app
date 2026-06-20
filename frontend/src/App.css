@@ -566,6 +566,11 @@ button {
   gap: 10px;
 }
 
+.jp-flag {
+  margin-right: 5px;
+  font-size: 0.9rem;
+}
+
 .rec-name {
   font-weight: 700;
   font-size: 0.98rem;
@@ -576,6 +581,18 @@ button {
   font-size: 0.74rem;
   color: var(--faint);
   letter-spacing: 0.04em;
+}
+
+.rec-sector {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 2px 8px;
 }
 
 .rec-metrics {
