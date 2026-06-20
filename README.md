@@ -10,6 +10,7 @@ React（フロントエンド）+ FastAPI（バックエンド）で作る株価
 - **あいまいな入力でOK** — 「apple」「トヨタ」「スタバ」「microsft（タイプミス）」などでも類推して表示
 - **現在価格・前日比**
 - **買い時の判定** — 52週レンジ内の位置と移動平均線から「買い時／中立／高値圏」を判定し、**その根拠を文章で説明**
+- **値動きの考察** — 直近の値動き・トレンド・ニュースから「なぜ動いたか」を推測して表示
 - **今後の予想** — アナリストの目標株価・上振れ余地・評価
 - **企業概要（日本語）** — どんな会社かの説明
 - **最近のトピック（日本語）** — 関連ニュースの見出し
@@ -97,6 +98,32 @@ curl "http://localhost:8000/stock/apple"
 curl "http://localhost:8000/recommendations?budget=500000"
 curl "http://localhost:8000/recommendations?sector=テクノロジー&budget=300000"
 ```
+
+## スマホで見る・インターネットに公開する
+
+フロントエンドは API を相対パス（`/api`）で呼ぶため、どのホスト名・IPでアクセスしても動きます。
+
+### 同じPCのブラウザ
+<http://localhost:3000>
+
+### スマホ（同じWi-Fi）から見る — WSL2 の場合
+WSL2 は Windows 内の仮想ネットワークのため、スマホからは直接見えません。Windows 側で
+ポート転送とファイアウォール許可を一度だけ設定します（PowerShell を**管理者**で実行）。
+
+```powershell
+# WSL の IP は WSL 内で `hostname -I` で確認（例: 172.27.174.148）
+netsh interface portproxy add v4tov4 listenport=3000 listenaddress=0.0.0.0 connectport=3000 connectaddress=<WSLのIP>
+netsh advfirewall firewall add rule name="StockPulse" dir=in action=allow protocol=TCP localport=3000
+```
+
+その後、スマホのブラウザで `http://<WindowsのLAN IP>:3000`（`ipconfig` で確認。例: `192.168.0.x`）を開きます。
+※ WSL の IP は再起動で変わることがあります。変わったら `portproxy` を設定し直してください。
+
+### インターネットに公開する
+- **手軽（ポート開放不要）**: [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-tunnel/)。
+  `cloudflared tunnel --url http://localhost:3000` を実行すると、一時的な公開 URL（https）が発行され、外部から閲覧できます。
+- **恒久運用**: VPS（さくらVPS / AWS Lightsail / ConoHa など）に本リポジトリを置いて `docker compose up -d` で起動し、
+  独自ドメイン + Caddy か Nginx で HTTPS 化するのが定番です。
 
 ## 注意事項
 

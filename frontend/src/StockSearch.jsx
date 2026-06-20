@@ -108,6 +108,13 @@ export default function StockSearch({ initialQuery = '' }) {
                 </span>
               </h3>
               <p className="summary">{result.timing_detail}</p>
+              {/* なぜ株価が動いたかの考察（推測） */}
+              {result.movement_analysis && (
+                <div className="analysis">
+                  <span className="analysis-label">値動きの考察（推測）</span>
+                  <p className="summary">{result.movement_analysis}</p>
+                </div>
+              )}
             </div>
           )}
 

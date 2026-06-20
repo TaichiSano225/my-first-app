@@ -849,6 +849,48 @@ def _fetch_news(stock, limit: int = 5) -> list[dict]:
     return out
 
 
+def _movement_analysis(change_pct, range_pct, news) -> str:
+    """直近の値動き・トレンド・ニュースから「なぜ動いたか」を推測する考察文。"""
+    parts = []
+
+    # 直近の値動き
+    if change_pct is not None:
+        if change_pct >= 3:
+            move = f"前日比 +{change_pct:.1f}% と大きく上昇しました"
+        elif change_pct > 0.3:
+            move = f"前日比 +{change_pct:.1f}% と上昇しました"
+        elif change_pct <= -3:
+            move = f"前日比 {change_pct:.1f}% と大きく下落しました"
+        elif change_pct < -0.3:
+            move = f"前日比 {change_pct:.1f}% と下落しました"
+        else:
+            move = f"前日比 {change_pct:+.1f}% とほぼ横ばいでした"
+        parts.append(f"直近の株価は{move}。")
+
+    # 1年のトレンド文脈
+    if range_pct is not None:
+        if range_pct >= 75:
+            parts.append("ここ1年では高値圏にあり、上昇基調が続いています。")
+        elif range_pct <= 25:
+            parts.append("ここ1年では安値圏にあり、調整・下落基調が続いています。")
+        else:
+            parts.append("ここ1年ではレンジの中ほどで推移しています。")
+
+    # ニュースを材料として推測
+    titles = [n["title"] for n in (news or [])[:2] if n.get("title")]
+    if titles:
+        joined = "」「".join(titles)
+        parts.append(
+            f"背景としては、最近報じられた「{joined}」といったトピックが材料視された可能性があります。"
+        )
+
+    if not parts:
+        return ""
+
+    parts.append("（公開情報からの推測であり、実際の変動要因とは異なる場合があります。）")
+    return "".join(parts)
+
+
 def fetch_stock_detail(ticker: str) -> dict | None:
     """1銘柄の詳細情報（株価・買い時・アナリスト予想・企業概要・ニュース）を返す。"""
     base = fetch_stock_data(ticker)
@@ -873,6 +915,9 @@ def fetch_stock_detail(ticker: str) -> dict | None:
         for n, title in zip(news, ja_titles):
             n["title"] = title
 
+    # 値動きの考察（翻訳済みニュースを材料に推測）
+    analysis = _movement_analysis(base["change_pct"], timing["range_pct"], news)
+
     return {
         "symbol": base["ticker"],
         "name": base["name"],
@@ -891,6 +936,7 @@ def fetch_stock_detail(ticker: str) -> dict | None:
         "timing_label": timing["timing_label"],
         "timing_reason": timing["timing_reason"],
         "timing_detail": timing["timing_detail"],
+        "movement_analysis": analysis,
         "range_pct": timing["range_pct"],
         # アナリスト予想（今後の値動きの目安）
         "target_mean": _r2(target),
