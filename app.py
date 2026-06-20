@@ -1095,6 +1095,133 @@ def fetch_history(symbol: str, range_key: str = "6mo") -> list[dict]:
     return points
 
 
+def suggest(query: str, limit: int = 10) -> list[dict]:
+    """入力中の文字列から、東証銘柄の候補を返す（オートコンプリート用）。"""
+    q = query.strip()
+    if not q:
+        return []
+    _load_jp_stocks()
+    nq = _norm(q)
+    out = []
+    seen = set()
+
+    if q.isdigit():
+        # 証券コードの前方一致
+        for code, name in _JP_STOCKS.items():
+            if code.startswith(q):
+                t = f"{code}.T"
+                if t not in seen:
+                    seen.add(t)
+                    out.append({"symbol": t, "name": name})
+    else:
+        # 日本語社名の部分一致
+        for code, name in _JP_STOCKS.items():
+            if nq and nq in _norm(name):
+                t = f"{code}.T"
+                if t not in seen:
+                    seen.add(t)
+                    out.append({"symbol": t, "name": name})
+
+    # 前方一致を優先し、短い社名を上に
+    out.sort(key=lambda x: (not _norm(x["name"]).startswith(nq), len(x["name"])))
+    return out[:limit]
+
+
+_MARKET_INDICES = [
+    ("日経平均", "^N225"),
+    ("NYダウ", "^DJI"),
+    ("S&P500", "^GSPC"),
+    ("ドル円", "JPY=X"),
+]
+_MARKET_CACHE: dict = {}
+_MARKET_TTL = 300  # 秒
+
+
+def market_overview() -> list[dict]:
+    """主要指数・為替の現在値と前日比を返す（TTL付きキャッシュ）。"""
+    now = time.time()
+    cached = _MARKET_CACHE.get("data")
+    if cached and now - cached[0] < _MARKET_TTL:
+        return cached[1]
+
+    out = []
+    for label, sym in _MARKET_INDICES:
+        try:
+            fi = yf.Ticker(sym).fast_info
+            last = float(fi.last_price)
+            prev = float(fi.previous_close)
+            chg = ((last - prev) / prev * 100) if prev else None
+            out.append({"label": label, "price": round(last, 2), "change_pct": _r2(chg)})
+        except Exception:
+            continue
+
+    _MARKET_CACHE["data"] = (now, out)
+    return out
+
+
+_DIV_RATE_CACHE: dict = {}
+_DIV_RATE_TTL = 3600  # 秒
+
+
+def _dividend_rate(symbol: str):
+    """1株あたり年間配当（通貨は銘柄と同じ）。取得失敗時は None。キャッシュ付き。"""
+    now = time.time()
+    cached = _DIV_RATE_CACHE.get(symbol)
+    if cached and now - cached[0] < _DIV_RATE_TTL:
+        return cached[1]
+    rate = None
+    try:
+        rate = yf.Ticker(symbol).info.get("dividendRate")
+    except Exception:
+        rate = None
+    _DIV_RATE_CACHE[symbol] = (now, rate)
+    return rate
+
+
+def quotes(symbols: list[str], with_dividend: bool = False) -> list[dict]:
+    """複数銘柄の現在値・前日比（必要なら配当）をまとめて返す。
+
+    ウォッチリスト/ポートフォリオ用。価格は一括ダウンロードで取得。
+    円換算値(price_jpy / dividend_rate_jpy)も付与し、合計計算をしやすくする。
+    """
+    symbols = [s.strip() for s in symbols if s and s.strip()][:50]
+    if not symbols:
+        return []
+
+    data = _download_prices(symbols)
+    rate_fx = usd_to_jpy_rate()
+    multi = isinstance(data.columns, pd.MultiIndex) if data is not None else False
+    out = []
+
+    for sym in symbols:
+        row = {"symbol": sym, "price": None}
+        try:
+            df = data[sym] if multi else data
+            close = df["Close"].dropna()
+            if not close.empty:
+                price = float(close.iloc[-1])
+                prev = float(close.iloc[-2]) if len(close) >= 2 else None
+                is_jp = sym.upper().endswith(".T")
+                price_jpy = price if is_jp else price * rate_fx
+                chg = ((price - prev) / prev * 100) if prev else None
+                row = {
+                    "symbol": sym,
+                    "price": round(price, 2),
+                    "currency": "JPY" if is_jp else "USD",
+                    "change_pct": _r2(chg),
+                    "price_jpy": round(price_jpy),
+                }
+                if with_dividend:
+                    dr = _dividend_rate(sym)
+                    row["dividend_rate"] = _r2(dr)
+                    dr_jpy = (dr if is_jp else dr * rate_fx) if dr else None
+                    row["dividend_rate_jpy"] = round(dr_jpy) if dr_jpy else None
+        except Exception:
+            pass
+        out.append(row)
+    return out
+
+
 def recommend_stocks(budget_jpy: int = 500000, candidates: list[str] | None = None) -> None:
     """予算内で購入可能な銘柄を、アナリスト評価順に表示する。"""
     n = len(candidates or DEFAULT_WATCHLIST)

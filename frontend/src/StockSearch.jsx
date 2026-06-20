@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { API_BASE, formatSigned, timingClass } from './utils.js'
+import { isWatched, toggleWatch } from './store.js'
 import RangeBar from './RangeBar.jsx'
 import Chart from './Chart.jsx'
 import Summary from './Summary.jsx'
@@ -10,9 +11,13 @@ export default function StockSearch({ initialQuery = '' }) {
   const [result, setResult] = useState(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [suggestions, setSuggestions] = useState([])
+  const [showSug, setShowSug] = useState(false)
+  const [watched, setWatched] = useState(false)
 
   async function runSearch(symbol) {
     if (!symbol) return
+    setShowSug(false)
     setLoading(true)
     setError('')
     setResult(null)
@@ -22,7 +27,9 @@ export default function StockSearch({ initialQuery = '' }) {
         const data = await res.json().catch(() => ({}))
         throw new Error(data.detail || '株価を取得できませんでした。')
       }
-      setResult(await res.json())
+      const data = await res.json()
+      setResult(data)
+      setWatched(isWatched(data.symbol))
     } catch (err) {
       setError(err.message)
     } finally {
@@ -36,22 +43,67 @@ export default function StockSearch({ initialQuery = '' }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialQuery])
 
+  // 入力に応じて候補を取得（オートコンプリート、軽くデバウンス）
+  useEffect(() => {
+    const q = query.trim()
+    if (q.length < 1) {
+      setSuggestions([])
+      return
+    }
+    const id = setTimeout(() => {
+      fetch(`${API_BASE}/suggest?q=${encodeURIComponent(q)}`)
+        .then((r) => r.json())
+        .then((d) => setSuggestions(d.results || []))
+        .catch(() => setSuggestions([]))
+    }, 180)
+    return () => clearTimeout(id)
+  }, [query])
+
   function handleSearch(e) {
     e.preventDefault()
     runSearch(query.trim())
+  }
+
+  function pickSuggestion(s) {
+    setQuery(s.name)
+    setShowSug(false)
+    runSearch(s.symbol)
+  }
+
+  function onWatch() {
+    if (!result) return
+    toggleWatch({ symbol: result.symbol, name: result.name || result.symbol })
+    setWatched(isWatched(result.symbol))
   }
 
   const up = result && result.change != null && result.change >= 0
 
   return (
     <div>
-      <form className="field" onSubmit={handleSearch}>
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="会社名でもOK（例: apple / トヨタ / nvidia）"
-        />
+      <form className="field" onSubmit={handleSearch} autoComplete="off">
+        <div className="search-box">
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value)
+              setShowSug(true)
+            }}
+            onFocus={() => setShowSug(true)}
+            onBlur={() => setTimeout(() => setShowSug(false), 150)}
+            placeholder="会社名・コードでもOK（例: 理研計器 / 7203 / apple）"
+          />
+          {showSug && suggestions.length > 0 && (
+            <ul className="suggest">
+              {suggestions.map((s) => (
+                <li key={s.symbol} onMouseDown={() => pickSuggestion(s)}>
+                  <span className="sug-name">{s.name}</span>
+                  <span className="sug-sym">{s.symbol}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
         <button type="submit" disabled={loading}>
           {loading ? '取得中…' : '検索'}
         </button>
@@ -64,7 +116,16 @@ export default function StockSearch({ initialQuery = '' }) {
         <div className="detail">
           {/* ヘッダー：社名・ティッカー・業界 */}
           <div className="detail-head">
-            <h2 className="detail-name">{result.name || result.symbol}</h2>
+            <div className="detail-title">
+              <h2 className="detail-name">{result.name || result.symbol}</h2>
+              <button
+                className={`watch-btn ${watched ? 'on' : ''}`}
+                onClick={onWatch}
+                title={watched ? 'ウォッチ解除' : 'ウォッチに追加'}
+              >
+                {watched ? '★ ウォッチ中' : '☆ ウォッチ'}
+              </button>
+            </div>
             <div className="chips">
               <span className="chip chip-ticker">{result.symbol}</span>
               {result.sector && <span className="chip">{result.sector}</span>}
