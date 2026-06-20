@@ -1,0 +1,27 @@
+# 単一コンテナ配信用（Render など）。React をビルドし、FastAPI が API と一緒に配信する。
+
+# --- ビルド工程: React を静的ファイルにする ---
+FROM node:22-slim AS frontend
+WORKDIR /fe
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci
+COPY frontend/ ./
+RUN npm run build   # 出力: /fe/dist
+
+# --- 配信工程: FastAPI（API + 静的ファイル） ---
+FROM python:3.11-slim
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# バックエンド本体 + 東証銘柄リスト
+COPY app.py main.py jp_stocks.json ./
+# React のビルド成果物を static/ に配置（main.py が存在を見て配信する）
+COPY --from=frontend /fe/dist ./static
+
+# Render は $PORT を渡してくる（無ければ 8000）
+EXPOSE 8000
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}"]

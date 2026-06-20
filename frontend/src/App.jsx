@@ -2,13 +2,19 @@ import { useState } from 'react'
 import StockSearch from './StockSearch.jsx'
 import Recommend from './Recommend.jsx'
 
+// URL の ?q=... を読む（別タブで企業詳細を開くときに使う）
+const initialQuery = new URLSearchParams(window.location.search).get('q') || ''
+
 export default function App() {
-  // 表示中のタブ ('search' = 銘柄検索, 'recommend' = おすすめ)
+  // タブの状態（検索タブを初期表示。?q= 付きで開かれた場合も検索を表示する）
   const [tab, setTab] = useState('search')
 
   return (
     <div className="container">
-      <h1>株価チェッカー</h1>
+      <header className="brand">
+        <h1>Stock Pulse</h1>
+        <p>株価・買い時・おすすめ銘柄をひと目で</p>
+      </header>
 
       {/* タブ切り替え */}
       <div className="tabs">
@@ -27,7 +33,11 @@ export default function App() {
       </div>
 
       {/* 選択中のタブに応じて画面を切り替える */}
-      {tab === 'search' ? <StockSearch /> : <Recommend />}
+      {tab === 'search' ? (
+        <StockSearch initialQuery={initialQuery} />
+      ) : (
+        <Recommend />
+      )}
     </div>
   )
 }
