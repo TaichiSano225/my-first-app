@@ -1,6 +1,7 @@
 import yfinance as yf
 import pandas as pd
 import difflib
+import json
 import time
 import sys
 import os
@@ -299,35 +300,96 @@ def _catalog() -> dict:
     return _CATALOG
 
 
-def _local_resolve(query: str) -> str | None:
-    """ローカルの別名辞書・あいまい一致で銘柄を類推する（日本語名やタイプミス対策）。"""
-    q = query.strip().lower()
+# 東証の全上場銘柄（コード→社名）。日本語社名での検索に使う。
+_JP_STOCKS = None        # {"7203": "トヨタ自動車", ...}
+_JP_NAME_INDEX = None    # 正規化社名 -> "コード.T"
+_JP_NAME_LIST = None     # 正規化社名のリスト（あいまい一致用）
+
+
+def _norm(s: str) -> str:
+    """社名の表記ゆれを吸収するための正規化（小文字化・空白/中点の除去）。"""
+    return (
+        s.strip().lower()
+        .replace(" ", "").replace("　", "")
+        .replace("・", "").replace("（", "(").replace("）", ")")
+    )
+
+
+def _load_jp_stocks() -> dict:
+    """東証の全上場銘柄リスト（jp_stocks.json）を読み込む（初回のみ）。"""
+    global _JP_STOCKS, _JP_NAME_INDEX, _JP_NAME_LIST
+    if _JP_STOCKS is None:
+        path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "jp_stocks.json")
+        try:
+            with open(path, encoding="utf-8") as f:
+                _JP_STOCKS = json.load(f)
+        except Exception:
+            _JP_STOCKS = {}
+        index = {}
+        for code, name in _JP_STOCKS.items():
+            index[_norm(name)] = f"{code}.T"
+        _JP_NAME_INDEX = index
+        _JP_NAME_LIST = list(index.keys())
+    return _JP_STOCKS
+
+
+def _local_resolve(query: str, fuzzy: bool = True) -> str | None:
+    """ローカル辞書（別名・東証全銘柄・タイプミス）で銘柄を類推する。
+
+    fuzzy=False なら完全一致のみ（Yahoo 検索より前に呼ぶ高速・高精度パス）。
+    """
+    q = query.strip()
     if not q:
         return None
+    ql = q.lower()
+    _load_jp_stocks()
 
-    # 1. 日本語/別名の完全一致
-    if q in JP_ALIASES:
-        return JP_ALIASES[q]
+    # 1. 証券コード4桁 → 東証(.T)
+    if re.fullmatch(r"\d{4}", q) and q in _JP_STOCKS:
+        return f"{q}.T"
+
+    # 2. 日本語/別名の完全一致
+    if ql in JP_ALIASES:
+        return JP_ALIASES[ql]
 
     cat = _catalog()
 
-    # 2. 表示名の完全一致
-    if q in cat:
-        return cat[q]
+    # 3. 表示名（英語カタログ）の完全一致
+    if ql in cat:
+        return cat[ql]
 
-    # 3. 前方一致（候補が1つに絞れる場合のみ）
-    if len(q) >= 3:
-        starts = sorted({t for name, t in cat.items() if name.startswith(q)})
+    # 4. 東証の社名と完全一致（例: 理研計器 → 7734.T）
+    nq = _norm(q)
+    if nq in _JP_NAME_INDEX:
+        return _JP_NAME_INDEX[nq]
+
+    if not fuzzy:
+        return None
+
+    # 5. 英語カタログの前方一致（候補が1つに絞れる場合）
+    if len(ql) >= 3:
+        starts = sorted({t for name, t in cat.items() if name.startswith(ql)})
         if len(starts) == 1:
             return starts[0]
 
-    # 4. あいまい一致（"microsft" → "microsoft" のようなタイプミスを吸収）
-    close = difflib.get_close_matches(q, list(cat.keys()), n=1, cutoff=0.72)
+    # 6. 東証の社名 部分一致（候補が1つに絞れる場合）
+    if nq:
+        jp_contains = sorted({t for name, t in _JP_NAME_INDEX.items() if nq in name})
+        if len(jp_contains) == 1:
+            return jp_contains[0]
+
+    # 7. あいまい一致（"microsft" → "microsoft" など英語のタイプミス）
+    close = difflib.get_close_matches(ql, list(cat.keys()), n=1, cutoff=0.72)
     if close:
         return cat[close[0]]
 
-    # 5. 部分一致（候補が1つに絞れる場合のみ）
-    contains = sorted({t for name, t in cat.items() if q in name})
+    # 8. あいまい一致（日本語社名のゆれ）
+    close_jp = difflib.get_close_matches(nq, _JP_NAME_LIST, n=1, cutoff=0.8)
+    if close_jp:
+        return _JP_NAME_INDEX[close_jp[0]]
+
+    # 9. 英語カタログの部分一致（候補が1つに絞れる場合）
+    contains = sorted({t for name, t in cat.items() if ql in name})
     if len(contains) == 1:
         return contains[0]
 
@@ -476,24 +538,38 @@ def _match_score(query: str, result: dict) -> float:
 
 
 def resolve_ticker(query: str, interactive: bool = True) -> str | None:
-    """会社名またはティッカーシンボルからティッカーを返す。"""
+    """会社名・証券コード・ティッカーシンボルからティッカーを返す。"""
+    q = query.strip()
+    if not q:
+        return None
+
+    # 証券コード4桁はそのまま東証(.T)として扱う（例: 7734 → 7734.T）
+    if re.fullmatch(r"\d{4}", q):
+        return f"{q}.T"
+
     # まずティッカーとして直接試す（エラー出力を抑制）
     devnull = open(os.devnull, "w")
     old_stderr = sys.stderr
     sys.stderr = devnull
     try:
-        info = yf.Ticker(query).info
+        info = yf.Ticker(q).info
         has_price = bool(info.get("currentPrice") or info.get("regularMarketPrice"))
     finally:
         sys.stderr = old_stderr
         devnull.close()
 
     if has_price:
-        return query
+        return q
+
+    # 別名・東証全銘柄の「完全一致」を Yahoo 検索より先に試す
+    # （日本語社名は Yahoo 検索がほぼ拾えないため。例: 理研計器 → 7734.T）
+    exact = _local_resolve(q, fuzzy=False)
+    if exact:
+        return exact
 
     # 会社名として検索（あいまいな入力でも Yahoo の検索が類推してくれる）
     try:
-        results = yf.Search(query).quotes
+        results = yf.Search(q).quotes
     except Exception:
         results = []
 
@@ -505,7 +581,7 @@ def resolve_ticker(query: str, interactive: bool = True) -> str | None:
     # Yahoo の検索で見つからない場合は、ローカル辞書であいまい解決を試みる
     # （日本語の会社名や、つづり間違いに対応）
     if not equities:
-        return _local_resolve(query)
+        return _local_resolve(q, fuzzy=True)
 
     # 社名のマッチ度が高い順に並べ替える（例: "NTT" で NTT DC REIT より NTT, Inc. を優先）
     equities.sort(key=lambda r: _match_score(query, r), reverse=True)

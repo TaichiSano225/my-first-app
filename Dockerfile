@@ -11,7 +11,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # アプリ本体をコピー
-COPY app.py main.py ./
+COPY app.py main.py jp_stocks.json ./
 COPY templates ./templates
 
 EXPOSE 8000
