@@ -1,6 +1,14 @@
 import yfinance as yf
 import sys
 import os
+import re
+
+# 社名末尾によくある法人格・属性語（マッチ判定の際に無視する）
+_NAME_NOISE = {
+    "INC", "CORP", "CORPORATION", "CO", "COMPANY", "LTD", "LIMITED", "PLC",
+    "SA", "AG", "NV", "HOLDINGS", "HOLDING", "GROUP", "THE", "REIT", "TRUST",
+    "USD", "JPY", "CLASS", "R",
+}
 
 
 # 予算スクリーニング用のウォッチリスト（主要銘柄）
@@ -37,6 +45,33 @@ def get_latest_price(stock, info=None):
     return info.get("currentPrice") or info.get("regularMarketPrice")
 
 
+def _match_score(query: str, result: dict) -> float:
+    """検索結果が query にどれだけ一致するかをスコア化する（大きいほど良い）。"""
+    q = query.strip().upper()
+    name = (result.get("longname") or result.get("shortname") or "").upper()
+    words = [w for w in re.split(r"[^A-Z0-9]+", name) if w]
+    core = [w for w in words if w not in _NAME_NOISE]  # 法人格などを除いた中核語
+
+    if " ".join(words) == q:
+        score = 100          # 社名が完全一致
+    elif core and " ".join(core) == q:
+        score = 90           # 法人格を除けば一致（例: "NTT" ≒ "NTT INC"）
+    elif words and words[0] == q:
+        score = 60           # 先頭語が一致
+    elif q in words:
+        score = 40           # いずれかの語と一致
+    elif q.replace(" ", "") in name.replace(" ", ""):
+        score = 10           # 部分一致
+    else:
+        score = 0
+
+    # 同点時は余計な語が少ない（=より素直な一致の）方を優先
+    score -= 0.1 * len(words)
+    # Yahoo の関連度スコアをごく弱い最終タイブレークに
+    score += 1e-6 * (result.get("score") or 0)
+    return score
+
+
 def resolve_ticker(query: str, interactive: bool = True) -> str | None:
     """会社名またはティッカーシンボルからティッカーを返す。"""
     # まずティッカーとして直接試す（エラー出力を抑制）
@@ -58,6 +93,9 @@ def resolve_ticker(query: str, interactive: bool = True) -> str | None:
     equities = [r for r in results if r.get("quoteType") == "EQUITY"]
     if not equities:
         return None
+
+    # 社名のマッチ度が高い順に並べ替える（例: "NTT" で NTT DC REIT より NTT, Inc. を優先）
+    equities.sort(key=lambda r: _match_score(query, r), reverse=True)
 
     if len(equities) == 1 or not interactive:
         return equities[0]["symbol"]

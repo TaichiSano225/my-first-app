@@ -56,6 +56,39 @@ curl http://localhost:8000/stock/AAPL
 > 日本語の会社名（例: 「トヨタ」）は Yahoo Finance の検索が対応していない場合があります。
 > 日本株は `7203.T` のようにティッカーで直接指定してください。
 
+### Docker で起動（別のPCでもこれだけでOK）
+
+`Dockerfile` を同梱しているので、**Docker さえ入っていれば** Python や依存パッケージを用意せずに、どのPCでも同じように起動できます。
+
+別のPCで動かす手順:
+
+```bash
+# 1. リポジトリを取得
+git clone https://github.com/TaichiSano225/my-first-app.git
+cd my-first-app
+
+# 2. イメージをビルド
+docker build -t stock-checker .
+
+# 3. 起動（ホストの8000番に公開）
+docker run --rm -p 8000:8000 stock-checker
+```
+
+Docker Compose を使う場合は、2〜3 をまとめて実行できます:
+
+```bash
+docker compose up --build
+```
+
+起動後、ブラウザで <http://localhost:8000> を開きます。
+
+- 株価検索画面: <http://localhost:8000>
+- JSON API: <http://localhost:8000/stock/AAPL>
+- API ドキュメント: <http://localhost:8000/docs>
+
+停止は `Ctrl+C`（Compose の場合は別ターミナルで `docker compose down`）。
+別のポートで動かしたい場合は `-p 8080:8000` のように左側を変更します。
+
 ---
 
 ## コマンドラインでの使い方
