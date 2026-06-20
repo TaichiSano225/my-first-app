@@ -1,2 +1,4 @@
 yfinance
-flask
+fastapi
+uvicorn
+jinja2
