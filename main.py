@@ -66,6 +66,18 @@ def recommend(request: Request, budget: str = ""):
     )
 
 
+@app.get("/recommendations")
+def recommendations_json(budget: int = 500000):
+    """予算内で買えるおすすめ銘柄を JSON で返す。
+
+    各銘柄に業界(sector)・アナリスト評価・買い時判定(timing)が含まれる。
+    例: GET /recommendations?budget=500000
+    """
+    budget = max(0, budget)
+    stocks = screen_stocks(budget)
+    return {"budget": budget, "stocks": stocks}
+
+
 def _round2(value):
     """数値を小数2桁に丸める。値が None ならそのまま None を返す。"""
     return round(value, 2) if value is not None else None

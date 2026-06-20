@@ -18,7 +18,31 @@ body {
 
 h1 {
   font-size: 1.6rem;
-  margin-bottom: 28px;
+  margin-bottom: 20px;
+}
+
+/* タブ */
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 10px;
+  font-size: 0.95rem;
+  background: #fff;
+  color: #6b7684;
+  border: 1px solid #cbd2da;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.tabs button.active {
+  background: #2f6fed;
+  color: #fff;
+  border-color: #2f6fed;
 }
 
 .search {
@@ -120,4 +144,117 @@ h1 {
 
 .result .row dd.down {
   color: #c0392b;
+}
+
+/* ===== 予算おすすめ ===== */
+
+/* 予算クイック選択ボタン */
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.presets button {
+  flex: 1;
+  min-width: 72px;
+  padding: 8px;
+  font-size: 0.85rem;
+  background: #eef2f9;
+  color: #2f6fed;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.hint {
+  margin-top: 24px;
+  color: #6b7684;
+}
+
+/* 業界(セクター)グループ */
+.sector {
+  margin-top: 28px;
+  text-align: left;
+}
+
+.sector-title {
+  font-size: 1rem;
+  margin: 0 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #2f6fed;
+  color: #2f6fed;
+}
+
+/* 銘柄カード */
+.rec-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+}
+
+.rec-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.rec-name {
+  font-weight: 700;
+  font-size: 0.98rem;
+}
+
+.rec-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  color: #46505e;
+  padding: 2px 0;
+}
+
+.rec-reason {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: #8a94a2;
+}
+
+/* 買い時バッジ（色分け） */
+.timing {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.timing-good {
+  background: #e3f6ec;
+  color: #1a9c5b;
+}
+
+.timing-ok {
+  background: #eaf2fd;
+  color: #2f6fed;
+}
+
+.timing-neutral {
+  background: #eef1f4;
+  color: #6b7684;
+}
+
+.timing-bad {
+  background: #fdecea;
+  color: #c0392b;
+}
+
+.disclaimer {
+  margin-top: 20px;
+  font-size: 0.75rem;
+  color: #9aa4b1;
+  text-align: left;
+  line-height: 1.5;
 }
