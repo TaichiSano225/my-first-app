@@ -61,10 +61,14 @@ cd my-first-app
 docker compose up --build
 ```
 
-起動後、ブラウザで <http://localhost:3000> を開きます。
+起動後、ブラウザで <https://localhost:3000> を開きます（**HTTPS**）。
+
+> 🔒 自己署名証明書を使っているため、初回は「この接続ではプライバシーが保護されません」などの警告が出ます。
+> 「詳細設定 →（このサイトに）アクセスする」で続行してください（ローカル/LAN 用のため問題ありません）。
 
 - 停止: `Ctrl+C`（バックグラウンド起動した場合は `docker compose down`）
 - バックグラウンド起動: `docker compose up --build -d`
+- `http://localhost:3000` でアクセスしても自動で `https` に転送されます。
 
 ## 開発（ホットリロード）
 
@@ -104,7 +108,7 @@ curl "http://localhost:8000/recommendations?sector=テクノロジー&budget=300
 フロントエンドは API を相対パス（`/api`）で呼ぶため、どのホスト名・IPでアクセスしても動きます。
 
 ### 同じPCのブラウザ
-<http://localhost:3000>
+<https://localhost:3000>（自己署名証明書のため初回は警告が出ます。続行でOK）
 
 ### スマホ（同じWi-Fi）から見る — WSL2 の場合
 WSL2 は Windows 内の仮想ネットワークのため、スマホからは直接見えません。Windows 側で
@@ -116,7 +120,8 @@ netsh interface portproxy add v4tov4 listenport=3000 listenaddress=0.0.0.0 conne
 netsh advfirewall firewall add rule name="StockPulse" dir=in action=allow protocol=TCP localport=3000
 ```
 
-その後、スマホのブラウザで `http://<WindowsのLAN IP>:3000`（`ipconfig` で確認。例: `192.168.0.x`）を開きます。
+その後、スマホのブラウザで `https://<WindowsのLAN IP>:3000`（`ipconfig` で確認。例: `192.168.0.x`）を開きます。
+※ 自己署名証明書のため警告が出ますが、続行すれば表示できます。
 ※ WSL の IP は再起動で変わることがあります。変わったら `portproxy` を設定し直してください。
 
 ### インターネットに公開する

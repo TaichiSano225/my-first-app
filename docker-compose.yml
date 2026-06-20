@@ -7,12 +7,12 @@ services:
       - "8000:8000"   # 直接 API を叩きたいとき用（無くても frontend 経由で動く）
     restart: unless-stopped
 
-  # フロントエンド: React を nginx で配信し、/api をバックエンドへ中継
+  # フロントエンド: React を nginx で HTTPS 配信し、/api をバックエンドへ中継
   frontend:
     build: ./frontend
     image: stock-checker-frontend
     ports:
-      - "3000:80"     # ブラウザでアクセスするのはこちら
+      - "3000:443"    # https://localhost:3000 でアクセス（自己署名証明書）
     depends_on:
       - backend
     restart: unless-stopped
