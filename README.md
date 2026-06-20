@@ -47,7 +47,12 @@ curl http://localhost:8000/stock/AAPL
 ```json
 {
   "symbol": "AAPL",
-  "price": 203.52
+  "name": "Apple Inc.",
+  "price": 203.52,
+  "prev_close": 201.00,
+  "change": 2.52,
+  "change_pct": 1.25,
+  "currency": "USD"
 }
 ```
 
@@ -56,38 +61,66 @@ curl http://localhost:8000/stock/AAPL
 > 日本語の会社名（例: 「トヨタ」）は Yahoo Finance の検索が対応していない場合があります。
 > 日本株は `7203.T` のようにティッカーで直接指定してください。
 
-### Docker で起動（別のPCでもこれだけでOK）
+---
 
-`Dockerfile` を同梱しているので、**Docker さえ入っていれば** Python や依存パッケージを用意せずに、どのPCでも同じように起動できます。
+## React + FastAPI（Docker Compose で起動）
 
-別のPCで動かす手順:
+React 製のフロントエンドと FastAPI 製のバックエンドを、それぞれ別コンテナで動かす構成です。
+**Docker さえ入っていれば**、Python や Node.js を用意しなくても、どのPCでも同じように起動できます。
+
+### 構成
+
+```
+my-first-app/
+├── Dockerfile           # backend: FastAPI を uvicorn で起動
+├── docker-compose.yml   # backend + frontend をまとめて起動
+└── frontend/            # React アプリ
+    ├── Dockerfile       # frontend: React をビルドし nginx で配信
+    └── nginx.conf       # 静的配信 + /api をバックエンドへ中継
+```
+
+- **backend コンテナ**: FastAPI（株価取得 API）。ポート 8000。
+- **frontend コンテナ**: React のビルド成果物を nginx で配信。ポート 3000。
+  `/api/...` へのリクエストは nginx が backend コンテナへ中継するため、ブラウザは frontend だけと通信すれば動きます（CORS 設定が不要）。
+
+### 起動方法
 
 ```bash
 # 1. リポジトリを取得
 git clone https://github.com/TaichiSano225/my-first-app.git
 cd my-first-app
 
-# 2. イメージをビルド
-docker build -t stock-checker .
-
-# 3. 起動（ホストの8000番に公開）
-docker run --rm -p 8000:8000 stock-checker
-```
-
-Docker Compose を使う場合は、2〜3 をまとめて実行できます:
-
-```bash
+# 2. 両方のコンテナをビルドして起動
 docker compose up --build
 ```
 
-起動後、ブラウザで <http://localhost:8000> を開きます。
+起動後、ブラウザで <http://localhost:3000> を開きます。銘柄を入力して検索すると、会社名・現在価格・前日終値・前日比が表示されます。
 
-- 株価検索画面: <http://localhost:8000>
-- JSON API: <http://localhost:8000/stock/AAPL>
-- API ドキュメント: <http://localhost:8000/docs>
+| URL | 内容 |
+| --- | --- |
+| <http://localhost:3000> | React の画面（銘柄入力 → 株価表示） |
+| <http://localhost:3000/api/stock/AAPL> | frontend 経由で叩いた API（nginx が中継） |
+| <http://localhost:8000/stock/AAPL> | backend を直接叩いた API |
+| <http://localhost:8000/docs> | API ドキュメント（Swagger UI） |
 
-停止は `Ctrl+C`（Compose の場合は別ターミナルで `docker compose down`）。
-別のポートで動かしたい場合は `-p 8080:8000` のように左側を変更します。
+停止は `Ctrl+C`、コンテナの削除は別ターミナルで `docker compose down`。
+バックグラウンドで起動するなら `docker compose up --build -d` を使います。
+
+### フロントエンドだけ開発する場合（ホットリロード）
+
+画面を編集しながら確認したいときは、Vite の開発サーバーを使います。
+
+```bash
+# ターミナル1: バックエンドだけ起動
+docker compose up backend
+
+# ターミナル2: フロントエンドを開発モードで起動
+cd frontend
+npm install   # 初回だけ
+npm run dev   # → http://localhost:5173
+```
+
+開発サーバー（5173）への `/api` 呼び出しは、Vite が backend（8000）へ転送します。
 
 ---
 

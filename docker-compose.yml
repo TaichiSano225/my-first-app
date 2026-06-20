@@ -1,7 +1,18 @@
 services:
-  web:
+  # バックエンド: FastAPI (株価取得 API)
+  backend:
     build: .
-    image: stock-checker
+    image: stock-checker-backend
     ports:
-      - "8000:8000"
+      - "8000:8000"   # 直接 API を叩きたいとき用（無くても frontend 経由で動く）
+    restart: unless-stopped
+
+  # フロントエンド: React を nginx で配信し、/api をバックエンドへ中継
+  frontend:
+    build: ./frontend
+    image: stock-checker-frontend
+    ports:
+      - "3000:80"     # ブラウザでアクセスするのはこちら
+    depends_on:
+      - backend
     restart: unless-stopped
