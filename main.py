@@ -10,8 +10,11 @@ from app import (
     SECTOR_TICKERS,
     fetch_history,
     fetch_stock_detail,
+    market_overview,
+    quotes,
     resolve_ticker,
     screen_recommendations,
+    suggest,
 )
 
 
@@ -46,6 +49,25 @@ api = APIRouter(prefix="/api")
 def sectors_json():
     """おすすめ画面のセレクト用に、業界(セクター)の一覧を返す。"""
     return {"sectors": list(SECTOR_TICKERS.keys())}
+
+
+@api.get("/suggest")
+def suggest_json(q: str = ""):
+    """検索オートコンプリート用に、東証銘柄の候補を返す。"""
+    return {"results": suggest(q)}
+
+
+@api.get("/market")
+def market_json():
+    """主要指数・為替（日経平均・ダウ・S&P500・ドル円）の概況を返す。"""
+    return {"market": market_overview()}
+
+
+@api.get("/quotes")
+def quotes_json(symbols: str = "", dividend: int = 0):
+    """複数銘柄の現在値・前日比（dividend=1 で配当も）をまとめて返す。"""
+    syms = [s.strip() for s in symbols.split(",") if s.strip()]
+    return {"quotes": quotes(syms, with_dividend=bool(dividend))}
 
 
 @api.get("/recommendations")
