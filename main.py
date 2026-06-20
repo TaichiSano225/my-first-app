@@ -8,6 +8,7 @@ from fastapi.templating import Jinja2Templates
 
 from app import (
     SECTOR_TICKERS,
+    fetch_history,
     fetch_stock_data,
     fetch_stock_detail,
     resolve_ticker,
@@ -107,6 +108,12 @@ def recommendations_json(sector: str = "", budget: int = 300000):
     budget = max(0, budget)
     stocks = screen_recommendations(budget, sector or None)
     return {"sector": sector, "budget": budget, "stocks": stocks}
+
+
+@app.get("/history/{symbol}")
+def history_json(symbol: str, range: str = "6mo"):
+    """銘柄の株価推移をチャート用に返す。range=1mo/3mo/6mo/1y/5y/max"""
+    return {"symbol": symbol, "range": range, "points": fetch_history(symbol, range)}
 
 
 @app.get("/stock/{symbol}")

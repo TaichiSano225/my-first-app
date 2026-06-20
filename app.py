@@ -1053,6 +1053,45 @@ def fetch_stock_detail(ticker: str) -> dict | None:
     }
 
 
+# チャートの時間レンジ → (yfinance の period, interval)
+_HIST_RANGES = {
+    "1mo": ("1mo", "1d"),
+    "3mo": ("3mo", "1d"),
+    "6mo": ("6mo", "1d"),
+    "1y": ("1y", "1d"),
+    "5y": ("5y", "1wk"),
+    "max": ("max", "1mo"),
+}
+_HIST_CACHE: dict = {}
+_HIST_TTL = 600  # 秒
+
+
+def fetch_history(symbol: str, range_key: str = "6mo") -> list[dict]:
+    """指定銘柄の株価推移を [{t: 日付, c: 終値}, ...] で返す（TTL付きキャッシュ）。"""
+    period, interval = _HIST_RANGES.get(range_key, _HIST_RANGES["6mo"])
+    key = (symbol.upper(), range_key)
+    now = time.time()
+    cached = _HIST_CACHE.get(key)
+    if cached and now - cached[0] < _HIST_TTL:
+        return cached[1]
+
+    points = []
+    try:
+        df = yf.Ticker(symbol).history(period=period, interval=interval)
+        if df is not None and not df.empty:
+            for idx, val in df["Close"].dropna().items():
+                try:
+                    t = idx.strftime("%Y-%m-%d")
+                except Exception:
+                    t = str(idx)[:10]
+                points.append({"t": t, "c": round(float(val), 2)})
+    except Exception:
+        points = []
+
+    _HIST_CACHE[key] = (now, points)
+    return points
+
+
 def recommend_stocks(budget_jpy: int = 500000, candidates: list[str] | None = None) -> None:
     """予算内で購入可能な銘柄を、アナリスト評価順に表示する。"""
     n = len(candidates or DEFAULT_WATCHLIST)

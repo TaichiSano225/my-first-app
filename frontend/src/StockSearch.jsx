@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { API_BASE, formatSigned, timingClass } from './utils.js'
 import RangeBar from './RangeBar.jsx'
+import Chart from './Chart.jsx'
+import Summary from './Summary.jsx'
 
 // 銘柄を1つ検索して、株価・買い時・アナリスト予想・企業概要・ニュースを表示する画面
 export default function StockSearch({ initialQuery = '' }) {
@@ -97,6 +99,9 @@ export default function StockSearch({ initialQuery = '' }) {
             high={result.high_52w}
             currency={result.currency}
           />
+
+          {/* チャート（時間レンジ切替） */}
+          <Chart symbol={result.symbol} currency={result.currency} />
 
           {/* 買い時の根拠（文章での説明） */}
           {result.timing_detail && (
@@ -223,7 +228,7 @@ export default function StockSearch({ initialQuery = '' }) {
           {result.summary && (
             <div className="panel">
               <h3 className="panel-title">どんな企業？</h3>
-              <p className="summary">{result.summary}</p>
+              <Summary text={result.summary} />
             </div>
           )}
 

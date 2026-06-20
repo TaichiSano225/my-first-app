@@ -443,6 +443,92 @@ button {
   color: var(--muted);
 }
 
+/* 概要の段落間隔・もっと見るボタン */
+.summary + .summary {
+  margin-top: 10px;
+}
+
+.more-btn {
+  margin-top: 10px;
+  padding: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #a5b4fc;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.more-btn:hover {
+  text-decoration: underline;
+}
+
+/* ===== チャート ===== */
+.range-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.range-tabs button {
+  flex: 1;
+  min-width: 52px;
+  padding: 7px 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.range-tabs button:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.range-tabs button.active {
+  color: #fff;
+  background: var(--grad);
+  border-color: transparent;
+}
+
+.chart-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.chart-last {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.3rem;
+}
+
+.chart-last small {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.chart-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.chart-axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-size: 0.7rem;
+  color: var(--faint);
+}
+
 /* 株主優待リンク */
 .yutai-link {
   display: inline-block;
