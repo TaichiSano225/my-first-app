@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}株価チェッカー{% endblock %}</title>
+  <style>
+    :root {
+      --bg: #0f172a; --card: #1e293b; --line: #334155;
+      --text: #e2e8f0; --muted: #94a3b8; --accent: #38bdf8;
+      --up: #34d399; --down: #f87171;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.6;
+    }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+    header h1 { font-size: 1.5rem; margin: 0 0 .25rem; }
+    header p { color: var(--muted); margin: 0 0 1.25rem; }
+    nav { display: flex; gap: .5rem; margin-bottom: 1.5rem; }
+    nav a {
+      color: var(--text); text-decoration: none; padding: .4rem .9rem;
+      border: 1px solid var(--line); border-radius: 999px; font-size: .9rem;
+    }
+    nav a.active { background: var(--accent); color: #08233a; border-color: var(--accent); font-weight: 600; }
+    form.search { display: flex; gap: .5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    form.search input {
+      flex: 1; min-width: 200px; padding: .7rem .9rem; font-size: 1rem;
+      background: var(--card); color: var(--text);
+      border: 1px solid var(--line); border-radius: 10px;
+    }
+    form.search input:focus { outline: none; border-color: var(--accent); }
+    form.search button {
+      padding: .7rem 1.4rem; font-size: 1rem; font-weight: 600; cursor: pointer;
+      background: var(--accent); color: #08233a; border: none; border-radius: 10px;
+    }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 1.25rem 1.5rem; }
+    .error { background: #422; border: 1px solid #844; color: #fca; border-radius: 10px; padding: .8rem 1rem; }
+    .muted { color: var(--muted); font-size: .85rem; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: .55rem .5rem; text-align: left; border-bottom: 1px solid var(--line); font-size: .92rem; }
+    th { color: var(--muted); font-weight: 600; }
+    td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+    .star { color: #fbbf24; }
+    .up { color: var(--up); } .down { color: var(--down); }
+    .note { margin-top: 1.25rem; font-size: .8rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>📈 株価チェッカー</h1>
+      <p>会社名・ティッカーから最新株価を確認できます。</p>
+    </header>
+    <nav>
+      <a href="/" class="{% block nav_home %}{% endblock %}">株価検索</a>
+      <a href="/recommend" class="{% block nav_rec %}{% endblock %}">予算で銘柄を探す</a>
+    </nav>
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>

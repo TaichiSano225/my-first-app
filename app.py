@@ -75,21 +75,52 @@ def resolve_ticker(query: str, interactive: bool = True) -> str | None:
     return equities[idx]["symbol"]
 
 
-def get_stock_info(ticker: str) -> None:
+def fetch_stock_data(ticker: str) -> dict | None:
+    """銘柄の株価情報を辞書で返す（CLI/Web 共通）。取得できなければ None。"""
     stock = yf.Ticker(ticker)
     info = stock.info
 
+    current = get_latest_price(stock, info)
+    if current is None:
+        return None
+
     name = info.get("longName") or info.get("shortName") or ticker
     currency = info.get("currency", "")
-    current = get_latest_price(stock, info)
     prev_close = info.get("previousClose") or info.get("regularMarketPreviousClose")
+    change = current - prev_close if prev_close is not None else None
+    change_pct = (change / prev_close * 100) if change is not None and prev_close else None
 
-    if current is None:
+    market_cap = info.get("marketCap")
+    cap_str = None
+    if market_cap:
+        cap_str = f"{market_cap / 1e12:.2f}兆" if market_cap >= 1e12 else f"{market_cap / 1e8:.0f}億"
+
+    return {
+        "ticker": ticker.upper(),
+        "name": name,
+        "currency": currency,
+        "current": current,
+        "prev_close": prev_close,
+        "change": change,
+        "change_pct": change_pct,
+        "high_52w": info.get("fiftyTwoWeekHigh"),
+        "low_52w": info.get("fiftyTwoWeekLow"),
+        "market_cap_str": cap_str,
+    }
+
+
+def get_stock_info(ticker: str) -> None:
+    data = fetch_stock_data(ticker)
+    if data is None:
         print(f"'{ticker}' の株価データを取得できませんでした。")
         return
 
-    change = current - prev_close if prev_close is not None else None
-    change_pct = (change / prev_close * 100) if change is not None and prev_close else None
+    name = data["name"]
+    currency = data["currency"]
+    current = data["current"]
+    prev_close = data["prev_close"]
+    change = data["change"]
+    change_pct = data["change_pct"]
     sign = "+" if change is not None and change >= 0 else ""
 
     print(f"\n{'=' * 45}")
@@ -100,16 +131,14 @@ def get_stock_info(ticker: str) -> None:
         print(f"  前日比:   {sign}{change:,.2f} ({sign}{change_pct:.2f}%)")
     print(f"  前日終値: {prev_close:,.2f} {currency}" if prev_close else "")
 
-    high_52w = info.get("fiftyTwoWeekHigh")
-    low_52w = info.get("fiftyTwoWeekLow")
+    high_52w = data["high_52w"]
+    low_52w = data["low_52w"]
     if high_52w and low_52w:
         print(f"  52週高値: {high_52w:,.2f} {currency}")
         print(f"  52週安値: {low_52w:,.2f} {currency}")
 
-    market_cap = info.get("marketCap")
-    if market_cap:
-        cap_str = f"{market_cap / 1e12:.2f}兆" if market_cap >= 1e12 else f"{market_cap / 1e8:.0f}億"
-        print(f"  時価総額: {cap_str} {currency}")
+    if data["market_cap_str"]:
+        print(f"  時価総額: {data['market_cap_str']} {currency}")
 
     print(f"{'=' * 45}\n")
 
@@ -132,13 +161,11 @@ def lot_size(ticker: str) -> int:
     return 100 if ticker.upper().endswith(".T") else 1
 
 
-def recommend_stocks(budget_jpy: int = 500000, candidates: list[str] | None = None) -> None:
-    """予算内で購入可能な銘柄を、アナリスト評価順に表示する。"""
+def screen_stocks(budget_jpy: int = 500000, candidates: list[str] | None = None) -> list[dict]:
+    """予算内で購入可能な銘柄を、アナリスト評価順に並べた一覧を返す（CLI/Web 共通）。"""
     candidates = candidates or DEFAULT_WATCHLIST
     rates: dict = {}
     rows = []
-
-    print(f"\n予算 {budget_jpy:,} 円で購入候補をスクリーニング中... ({len(candidates)}銘柄)\n")
 
     for ticker in candidates:
         try:
@@ -170,18 +197,29 @@ def recommend_stocks(budget_jpy: int = 500000, candidates: list[str] | None = No
                 "units": units,
                 "affordable": int(budget_jpy // min_cost),  # 買える単元数
                 "rec_key": rec_key,
+                "rec_label": REC_LABEL.get(rec_key, rec_key),
                 "rec_score": REC_SCORE.get(rec_key, 0),
+                "is_buy": REC_SCORE.get(rec_key, 0) >= 4,
                 "upside": upside,
             })
         except Exception:
             continue
 
+    # アナリスト評価スコア降順、次に上振れ余地（upside）降順で並べ替え
+    rows.sort(key=lambda r: (r["rec_score"], r["upside"] or -999), reverse=True)
+    return rows
+
+
+def recommend_stocks(budget_jpy: int = 500000, candidates: list[str] | None = None) -> None:
+    """予算内で購入可能な銘柄を、アナリスト評価順に表示する。"""
+    n = len(candidates or DEFAULT_WATCHLIST)
+    print(f"\n予算 {budget_jpy:,} 円で購入候補をスクリーニング中... ({n}銘柄)\n")
+
+    rows = screen_stocks(budget_jpy, candidates)
+
     if not rows:
         print("予算内で購入可能な銘柄が見つかりませんでした。")
         return
-
-    # アナリスト評価スコア降順、次に上振れ余地（upside）降順で並べ替え
-    rows.sort(key=lambda r: (r["rec_score"], r["upside"] or -999), reverse=True)
 
     print(f"{'=' * 72}")
     print(f"  予算 {budget_jpy:,} 円で購入可能な銘柄（アナリスト評価順）")
