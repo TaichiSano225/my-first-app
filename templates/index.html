@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block nav_home %}active{% endblock %}
+
+{% block content %}
+<form class="search" method="get" action="/">
+  <input type="text" name="q" value="{{ query }}" placeholder="例: Apple, トヨタ, AAPL, 7203.T" autofocus>
+  <button type="submit">検索</button>
+</form>
+
+{% if error %}
+  <div class="error">{{ error }}</div>
+{% endif %}
+
+{% if result %}
+<div class="card">
+  <h2 style="margin:0 0 1rem">{{ result.name }} <span class="muted">({{ result.ticker }})</span></h2>
+  <table>
+    <tr>
+      <td>現在値</td>
+      <td class="num"><strong>{{ "{:,.2f}".format(result.current) }} {{ result.currency }}</strong></td>
+    </tr>
+    {% if result.change is not none %}
+    <tr>
+      <td>前日比</td>
+      <td class="num {{ 'up' if result.change >= 0 else 'down' }}">
+        {{ '+' if result.change >= 0 else '' }}{{ "{:,.2f}".format(result.change) }}
+        ({{ '+' if result.change >= 0 else '' }}{{ "{:.2f}".format(result.change_pct) }}%)
+      </td>
+    </tr>
+    {% endif %}
+    {% if result.prev_close %}
+    <tr><td>前日終値</td><td class="num">{{ "{:,.2f}".format(result.prev_close) }} {{ result.currency }}</td></tr>
+    {% endif %}
+    {% if result.high_52w and result.low_52w %}
+    <tr><td>52週高値</td><td class="num">{{ "{:,.2f}".format(result.high_52w) }} {{ result.currency }}</td></tr>
+    <tr><td>52週安値</td><td class="num">{{ "{:,.2f}".format(result.low_52w) }} {{ result.currency }}</td></tr>
+    {% endif %}
+    {% if result.market_cap_str %}
+    <tr><td>時価総額</td><td class="num">{{ result.market_cap_str }} {{ result.currency }}</td></tr>
+    {% endif %}
+  </table>
+</div>
+{% elif not query %}
+  <p class="muted">会社名（日本語・英語）またはティッカーシンボルを入力してください。</p>
+{% endif %}
+
+<p class="note">※ 株価は Yahoo Finance のデータを利用しており、リアルタイムではなく遅延がある場合があります。</p>
+{% endblock %}

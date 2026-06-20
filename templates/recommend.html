@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block nav_rec %}active{% endblock %}
+
+{% block content %}
+<form class="search" method="get" action="/recommend">
+  <input type="text" name="budget" value="{{ budget_raw }}" placeholder="予算（円）　例: 500000 / 50万">
+  <button type="submit">探す</button>
+</form>
+
+{% if error %}
+  <div class="error">{{ error }}</div>
+{% endif %}
+
+{% if rows is not none %}
+  {% if rows %}
+  <div class="card">
+    <h2 style="margin:0 0 1rem">予算 {{ "{:,}".format(budget) }} 円で購入可能な銘柄</h2>
+    <table>
+      <thead>
+        <tr>
+          <th></th><th>銘柄</th><th>評価</th>
+          <th class="num">上振れ</th><th class="num">最低購入額</th><th class="num">購入可能数</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in rows %}
+        <tr>
+          <td class="star">{{ '★' if r.is_buy else '' }}</td>
+          <td>{{ r.ticker }}<br><span class="muted">{{ r.name }}</span></td>
+          <td>{{ r.rec_label }}</td>
+          <td class="num">
+            {% if r.upside is not none %}
+              <span class="{{ 'up' if r.upside >= 0 else 'down' }}">{{ '+' if r.upside >= 0 else '' }}{{ "{:.0f}".format(r.upside) }}%</span>
+            {% else %}-{% endif %}
+          </td>
+          <td class="num">{{ "{:,.0f}".format(r.min_cost) }}円</td>
+          <td class="num">
+            {% if r.units == 100 %}{{ r.affordable }}単元({{ r.affordable * 100 }}株){% else %}{{ r.affordable }}株{% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="card">予算内で購入可能な銘柄が見つかりませんでした。</div>
+  {% endif %}
+{% else %}
+  <p class="muted">予算を入力すると、主要銘柄の中から予算内で買えるものをアナリスト評価順に表示します（デフォルト 50万円）。</p>
+{% endif %}
+
+<p class="note">
+  ★ は買い評価（強い買い／買い）。最低購入額は1単元あたり（日本株は100株単位、米国株は1株、米ドル建ては円換算）。<br>
+  ⚠️ 本機能は Yahoo Finance のアナリスト評価に基づく参考情報であり、投資助言ではありません。投資判断はご自身の責任で行ってください。
+</p>
+{% endblock %}

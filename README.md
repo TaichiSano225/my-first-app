@@ -6,10 +6,59 @@
 ## セットアップ
 
 ```bash
-pip install yfinance
+pip install -r requirements.txt
 ```
 
-## 使い方
+## Webアプリ（FastAPI）
+
+[FastAPI](https://fastapi.tiangolo.com/) 製の Web アプリです。ブラウザから銘柄を入力して株価を確認できます。
+
+### 起動方法
+
+```bash
+# どちらでも起動できます
+python main.py
+# または uvicorn で（自動リロード付き）
+uvicorn main:app --reload
+```
+
+起動後、ブラウザで <http://localhost:8000> を開きます。
+API ドキュメント（Swagger UI）は <http://localhost:8000/docs> で確認できます。
+
+### 画面（HTML）
+
+- **株価検索** (`/`): 会社名・ティッカーを入力して最新株価を表示。
+- **予算で銘柄を探す** (`/recommend`): 予算（円）を入力すると、予算内で購入可能な銘柄をアナリスト評価順に表示。
+
+### API（JSON）
+
+| メソッド・パス | 説明 |
+| --- | --- |
+| `GET /stock/{symbol}` | 指定銘柄の株価を JSON で返す |
+
+リクエスト例:
+
+```bash
+curl http://localhost:8000/stock/AAPL
+```
+
+レスポンス例:
+
+```json
+{
+  "symbol": "AAPL",
+  "price": 203.52
+}
+```
+
+銘柄が見つからない場合は HTTP 404 を返します。
+
+> 日本語の会社名（例: 「トヨタ」）は Yahoo Finance の検索が対応していない場合があります。
+> 日本株は `7203.T` のようにティッカーで直接指定してください。
+
+---
+
+## コマンドラインでの使い方
 
 ### 1. 引数で指定する
 
