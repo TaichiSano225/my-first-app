@@ -1,30 +1,29 @@
 import { useState } from 'react'
-import { API_BASE, formatSigned } from './utils.js'
+import { API_BASE, formatSigned, timingClass } from './utils.js'
+import RangeBar from './RangeBar.jsx'
 
-// 銘柄を1つ検索して株価を表示する画面
+// 銘柄を1つ検索して、株価・買い時・アナリスト予想・企業概要・ニュースを表示する画面
 export default function StockSearch() {
-  const [query, setQuery] = useState('')       // 入力欄の文字列
-  const [result, setResult] = useState(null)   // 取得した株価
-  const [error, setError] = useState('')        // エラーメッセージ
-  const [loading, setLoading] = useState(false) // 検索中かどうか
+  const [query, setQuery] = useState('')
+  const [result, setResult] = useState(null)
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
   async function handleSearch(e) {
-    e.preventDefault() // フォーム送信時のページ再読み込みを止める
+    e.preventDefault()
     const symbol = query.trim()
     if (!symbol) return
 
     setLoading(true)
     setError('')
     setResult(null)
-
     try {
       const res = await fetch(`${API_BASE}/stock/${encodeURIComponent(symbol)}`)
       if (!res.ok) {
         const data = await res.json().catch(() => ({}))
         throw new Error(data.detail || '株価を取得できませんでした。')
       }
-      const data = await res.json()
-      setResult(data)
+      setResult(await res.json())
     } catch (err) {
       setError(err.message)
     } finally {
@@ -32,50 +31,136 @@ export default function StockSearch() {
     }
   }
 
+  const up = result && result.change != null && result.change >= 0
+
   return (
     <div>
-      {/* 銘柄入力欄 ＋ 検索ボタン */}
-      <form className="search" onSubmit={handleSearch}>
+      <form className="field" onSubmit={handleSearch}>
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="銘柄を入力 (例: AAPL, トヨタ)"
+          placeholder="会社名でもOK（例: apple / トヨタ / nvidia）"
         />
         <button type="submit" disabled={loading}>
-          {loading ? '検索中...' : '検索'}
+          {loading ? '取得中…' : '検索'}
         </button>
       </form>
 
       {error && <p className="error">{error}</p>}
+      {loading && <p className="hint">株価とニュースを取得しています…</p>}
 
-      {/* 株価表示 */}
       {result && (
-        <div className="result">
-          <div className="name">{result.name || result.symbol}</div>
-          <div className="symbol">{result.symbol}</div>
+        <div className="detail">
+          {/* ヘッダー：社名・ティッカー・業界 */}
+          <div className="detail-head">
+            <h2 className="detail-name">{result.name || result.symbol}</h2>
+            <div className="chips">
+              <span className="chip chip-ticker">{result.symbol}</span>
+              {result.sector && <span className="chip">{result.sector}</span>}
+              {result.industry && <span className="chip chip-soft">{result.industry}</span>}
+            </div>
+          </div>
 
-          <div className="price">{result.price.toLocaleString()}</div>
-          <div className="label">現在価格</div>
+          {/* 価格 + 前日比 + 買い時バッジ */}
+          <div className="price-block">
+            <div>
+              <div className="price-big">
+                {result.price.toLocaleString()}
+                <span className="price-cur">{result.currency}</span>
+              </div>
+              {result.change != null && (
+                <div className={`price-change ${up ? 'pos' : 'neg'}`}>
+                  {up ? '▲' : '▼'} {formatSigned(result.change)}
+                  {result.change_pct != null && ` (${formatSigned(result.change_pct)}%)`}
+                </div>
+              )}
+            </div>
+            <span className={`timing timing-${timingClass(result.timing_label)}`}>
+              {result.timing_label}
+            </span>
+          </div>
+          {result.timing_reason && <p className="timing-reason">{result.timing_reason}</p>}
 
-          <dl className="details">
-            {result.prev_close != null && (
-              <div className="row">
-                <dt>前日終値</dt>
-                <dd>{result.prev_close.toLocaleString()}</dd>
+          {/* 52週レンジ */}
+          <RangeBar
+            pct={result.range_pct}
+            low={result.low_52w}
+            high={result.high_52w}
+            currency={result.currency}
+          />
+
+          {/* 今後の予想（アナリスト目標株価） */}
+          {(result.target_mean != null || result.rec_label) && (
+            <div className="panel">
+              <h3 className="panel-title">今後の予想（アナリスト）</h3>
+              <div className="stat-grid">
+                <div className="stat">
+                  <span className="stat-label">評価</span>
+                  <span className="stat-value">{result.rec_label || '—'}</span>
+                </div>
+                <div className="stat">
+                  <span className="stat-label">目標株価（平均）</span>
+                  <span className="stat-value">
+                    {result.target_mean != null
+                      ? result.target_mean.toLocaleString()
+                      : '—'}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="stat-label">上振れ余地</span>
+                  <span
+                    className={`stat-value ${
+                      result.upside != null ? (result.upside >= 0 ? 'pos' : 'neg') : ''
+                    }`}
+                  >
+                    {result.upside != null ? `${formatSigned(result.upside)}%` : '—'}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="stat-label">目標レンジ</span>
+                  <span className="stat-value sm">
+                    {result.target_low != null && result.target_high != null
+                      ? `${result.target_low.toLocaleString()} – ${result.target_high.toLocaleString()}`
+                      : '—'}
+                  </span>
+                </div>
               </div>
-            )}
-            {result.change != null && (
-              <div className="row">
-                <dt>前日比</dt>
-                <dd className={result.change >= 0 ? 'up' : 'down'}>
-                  {formatSigned(result.change)}
-                  {result.change_pct != null &&
-                    ` (${formatSigned(result.change_pct)}%)`}
-                </dd>
-              </div>
-            )}
-          </dl>
+            </div>
+          )}
+
+          {/* どんな企業か */}
+          {result.summary && (
+            <div className="panel">
+              <h3 className="panel-title">どんな企業？</h3>
+              <p className="summary">{result.summary}</p>
+            </div>
+          )}
+
+          {/* 最近のトピック */}
+          {result.news && result.news.length > 0 && (
+            <div className="panel">
+              <h3 className="panel-title">最近のトピック</h3>
+              <ul className="news">
+                {result.news.map((n, i) => (
+                  <li key={i}>
+                    {n.link ? (
+                      <a href={n.link} target="_blank" rel="noreferrer">
+                        {n.title}
+                      </a>
+                    ) : (
+                      <span>{n.title}</span>
+                    )}
+                    {n.publisher && <span className="news-src">{n.publisher}</span>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <p className="disclaimer">
+            ※ Yahoo Finance のデータに基づく参考情報です。投資はご自身の判断と責任で行ってください。
+          </p>
         </div>
       )}
     </div>

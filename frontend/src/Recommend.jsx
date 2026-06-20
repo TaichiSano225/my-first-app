@@ -1,16 +1,9 @@
-import { useState } from 'react'
-import { API_BASE, formatSigned } from './utils.js'
+import { useEffect, useState } from 'react'
+import { API_BASE, formatSigned, timingClass } from './utils.js'
+import RangeBar from './RangeBar.jsx'
 
-// 予算のプリセット（円）
+// 予算のクイック選択（円）
 const PRESETS = [100000, 300000, 500000, 1000000]
-
-// 買い時ラベル → 色分け用のクラス名
-function timingClass(label) {
-  if (label === '買い時') return 'good'
-  if (label === 'やや買い時') return 'ok'
-  if (label === '高値圏') return 'bad'
-  return 'neutral'
-}
 
 // 購入可能数の表示（日本株は単元、それ以外は株）
 function buyUnit(s) {
@@ -19,19 +12,37 @@ function buyUnit(s) {
     : `${s.affordable}株`
 }
 
-// 予算を入れると、買えるおすすめ銘柄を業界ごとに表示する画面
+// 業界を選び、その中で予算内・買い時順のおすすめ銘柄を表示する画面
 export default function Recommend() {
-  const [budget, setBudget] = useState(500000)
+  const [sectors, setSectors] = useState([])
+  const [sector, setSector] = useState('')
+  const [budget, setBudget] = useState(300000)
   const [stocks, setStocks] = useState(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  async function fetchRecommend(b) {
+  // 起動時に業界の一覧を取得してセレクトに入れる
+  useEffect(() => {
+    fetch(`${API_BASE}/sectors`)
+      .then((res) => res.json())
+      .then((data) => {
+        setSectors(data.sectors)
+        setSector(data.sectors[0] || '')
+      })
+      .catch(() => setError('業界一覧を取得できませんでした。'))
+  }, [])
+
+  async function fetchRecommend(targetSector, targetBudget) {
+    if (!targetSector) return
     setLoading(true)
     setError('')
     setStocks(null)
     try {
-      const res = await fetch(`${API_BASE}/recommendations?budget=${b}`)
+      const res = await fetch(
+        `${API_BASE}/recommendations?sector=${encodeURIComponent(
+          targetSector,
+        )}&budget=${targetBudget}`,
+      )
       if (!res.ok) throw new Error('おすすめ銘柄を取得できませんでした。')
       const data = await res.json()
       setStocks(data.stocks)
@@ -44,42 +55,49 @@ export default function Recommend() {
 
   function handleSubmit(e) {
     e.preventDefault()
-    fetchRecommend(budget)
-  }
-
-  // 業界(セクター)ごとにグループ化する
-  const groups = {}
-  if (stocks) {
-    for (const s of stocks) {
-      ;(groups[s.sector] ??= []).push(s)
-    }
+    fetchRecommend(sector, budget)
   }
 
   return (
     <div>
-      {/* 予算入力欄 ＋ ボタン */}
-      <form className="search" onSubmit={handleSubmit}>
-        <input
-          type="number"
-          value={budget}
-          min="0"
-          step="10000"
-          onChange={(e) => setBudget(Number(e.target.value))}
-        />
-        <button type="submit" disabled={loading}>
-          {loading ? '集計中...' : 'おすすめを見る'}
+      <form className="rec-form" onSubmit={handleSubmit}>
+        <label className="select-wrap">
+          <span className="select-label">業界</span>
+          <select value={sector} onChange={(e) => setSector(e.target.value)}>
+            {sectors.map((s) => (
+              <option key={s} value={s}>
+                {s}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="select-wrap">
+          <span className="select-label">予算（円）</span>
+          <input
+            type="number"
+            value={budget}
+            min="0"
+            step="10000"
+            onChange={(e) => setBudget(Number(e.target.value))}
+          />
+        </label>
+
+        <button type="submit" disabled={loading || !sector}>
+          {loading ? '集計中…' : 'おすすめを見る'}
         </button>
       </form>
 
-      {/* 予算のクイック選択 */}
+      {/* 予算クイック選択 */}
       <div className="presets">
         {PRESETS.map((p) => (
           <button
             key={p}
             type="button"
+            className={budget === p ? 'active' : ''}
             onClick={() => {
               setBudget(p)
-              fetchRecommend(p)
+              fetchRecommend(sector, p)
             }}
           >
             {(p / 10000).toLocaleString()}万円
@@ -88,53 +106,54 @@ export default function Recommend() {
       </div>
 
       {error && <p className="error">{error}</p>}
-      {loading && (
-        <p className="hint">銘柄を集計しています（数十秒かかることがあります）…</p>
-      )}
+      {loading && <p className="hint">買い時順に集計しています…</p>}
 
       {stocks && stocks.length === 0 && (
-        <p className="hint">予算内で購入できる銘柄が見つかりませんでした。</p>
+        <p className="hint">この予算で買える銘柄が見つかりませんでした。予算を増やしてみてください。</p>
       )}
 
-      {/* 業界ごとにおすすめ銘柄を表示 */}
-      {stocks &&
-        Object.entries(groups).map(([sector, list]) => (
-          <div key={sector} className="sector">
-            <h3 className="sector-title">{sector}</h3>
-            {list.map((s) => (
+      {stocks && stocks.length > 0 && (
+        <>
+          <p className="rec-count">
+            {sector}：買い時順に <strong>{stocks.length}</strong> 銘柄
+          </p>
+          <div className="rec-list">
+            {stocks.map((s, i) => (
               <div key={s.ticker} className="rec-card">
-                <div className="rec-head">
-                  <span className="rec-name">{s.name}</span>
-                  {/* 買い時バッジ */}
-                  <span className={`timing timing-${timingClass(s.timing_label)}`}>
-                    {s.timing_label}
-                  </span>
+                <div className="rec-rank">{i + 1}</div>
+                <div className="rec-main">
+                  <div className="rec-head">
+                    <div>
+                      <span className="rec-name">{s.name}</span>
+                      <span className="rec-ticker">{s.ticker}</span>
+                    </div>
+                    <span className={`timing timing-${timingClass(s.timing_label)}`}>
+                      {s.timing_label}
+                    </span>
+                  </div>
+
+                  <div className="rec-metrics">
+                    <span>
+                      最低 <strong>{s.min_cost.toLocaleString()}円</strong>（{buyUnit(s)}）
+                    </span>
+                    {s.change_pct != null && (
+                      <span className={s.change_pct >= 0 ? 'pos' : 'neg'}>
+                        前日比 {formatSigned(s.change_pct)}%
+                      </span>
+                    )}
+                  </div>
+
+                  <RangeBar pct={s.range_pct} />
+                  <p className="rec-reason">{s.timing_reason}</p>
                 </div>
-                <div className="rec-row">
-                  <span>最低購入額</span>
-                  <span>
-                    {Math.round(s.min_cost).toLocaleString()}円（{buyUnit(s)}）
-                  </span>
-                </div>
-                <div className="rec-row">
-                  <span>アナリスト評価</span>
-                  <span>
-                    {s.is_buy ? '★ ' : ''}
-                    {s.rec_label}
-                    {s.upside != null &&
-                      `（上振れ ${formatSigned(Math.round(s.upside))}%）`}
-                  </span>
-                </div>
-                <div className="rec-reason">{s.timing_reason}</div>
               </div>
             ))}
           </div>
-        ))}
-
-      {stocks && stocks.length > 0 && (
-        <p className="disclaimer">
-          ※ Yahoo Finance のデータに基づく参考情報です。投資はご自身の判断と責任で行ってください。
-        </p>
+          <p className="disclaimer">
+            ※ 株価データに基づく「買い時」の目安です（割安・移動平均からの簡易判定）。
+            Yahoo Finance のデータに基づく参考情報であり、投資助言ではありません。
+          </p>
+        </>
       )}
     </div>
   )

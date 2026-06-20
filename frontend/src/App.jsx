@@ -8,7 +8,10 @@ export default function App() {
 
   return (
     <div className="container">
-      <h1>株価チェッカー</h1>
+      <header className="brand">
+        <h1>Stock Pulse</h1>
+        <p>株価・買い時・おすすめ銘柄をひと目で</p>
+      </header>
 
       {/* タブ切り替え */}
       <div className="tabs">

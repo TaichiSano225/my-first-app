@@ -3,7 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
-from app import fetch_stock_data, resolve_ticker, screen_stocks
+from app import (
+    SECTOR_TICKERS,
+    fetch_stock_data,
+    fetch_stock_detail,
+    resolve_ticker,
+    screen_sector,
+    screen_stocks,
+)
 
 app = FastAPI(title="株価チェッカー")
 templates = Jinja2Templates(directory="templates")
@@ -66,47 +73,35 @@ def recommend(request: Request, budget: str = ""):
     )
 
 
-@app.get("/recommendations")
-def recommendations_json(budget: int = 500000):
-    """予算内で買えるおすすめ銘柄を JSON で返す。
+@app.get("/sectors")
+def sectors_json():
+    """おすすめ画面のセレクト用に、業界(セクター)の一覧を返す。"""
+    return {"sectors": list(SECTOR_TICKERS.keys())}
 
-    各銘柄に業界(sector)・アナリスト評価・買い時判定(timing)が含まれる。
-    例: GET /recommendations?budget=500000
+
+@app.get("/recommendations")
+def recommendations_json(sector: str, budget: int = 300000):
+    """指定した業界の中で、予算内で買えるおすすめ銘柄を「買い時」順で返す。
+
+    例: GET /recommendations?sector=テクノロジー&budget=300000
     """
     budget = max(0, budget)
-    stocks = screen_stocks(budget)
-    return {"budget": budget, "stocks": stocks}
-
-
-def _round2(value):
-    """数値を小数2桁に丸める。値が None ならそのまま None を返す。"""
-    return round(value, 2) if value is not None else None
+    stocks = screen_sector(sector, budget)
+    return {"sector": sector, "budget": budget, "stocks": stocks}
 
 
 @app.get("/stock/{symbol}")
 def stock_json(symbol: str):
-    """銘柄の株価情報を JSON で返す。
-
-    例: {"symbol": "AAPL", "name": "Apple Inc.", "price": 203.52,
-         "prev_close": 201.0, "change": 2.52, "change_pct": 1.25, "currency": "USD"}
-    """
+    """銘柄の詳細情報（株価・買い時・アナリスト予想・企業概要・ニュース）を返す。"""
     ticker = resolve_ticker(symbol, interactive=False)
     if not ticker:
         raise HTTPException(status_code=404, detail=f"'{symbol}' に一致する銘柄が見つかりませんでした。")
 
-    data = fetch_stock_data(ticker)
-    if data is None or data.get("current") is None:
+    data = fetch_stock_detail(ticker)
+    if data is None:
         raise HTTPException(status_code=404, detail=f"'{symbol}' の株価データを取得できませんでした。")
 
-    return {
-        "symbol": data["ticker"],
-        "name": data["name"],
-        "price": _round2(data["current"]),
-        "prev_close": _round2(data["prev_close"]),
-        "change": _round2(data["change"]),
-        "change_pct": _round2(data["change_pct"]),
-        "currency": data["currency"],
-    }
+    return data
 
 
 if __name__ == "__main__":

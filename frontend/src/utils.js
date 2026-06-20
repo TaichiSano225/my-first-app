@@ -9,3 +9,11 @@ export function formatSigned(n) {
   const sign = n >= 0 ? '+' : ''
   return sign + n.toLocaleString()
 }
+
+// 買い時ラベル → 色分け用のクラス名
+export function timingClass(label) {
+  if (label === '買い時') return 'good'
+  if (label === 'やや買い時') return 'ok'
+  if (label === '高値圏') return 'bad'
+  return 'neutral'
+}
