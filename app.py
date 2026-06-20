@@ -914,6 +914,9 @@ def _fetch_news(stock, limit: int = 5) -> list[dict]:
             if isinstance(val, dict) and val.get("url"):
                 link = val["url"]
                 break
+        # 安全のため http(s) のリンクのみ通す（javascript: 等は破棄）
+        if not isinstance(link, str) or not link.startswith(("http://", "https://")):
+            link = ""
 
         # 配信元
         publisher = it.get("publisher") or ""
