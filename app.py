@@ -32,6 +32,74 @@ REC_LABEL = {
     "none": "評価なし", "": "評価なし", None: "評価なし",
 }
 
+# 業界(セクター)の英語→日本語ラベル
+SECTOR_LABEL = {
+    "Technology": "テクノロジー",
+    "Financial Services": "金融",
+    "Consumer Cyclical": "一般消費財",
+    "Consumer Defensive": "生活必需品",
+    "Healthcare": "ヘルスケア",
+    "Communication Services": "通信サービス",
+    "Industrials": "資本財・サービス",
+    "Energy": "エネルギー",
+    "Basic Materials": "素材",
+    "Utilities": "公益事業",
+    "Real Estate": "不動産",
+}
+
+
+def buy_timing(info: dict, price: float) -> dict:
+    """株価の「買い時」を簡易判定する（参考情報）。
+
+    52週レンジ内での位置と、200日移動平均線との位置関係からスコアを出す。
+    安値圏・移動平均割れほど「買い時」と判断する。
+    """
+    high = info.get("fiftyTwoWeekHigh")
+    low = info.get("fiftyTwoWeekLow")
+    ma200 = info.get("twoHundredDayAverage")
+
+    # 52週レンジ内の位置（0%=年初来安値, 100%=年初来高値）
+    range_pct = None
+    if high and low and high > low:
+        range_pct = (price - low) / (high - low) * 100
+
+    score = 0
+    reasons = []
+    if range_pct is not None:
+        if range_pct <= 25:
+            score += 2
+            reasons.append("52週レンジの下位25%（安値圏）")
+        elif range_pct <= 50:
+            score += 1
+            reasons.append("52週レンジの中央より下")
+        elif range_pct >= 85:
+            score -= 1
+            reasons.append("52週高値に接近（高値圏）")
+
+    if ma200:
+        if price < ma200:
+            score += 1
+            reasons.append("200日移動平均を下回る")
+        elif price > ma200 * 1.1:
+            score -= 1
+            reasons.append("200日移動平均を10%以上上回る")
+
+    if score >= 2:
+        label = "買い時"
+    elif score >= 1:
+        label = "やや買い時"
+    elif score <= -1:
+        label = "高値圏"
+    else:
+        label = "中立"
+
+    return {
+        "timing_label": label,
+        "timing_score": score,
+        "timing_reason": "・".join(reasons) if reasons else "目立った割安・割高シグナルなし",
+        "range_pct": round(range_pct, 1) if range_pct is not None else None,
+    }
+
 
 def get_latest_price(stock, info=None):
     """できるだけ最新の株価を返す。fast_info を優先し、無ければ info にフォールバック。"""
@@ -227,9 +295,13 @@ def screen_stocks(budget_jpy: int = 500000, candidates: list[str] | None = None)
             upside = ((target - price) / price * 100) if target else None
             name = info.get("longName") or info.get("shortName") or ticker
 
+            sector = info.get("sector") or ""
+            timing = buy_timing(info, price)
+
             rows.append({
                 "ticker": ticker,
                 "name": name,
+                "sector": SECTOR_LABEL.get(sector, sector or "その他"),
                 "price_jpy": price_jpy,
                 "min_cost": min_cost,
                 "units": units,
@@ -239,6 +311,10 @@ def screen_stocks(budget_jpy: int = 500000, candidates: list[str] | None = None)
                 "rec_score": REC_SCORE.get(rec_key, 0),
                 "is_buy": REC_SCORE.get(rec_key, 0) >= 4,
                 "upside": upside,
+                "timing_label": timing["timing_label"],
+                "timing_score": timing["timing_score"],
+                "timing_reason": timing["timing_reason"],
+                "range_pct": timing["range_pct"],
             })
         except Exception:
             continue
