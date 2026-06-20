@@ -994,6 +994,31 @@ def fetch_stock_detail(ticker: str) -> dict | None:
     # 値動きの考察（翻訳済みニュースを材料に推測）
     analysis = _movement_analysis(base["change_pct"], timing["range_pct"], news)
 
+    # 配当情報
+    is_jp = ticker.upper().endswith(".T")
+    unit_shares = 100 if is_jp else 1
+    div_rate = info.get("dividendRate")          # 1株あたり年間配当（通貨は株と同じ）
+    div_yield = info.get("dividendYield")        # 配当利回り（この版では % 表記）
+    payout = info.get("payoutRatio")             # 配当性向（小数）
+    ex_ts = info.get("exDividendDate")
+    ex_date = None
+    if ex_ts:
+        try:
+            ex_date = time.strftime("%Y-%m-%d", time.gmtime(int(ex_ts)))
+        except Exception:
+            ex_date = None
+
+    dividend = {
+        "rate": _r2(div_rate),                                   # 1株あたり年間配当
+        "yield_pct": _r2(div_yield),                             # 配当利回り(%)
+        "payout_pct": round(payout * 100) if payout is not None else None,
+        "unit_shares": unit_shares,
+        "annual_per_unit": round(div_rate * unit_shares) if div_rate else None,
+        "ex_date": ex_date,
+    }
+    # 株主優待は yfinance では取得できないため、確認用に外部リンクを渡す（日本株のみ）
+    yutai_url = f"https://finance.yahoo.co.jp/quote/{ticker.upper()}" if is_jp else None
+
     return {
         "symbol": base["ticker"],
         "name": base["name"],
@@ -1020,6 +1045,9 @@ def fetch_stock_detail(ticker: str) -> dict | None:
         "target_low": _r2(info.get("targetLowPrice")),
         "upside": _r2(upside),
         "rec_label": REC_LABEL.get(rec_key, rec_key),
+        # 配当・株主優待
+        "dividend": dividend,
+        "yutai_url": yutai_url,
         # 最近のトピック
         "news": news,
     }

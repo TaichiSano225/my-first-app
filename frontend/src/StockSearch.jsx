@@ -157,6 +157,68 @@ export default function StockSearch({ initialQuery = '' }) {
             </div>
           )}
 
+          {/* 配当・株主優待 */}
+          {(result.dividend || result.yutai_url) && (
+            <div className="panel">
+              <h3 className="panel-title">配当・株主優待</h3>
+              {result.dividend && result.dividend.rate != null ? (
+                <>
+                  <div className="stat-grid">
+                    <div className="stat">
+                      <span className="stat-label">配当利回り</span>
+                      <span className="stat-value pos">
+                        {result.dividend.yield_pct != null
+                          ? `${result.dividend.yield_pct}%`
+                          : '—'}
+                      </span>
+                    </div>
+                    <div className="stat">
+                      <span className="stat-label">1株あたり年間配当</span>
+                      <span className="stat-value">
+                        {result.dividend.rate.toLocaleString()} {result.currency}
+                      </span>
+                    </div>
+                    {/* 1単元で年間いくら（日本株は単元=100株なので分かりやすい） */}
+                    {result.dividend.unit_shares === 100 &&
+                      result.dividend.annual_per_unit != null && (
+                        <div className="stat">
+                          <span className="stat-label">1単元(100株)で年間</span>
+                          <span className="stat-value pos">
+                            {result.dividend.annual_per_unit.toLocaleString()} {result.currency}
+                          </span>
+                        </div>
+                      )}
+                    <div className="stat">
+                      <span className="stat-label">配当性向</span>
+                      <span className="stat-value sm">
+                        {result.dividend.payout_pct != null
+                          ? `${result.dividend.payout_pct}%`
+                          : '—'}
+                      </span>
+                    </div>
+                  </div>
+                  {result.dividend.ex_date && (
+                    <p className="note">次回の権利確定日（目安）: {result.dividend.ex_date}</p>
+                  )}
+                </>
+              ) : (
+                <p className="note">配当データはありません（無配のか、取得できない銘柄です）。</p>
+              )}
+
+              {/* 株主優待は外部サイトで確認（日本株のみ） */}
+              {result.yutai_url && (
+                <a
+                  className="yutai-link"
+                  href={result.yutai_url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  株主優待・配当の詳細を見る（Yahoo!ファイナンス）↗
+                </a>
+              )}
+            </div>
+          )}
+
           {/* どんな企業か */}
           {result.summary && (
             <div className="panel">
