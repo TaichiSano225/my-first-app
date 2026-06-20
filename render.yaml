@@ -1,0 +1,12 @@
+# Render（https://render.com）用のデプロイ設定（Blueprint）。
+# GitHub リポジトリを Render に接続すると、この1ファイルで Web サービスが作られる。
+services:
+  - type: web
+    name: stock-pulse
+    runtime: docker
+    dockerfilePath: ./Dockerfile.web
+    dockerContext: .
+    plan: free
+    region: singapore        # 日本に近いリージョン
+    autoDeploy: true
+    healthCheckPath: /api/sectors

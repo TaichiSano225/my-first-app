@@ -91,19 +91,22 @@ npm run dev                        # → http://localhost:5173
 
 ## API
 
+API はすべて `/api` 配下にあります。
+
 | メソッド・パス | 説明 |
 | --- | --- |
-| `GET /stock/{symbol}` | 銘柄の詳細（株価・買い時・予想・企業概要・ニュース）を返す |
-| `GET /sectors` | 業界（セクター）の一覧を返す |
-| `GET /recommendations?budget=...&sector=...` | 予算内・買い時順（日本企業優先）のおすすめ銘柄を返す。`sector` は省略可（省略時は全業界） |
+| `GET /api/stock/{symbol}` | 銘柄の詳細（株価・買い時・予想・配当・企業概要・ニュース）を返す |
+| `GET /api/history/{symbol}?range=1mo\|3mo\|6mo\|1y\|5y\|max` | チャート用の株価推移を返す |
+| `GET /api/sectors` | 業界（セクター）の一覧を返す |
+| `GET /api/recommendations?budget=...&sector=...` | 予算内・買い時順（日本企業）のおすすめ銘柄を返す。`sector` は省略可（省略時は全業界） |
 | `GET /docs` | API ドキュメント（Swagger UI） |
 
 リクエスト例:
 
 ```bash
-curl "http://localhost:8000/stock/apple"
-curl "http://localhost:8000/recommendations?budget=500000"
-curl "http://localhost:8000/recommendations?sector=テクノロジー&budget=300000"
+curl "http://localhost:8000/api/stock/apple"
+curl "http://localhost:8000/api/recommendations?budget=500000"
+curl "http://localhost:8000/api/recommendations?sector=テクノロジー&budget=300000"
 ```
 
 ## スマホで見る・インターネットに公開する
@@ -129,9 +132,29 @@ netsh advfirewall firewall add rule name="StockPulse" dir=in action=allow protoc
 
 ### インターネットに公開する
 - **手軽（ポート開放不要）**: [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-tunnel/)。
-  `cloudflared tunnel --url http://localhost:3000` を実行すると、一時的な公開 URL（https）が発行され、外部から閲覧できます。
-- **恒久運用**: VPS（さくらVPS / AWS Lightsail / ConoHa など）に本リポジトリを置いて `docker compose up -d` で起動し、
-  独自ドメイン + Caddy か Nginx で HTTPS 化するのが定番です。
+  `cloudflared tunnel --url https://localhost:3000 --no-tls-verify` を実行すると、一時的な公開 URL（https）が発行され、外部から閲覧できます。
+  ※ PC と Docker が起動している間だけ有効です。
+- **恒久運用**: VPS に本リポジトリを置いて `docker compose up -d`、または下記の Render に無料デプロイ。
+
+## クラウドに無料デプロイ（Render）
+
+PC を起動していなくても 24 時間アクセスできるようにするには、クラウドにデプロイします。
+本リポジトリには **React と FastAPI を 1 コンテナにまとめた構成**（`Dockerfile.web`）と
+[Render](https://render.com) 用の `render.yaml` を同梱しています。
+
+手順:
+
+1. このリポジトリを GitHub に push する（済み）。
+2. [Render](https://render.com) に GitHub アカウントで登録する。
+3. ダッシュボードで **New → Blueprint** を選び、本リポジトリを指定する。
+   `render.yaml` が読み込まれ、Web サービスが自動で作られる。
+4. **Apply** を押すとビルド＆デプロイが始まり、`https://stock-pulse-xxxx.onrender.com` のような
+   **正式HTTPSの公開URL**が発行される（証明書の警告なし）。
+
+メモ:
+- **無料プラン**は 15 分アクセスが無いとスリープし、次のアクセスで起動に数十秒かかります（個人利用なら十分）。
+- 起動直後は全銘柄の株価を裏で先読みするため、最初の「おすすめ」表示まで少し時間がかかります。
+- ローカルでも同じ 1 コンテナ構成を確認できます: `docker build -f Dockerfile.web -t stock-pulse-web . && docker run --rm -p 8000:8000 stock-pulse-web` → <http://localhost:8000>
 
 ## 注意事項
 
