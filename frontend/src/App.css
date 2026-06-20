@@ -1,0 +1,123 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Sans", sans-serif;
+  background: #f4f6f8;
+  color: #1a2330;
+}
+
+.container {
+  max-width: 480px;
+  margin: 64px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 1.6rem;
+  margin-bottom: 28px;
+}
+
+.search {
+  display: flex;
+  gap: 8px;
+}
+
+.search input {
+  flex: 1;
+  padding: 12px 14px;
+  font-size: 1rem;
+  border: 1px solid #cbd2da;
+  border-radius: 8px;
+  outline: none;
+}
+
+.search input:focus {
+  border-color: #2f6fed;
+}
+
+.search button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background: #2f6fed;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.search button:disabled {
+  background: #9bb4ea;
+  cursor: not-allowed;
+}
+
+.error {
+  margin-top: 24px;
+  color: #c0392b;
+}
+
+.result {
+  margin-top: 36px;
+  padding: 28px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.result .name {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.result .symbol {
+  font-size: 0.95rem;
+  color: #6b7684;
+  letter-spacing: 0.05em;
+}
+
+.result .price {
+  font-size: 2.6rem;
+  font-weight: 700;
+  margin: 6px 0;
+}
+
+.result .label {
+  font-size: 0.85rem;
+  color: #9aa4b1;
+}
+
+.result .details {
+  margin: 24px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid #eef1f4;
+}
+
+.result .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 6px 0;
+}
+
+.result .row dt {
+  color: #6b7684;
+  font-size: 0.9rem;
+}
+
+.result .row dd {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+/* 前日比：プラスは緑、マイナスは赤 */
+.result .row dd.up {
+  color: #1a9c5b;
+}
+
+.result .row dd.down {
+  color: #c0392b;
+}
