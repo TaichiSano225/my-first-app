@@ -376,6 +376,18 @@ button {
   color: var(--text);
 }
 
+/* 「買い時の根拠」パネル：タイトル横にバッジを置く */
+.timing-panel .panel-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.timing-panel .summary {
+  color: #d3d9e4;
+}
+
 .stat-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -620,6 +632,38 @@ button {
   margin: 8px 0 0;
   font-size: 0.76rem;
   color: var(--faint);
+}
+
+/* 買い時の根拠（開閉式） */
+.rec-why {
+  margin-top: 8px;
+}
+
+.rec-why summary {
+  font-size: 0.76rem;
+  color: var(--faint);
+  cursor: pointer;
+  list-style: none;
+}
+
+.rec-why summary::-webkit-details-marker {
+  display: none;
+}
+
+.rec-why summary::before {
+  content: '▸ ';
+  color: var(--accent);
+}
+
+.rec-why[open] summary::before {
+  content: '▾ ';
+}
+
+.rec-why p {
+  margin: 8px 0 0;
+  font-size: 0.8rem;
+  line-height: 1.65;
+  color: #c4cad6;
 }
 
 @media (max-width: 540px) {

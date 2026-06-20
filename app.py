@@ -375,10 +375,53 @@ def compute_timing(price, high, low, ma200) -> dict:
     else:
         label = "中立"
 
+    # 根拠を文章（説明文）で組み立てる
+    sentences = []
+    if range_pct is not None:
+        if range_pct <= 25:
+            zone = "安値圏にあります"
+        elif range_pct <= 50:
+            zone = "中央より下のやや安い水準です"
+        elif range_pct < 85:
+            zone = "中央より上のやや高い水準です"
+        else:
+            zone = "高値圏にあります"
+        sentences.append(
+            f"現在値は過去52週の値動きのうち下から約{range_pct:.0f}%の位置にあり、{zone}。"
+        )
+    if ma200:
+        diff = (price - ma200) / ma200 * 100
+        if diff <= -3:
+            sentences.append(
+                f"200日移動平均を約{abs(diff):.0f}%下回っており、中期トレンドに対して割安感があります。"
+            )
+        elif diff >= 10:
+            sentences.append(
+                f"200日移動平均を約{diff:.0f}%上回っており、やや過熱感があります。"
+            )
+        else:
+            sentences.append(
+                f"200日移動平均とほぼ同水準（{diff:+.0f}%）で推移しています。"
+            )
+
+    conclusion = {
+        "買い時": "総合すると、割安・売られすぎのサインが出ており、現時点では買い時と判断できます。",
+        "やや買い時": "総合すると、ややディスカウントされた水準で、押し目買いを検討できる場面です。",
+        "中立": "総合すると、目立った割安・割高シグナルはなく、中立的な水準です。",
+        "高値圏": "総合すると、高値圏にあり、新規の買いには慎重さが求められます。",
+    }[label]
+
+    if sentences:
+        sentences.append(conclusion)
+        detail = "".join(sentences)
+    else:
+        detail = "株価データが不足しているため、買い時の判断材料が十分にありません。"
+
     return {
         "timing_label": label,
         "timing_score": score,
         "timing_reason": "・".join(reasons) if reasons else "目立った割安・割高シグナルなし",
+        "timing_detail": detail,
         "range_pct": round(range_pct, 1) if range_pct is not None else None,
     }
 
@@ -759,6 +802,7 @@ def screen_recommendations(budget_jpy: int = 300000, sector_jp: str | None = Non
             "timing_label": timing["timing_label"],
             "timing_score": timing["timing_score"],
             "timing_reason": timing["timing_reason"],
+            "timing_detail": timing["timing_detail"],
             "range_pct": timing["range_pct"],
         })
 
@@ -846,6 +890,7 @@ def fetch_stock_detail(ticker: str) -> dict | None:
         # 買い時
         "timing_label": timing["timing_label"],
         "timing_reason": timing["timing_reason"],
+        "timing_detail": timing["timing_detail"],
         "range_pct": timing["range_pct"],
         # アナリスト予想（今後の値動きの目安）
         "target_mean": _r2(target),

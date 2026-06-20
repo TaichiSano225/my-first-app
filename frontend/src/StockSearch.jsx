@@ -98,6 +98,19 @@ export default function StockSearch({ initialQuery = '' }) {
             currency={result.currency}
           />
 
+          {/* 買い時の根拠（文章での説明） */}
+          {result.timing_detail && (
+            <div className="panel timing-panel">
+              <h3 className="panel-title">
+                買い時の根拠
+                <span className={`timing timing-${timingClass(result.timing_label)}`}>
+                  {result.timing_label}
+                </span>
+              </h3>
+              <p className="summary">{result.timing_detail}</p>
+            </div>
+          )}
+
           {/* 今後の予想（アナリスト目標株価） */}
           {(result.target_mean != null || result.rec_label) && (
             <div className="panel">

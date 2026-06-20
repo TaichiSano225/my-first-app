@@ -155,7 +155,11 @@ export default function Recommend() {
                   </div>
 
                   <RangeBar pct={s.range_pct} />
-                  <p className="rec-reason">{s.timing_reason}</p>
+                  {/* クリックで買い時の根拠（文章）を開閉 */}
+                  <details className="rec-why">
+                    <summary>{s.timing_reason}</summary>
+                    <p>{s.timing_detail}</p>
+                  </details>
                 </div>
               </div>
             ))}
