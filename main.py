@@ -8,6 +8,7 @@ from fastapi.staticfiles import StaticFiles
 
 from app import (
     SECTOR_TICKERS,
+    THEME_TICKERS,
     fetch_history,
     fetch_stock_detail,
     market_overview,
@@ -47,8 +48,8 @@ api = APIRouter(prefix="/api")
 
 @api.get("/sectors")
 def sectors_json():
-    """おすすめ画面のセレクト用に、業界(セクター)の一覧を返す。"""
-    return {"sectors": list(SECTOR_TICKERS.keys())}
+    """おすすめ画面のセレクト用に、業界とテーマの一覧を返す。"""
+    return {"sectors": list(SECTOR_TICKERS.keys()), "themes": list(THEME_TICKERS.keys())}
 
 
 @api.get("/suggest")
@@ -71,16 +72,16 @@ def quotes_json(symbols: str = "", dividend: int = 0):
 
 
 @api.get("/recommendations")
-def recommendations_json(sector: str = "", budget: int = 300000):
-    """予算内で買えるおすすめ銘柄を「買い時」順（日本企業優先）で返す。
+def recommendations_json(sector: str = "", budget: int = 300000, region: str = "jp"):
+    """予算内で買えるおすすめ銘柄を「買い時」順で返す。
 
-    sector を省略すると全業界が対象。
-    例: GET /api/recommendations?budget=300000
-        GET /api/recommendations?sector=テクノロジー&budget=300000
+    region: jp=国内 / us=海外 / all=すべて。sector を省略すると全業界が対象。
+    例: GET /api/recommendations?budget=300000&region=jp
+        GET /api/recommendations?sector=テクノロジー&budget=300000&region=us
     """
     budget = max(0, budget)
-    stocks = screen_recommendations(budget, sector or None)
-    return {"sector": sector, "budget": budget, "stocks": stocks}
+    stocks = screen_recommendations(budget, sector or None, region=region)
+    return {"sector": sector, "budget": budget, "region": region, "stocks": stocks}
 
 
 @api.get("/history/{symbol}")
