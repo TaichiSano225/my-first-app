@@ -91,7 +91,7 @@ export default function StockSearch({ initialQuery = '' }) {
             }}
             onFocus={() => setShowSug(true)}
             onBlur={() => setTimeout(() => setShowSug(false), 150)}
-            placeholder="会社名・コードでもOK（例: 理研計器 / 7203 / apple）"
+            placeholder="会社名・コードでOK（例: トヨタ / 7203 / apple）"
           />
           {showSug && suggestions.length > 0 && (
             <ul className="suggest">

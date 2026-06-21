@@ -244,21 +244,37 @@ JAPAN_TICKERS = [
     ("1928.T", "積水ハウス", "不動産"),
 ]
 
-_UNIVERSE = None  # おすすめ用の日本株ユニバース [(ticker, name, sector)]（重複除去済み）
+_POOL_CACHE: dict = {}  # region -> [(ticker, name, sector)]（重複除去済み）
 
 
-def _universe() -> list[tuple]:
-    """おすすめ対象の日本株ユニバースを組み立てる（初回のみ）。"""
-    global _UNIVERSE
-    if _UNIVERSE is None:
+def _pool_for_region(region: str) -> list[tuple]:
+    """おすすめ対象のユニバースを地域別に組み立てる。
+
+    region: "jp"=国内（日本株）, "us"=海外（米国株）, "all"=すべて
+    """
+    region = region if region in ("jp", "us", "all") else "jp"
+    if region not in _POOL_CACHE:
+        jp = [(t, n, s) for (t, n, s) in JAPAN_TICKERS]
+        us = [
+            (t, n, sector)
+            for sector, entries in SECTOR_TICKERS.items()
+            for (t, n) in entries
+        ]
+        if region == "us":
+            base = [x for x in us if not x[0].endswith(".T")]  # 海外は .T を除外
+        elif region == "all":
+            base = jp + us
+        else:
+            base = jp
+
         seen = set()
-        universe = []
-        for ticker, name, sector in JAPAN_TICKERS:
-            if ticker not in seen:
-                seen.add(ticker)
-                universe.append((ticker, name, sector))
-        _UNIVERSE = universe
-    return _UNIVERSE
+        deduped = []
+        for t, n, s in base:
+            if t not in seen:
+                seen.add(t)
+                deduped.append((t, n, s))
+        _POOL_CACHE[region] = deduped
+    return _POOL_CACHE[region]
 
 
 # よく検索される日本語名・別名 → ティッカー（Yahoo検索が苦手な入力を補う）
@@ -816,13 +832,14 @@ def _download_prices(tickers: list[str]):
 
 
 def screen_recommendations(budget_jpy: int = 300000, sector_jp: str | None = None,
-                           limit: int = 30) -> list[dict]:
-    """日本株ユニバース（業界指定があればその業界）から、予算内で買える銘柄を
+                           region: str = "jp", limit: int = 30) -> list[dict]:
+    """指定地域のユニバース（業界指定があればその業界）から、予算内で買える銘柄を
     その時点の市場状況（株価）に基づく「買い時」順で抽出して返す。
 
+    region: "jp"=国内, "us"=海外, "all"=すべて。
     価格は一括ダウンロード＋キャッシュで取得するため高速。
     """
-    pool = _universe()
+    pool = _pool_for_region(region)
     if sector_jp:
         pool = [u for u in pool if u[2] == sector_jp]
     if not pool:

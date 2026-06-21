@@ -8,6 +8,14 @@ const PRESETS = [100000, 300000, 500000, 1000000]
 // 「すべての業界」を表す擬似的な選択肢
 const ALL = 'すべての業界'
 
+// 地域の選択肢
+const REGIONS = [
+  { key: 'jp', label: '国内（日本株）' },
+  { key: 'us', label: '海外（米国株）' },
+  { key: 'all', label: 'すべて' },
+]
+const REGION_LABEL = { jp: '国内', us: '海外', all: '国内＋海外' }
+
 // 購入可能数の表示（日本株は単元、それ以外は株）
 function buyUnit(s) {
   return s.units === 100
@@ -19,8 +27,10 @@ function buyUnit(s) {
 export default function Recommend() {
   const [sectors, setSectors] = useState([ALL])
   const [sector, setSector] = useState(ALL)
+  const [region, setRegion] = useState('jp')
   const [budget, setBudget] = useState(300000)
   const [stocks, setStocks] = useState(null)
+  const [shownRegion, setShownRegion] = useState('jp')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -32,7 +42,7 @@ export default function Recommend() {
       .catch(() => setError('業界一覧を取得できませんでした。'))
   }, [])
 
-  async function fetchRecommend(targetSector, targetBudget) {
+  async function fetchRecommend(targetSector, targetBudget, targetRegion) {
     setLoading(true)
     setError('')
     setStocks(null)
@@ -43,11 +53,12 @@ export default function Recommend() {
           ? `sector=${encodeURIComponent(targetSector)}&`
           : ''
       const res = await fetch(
-        `${API_BASE}/recommendations?${sectorParam}budget=${targetBudget}`,
+        `${API_BASE}/recommendations?${sectorParam}budget=${targetBudget}&region=${targetRegion}`,
       )
       if (!res.ok) throw new Error('おすすめ銘柄を取得できませんでした。')
       const data = await res.json()
       setStocks(data.stocks)
+      setShownRegion(targetRegion)
     } catch (err) {
       setError(err.message)
     } finally {
@@ -57,12 +68,23 @@ export default function Recommend() {
 
   function handleSubmit(e) {
     e.preventDefault()
-    fetchRecommend(sector, budget)
+    fetchRecommend(sector, budget, region)
   }
 
   return (
     <div>
       <form className="rec-form" onSubmit={handleSubmit}>
+        <label className="select-wrap">
+          <span className="select-label">地域</span>
+          <select value={region} onChange={(e) => setRegion(e.target.value)}>
+            {REGIONS.map((r) => (
+              <option key={r.key} value={r.key}>
+                {r.label}
+              </option>
+            ))}
+          </select>
+        </label>
+
         <label className="select-wrap">
           <span className="select-label">業界</span>
           <select value={sector} onChange={(e) => setSector(e.target.value)}>
@@ -99,7 +121,7 @@ export default function Recommend() {
             className={budget === p ? 'active' : ''}
             onClick={() => {
               setBudget(p)
-              fetchRecommend(sector, p)
+              fetchRecommend(sector, p, region)
             }}
           >
             {(p / 10000).toLocaleString()}万円
@@ -117,7 +139,8 @@ export default function Recommend() {
       {stocks && stocks.length > 0 && (
         <>
           <p className="rec-count">
-            {sector}：買い時順に <strong>{stocks.length}</strong> 銘柄（日本企業）
+            {REGION_LABEL[shownRegion]}・{sector}：買い時順に{' '}
+            <strong>{stocks.length}</strong> 銘柄
           </p>
           <div className="rec-list">
             {stocks.map((s, i) => (
