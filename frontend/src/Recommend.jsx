@@ -25,7 +25,8 @@ function buyUnit(s) {
 
 // 業界を選び、その中で予算内・買い時順のおすすめ銘柄を表示する画面
 export default function Recommend() {
-  const [sectors, setSectors] = useState([ALL])
+  const [sectors, setSectors] = useState([])
+  const [themes, setThemes] = useState([])
   const [sector, setSector] = useState(ALL)
   const [region, setRegion] = useState('jp')
   const [budget, setBudget] = useState(300000)
@@ -34,11 +35,14 @@ export default function Recommend() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  // 起動時に業界の一覧を取得してセレクトに入れる（先頭は「すべての業界」）
+  // 起動時に業界・テーマの一覧を取得してセレクトに入れる
   useEffect(() => {
     fetch(`${API_BASE}/sectors`)
       .then((res) => res.json())
-      .then((data) => setSectors([ALL, ...data.sectors]))
+      .then((data) => {
+        setSectors(data.sectors || [])
+        setThemes(data.themes || [])
+      })
       .catch(() => setError('業界一覧を取得できませんでした。'))
   }, [])
 
@@ -86,13 +90,23 @@ export default function Recommend() {
         </label>
 
         <label className="select-wrap">
-          <span className="select-label">業界</span>
+          <span className="select-label">業界・テーマ</span>
           <select value={sector} onChange={(e) => setSector(e.target.value)}>
-            {sectors.map((s) => (
-              <option key={s} value={s}>
-                {s}
-              </option>
-            ))}
+            <option value={ALL}>{ALL}</option>
+            <optgroup label="テーマ">
+              {themes.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </optgroup>
+            <optgroup label="業界">
+              {sectors.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
+            </optgroup>
           </select>
         </label>
 

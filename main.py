@@ -8,6 +8,7 @@ from fastapi.staticfiles import StaticFiles
 
 from app import (
     SECTOR_TICKERS,
+    THEME_TICKERS,
     fetch_history,
     fetch_stock_detail,
     market_overview,
@@ -47,8 +48,8 @@ api = APIRouter(prefix="/api")
 
 @api.get("/sectors")
 def sectors_json():
-    """おすすめ画面のセレクト用に、業界(セクター)の一覧を返す。"""
-    return {"sectors": list(SECTOR_TICKERS.keys())}
+    """おすすめ画面のセレクト用に、業界とテーマの一覧を返す。"""
+    return {"sectors": list(SECTOR_TICKERS.keys()), "themes": list(THEME_TICKERS.keys())}
 
 
 @api.get("/suggest")

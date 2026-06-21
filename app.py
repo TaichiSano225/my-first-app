@@ -244,6 +244,59 @@ JAPAN_TICKERS = [
     ("1928.T", "積水ハウス", "不動産"),
 ]
 
+# テーマ別（横断的なサブ業界）の銘柄リスト [(ティッカー, 表示名)]。日米混在。
+# 地域(国内/海外)フィルタと組み合わせて使える。
+THEME_TICKERS = {
+    "半導体": [
+        ("NVDA", "NVIDIA"), ("AMD", "AMD"), ("AVGO", "Broadcom"), ("TSM", "TSMC"),
+        ("ASML", "ASML"), ("MU", "Micron"), ("AMAT", "Applied Materials"),
+        ("LRCX", "Lam Research"), ("KLAC", "KLA"), ("QCOM", "Qualcomm"),
+        ("INTC", "Intel"), ("TXN", "Texas Instruments"), ("ARM", "Arm"),
+        ("MCHP", "Microchip"), ("SMCI", "Super Micro"),
+        ("8035.T", "東京エレクトロン"), ("6857.T", "アドバンテスト"),
+        ("6920.T", "レーザーテック"), ("6146.T", "ディスコ"), ("6963.T", "ローム"),
+        ("7735.T", "SCREEN HD"), ("3436.T", "SUMCO"), ("6526.T", "ソシオネクスト"),
+    ],
+    "宇宙・防衛": [
+        ("LMT", "Lockheed Martin"), ("RTX", "RTX"), ("NOC", "Northrop Grumman"),
+        ("GD", "General Dynamics"), ("BA", "Boeing"), ("LHX", "L3Harris"),
+        ("HWM", "Howmet"), ("TDG", "TransDigm"), ("AXON", "Axon"),
+        ("RKLB", "Rocket Lab"),
+        ("7011.T", "三菱重工業"), ("7012.T", "川崎重工業"), ("7013.T", "IHI"),
+    ],
+    "AI・クラウド": [
+        ("NVDA", "NVIDIA"), ("MSFT", "Microsoft"), ("GOOGL", "Alphabet"),
+        ("AMZN", "Amazon"), ("META", "Meta"), ("PLTR", "Palantir"),
+        ("SNOW", "Snowflake"), ("NOW", "ServiceNow"), ("CRM", "Salesforce"),
+        ("ORCL", "Oracle"), ("ANET", "Arista Networks"), ("DELL", "Dell"),
+        ("6098.T", "リクルート"), ("4307.T", "野村総合研究所"),
+        ("9613.T", "NTTデータグループ"), ("6532.T", "ベイカレント"),
+    ],
+    "EV・電池": [
+        ("TSLA", "Tesla"), ("RIVN", "Rivian"), ("GM", "General Motors"),
+        ("F", "Ford"), ("ALB", "Albemarle"), ("QS", "QuantumScape"),
+        ("7203.T", "トヨタ自動車"), ("6752.T", "パナソニック"),
+        ("6981.T", "村田製作所"), ("6674.T", "GSユアサ"), ("6594.T", "ニデック"),
+    ],
+    "再生可能エネルギー": [
+        ("NEE", "NextEra Energy"), ("FSLR", "First Solar"), ("ENPH", "Enphase"),
+        ("SEDG", "SolarEdge"), ("RUN", "Sunrun"),
+        ("9501.T", "東京電力HD"), ("9531.T", "東京ガス"),
+    ],
+    "ゲーム・エンタメ": [
+        ("EA", "Electronic Arts"), ("TTWO", "Take-Two"), ("RBLX", "Roblox"),
+        ("NFLX", "Netflix"), ("DIS", "Disney"),
+        ("7974.T", "任天堂"), ("6758.T", "ソニーグループ"), ("7832.T", "バンダイナムコHD"),
+        ("9766.T", "コナミグループ"), ("3659.T", "ネクソン"), ("9684.T", "スクウェア・エニックス"),
+    ],
+    "フィンテック・金融": [
+        ("V", "Visa"), ("MA", "Mastercard"), ("PYPL", "PayPal"), ("COIN", "Coinbase"),
+        ("SQ", "Block"), ("JPM", "JPMorgan"), ("GS", "Goldman Sachs"),
+        ("8306.T", "三菱UFJ"), ("8316.T", "三井住友FG"), ("8473.T", "SBI HD"),
+        ("8411.T", "みずほFG"),
+    ],
+}
+
 _POOL_CACHE: dict = {}  # region -> [(ticker, name, sector)]（重複除去済み）
 
 
@@ -275,6 +328,17 @@ def _pool_for_region(region: str) -> list[tuple]:
                 deduped.append((t, n, s))
         _POOL_CACHE[region] = deduped
     return _POOL_CACHE[region]
+
+
+_UNIV_META = None  # ticker -> (name, sector)
+
+
+def _universe_meta() -> dict:
+    """ティッカー→(社名, 業界) の対応表（テーマ銘柄の業界表示用）。"""
+    global _UNIV_META
+    if _UNIV_META is None:
+        _UNIV_META = {t: (n, s) for t, n, s in _pool_for_region("all")}
+    return _UNIV_META
 
 
 # よく検索される日本語名・別名 → ティッカー（Yahoo検索が苦手な入力を補う）
@@ -837,11 +901,21 @@ def screen_recommendations(budget_jpy: int = 300000, sector_jp: str | None = Non
     その時点の市場状況（株価）に基づく「買い時」順で抽出して返す。
 
     region: "jp"=国内, "us"=海外, "all"=すべて。
+    sector_jp には広い業界名のほか、テーマ名（半導体・宇宙・防衛 など）も指定できる。
     価格は一括ダウンロード＋キャッシュで取得するため高速。
     """
-    pool = _pool_for_region(region)
-    if sector_jp:
-        pool = [u for u in pool if u[2] == sector_jp]
+    if sector_jp in THEME_TICKERS:
+        # テーマ選択: そのテーマの銘柄群を使い、地域で絞り込む
+        meta = _universe_meta()
+        pool = [(t, name, meta.get(t, (name, ""))[1]) for (t, name) in THEME_TICKERS[sector_jp]]
+        if region == "jp":
+            pool = [u for u in pool if u[0].endswith(".T")]
+        elif region == "us":
+            pool = [u for u in pool if not u[0].endswith(".T")]
+    else:
+        pool = _pool_for_region(region)
+        if sector_jp:
+            pool = [u for u in pool if u[2] == sector_jp]
     if not pool:
         return []
 
