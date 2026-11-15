@@ -4,7 +4,9 @@ services:
     build: .
     image: stock-checker-backend
     ports:
-      - "8000:8000"   # 直接 API を叩きたいとき用（無くても frontend 経由で動く）
+      # 直接 API を叩きたいとき用（無くても frontend 経由で動く）
+      # ホスト側は 8100。8000 は別プロジェクトのコンテナが使っているため避ける。
+      - "8100:8000"
     restart: unless-stopped
 
   # フロントエンド: React を nginx で HTTPS 配信し、/api をバックエンドへ中継
@@ -12,7 +14,9 @@ services:
     build: ./frontend
     image: stock-checker-frontend
     ports:
-      - "3000:443"    # https://localhost:3000 でアクセス（自己署名証明書）
+      # https://localhost:3100 でアクセス（自己署名証明書）
+      # 3000 は別プロジェクトのコンテナが使っているため避ける。
+      - "3100:443"
     depends_on:
       - backend
     restart: unless-stopped

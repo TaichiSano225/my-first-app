@@ -8,10 +8,10 @@ export default defineConfig({
     port: 5173,
     // 開発時、/api で始まる呼び出しをバックエンド(FastAPI)へ転送する。
     // バックエンドの API も /api 配下なので、パスはそのまま渡す。
-    // 例: /api/stock/AAPL → http://localhost:8000/api/stock/AAPL
+    // 例: /api/stock/AAPL → http://localhost:8100/api/stock/AAPL
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',
+        target: 'http://localhost:8100',
         changeOrigin: true,
       },
     },

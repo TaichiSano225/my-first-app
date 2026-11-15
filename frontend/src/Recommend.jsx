@@ -24,7 +24,8 @@ function buyUnit(s) {
 }
 
 // 業界を選び、その中で予算内・買い時順のおすすめ銘柄を表示する画面
-export default function Recommend() {
+// onOpen: 銘柄名クリック時に、この画面のまま検索タブで詳細を開く
+export default function Recommend({ onOpen }) {
   const [sectors, setSectors] = useState([])
   const [themes, setThemes] = useState([])
   const [sector, setSector] = useState(ALL)
@@ -163,12 +164,18 @@ export default function Recommend() {
                 <div className="rec-main">
                   <div className="rec-head">
                     <div>
-                      {/* 企業名をクリックすると別タブで詳細（どんな企業か等）を開く */}
+                      {/* 企業名クリックで詳細（どんな企業か等）を表示。
+                          通常クリックはこの画面のまま、中クリック等は別タブで開く。 */}
                       <a
                         className="rec-name rec-link"
                         href={`/?q=${encodeURIComponent(s.ticker)}`}
                         target="_blank"
                         rel="noreferrer"
+                        onClick={(e) => {
+                          if (!onOpen) return
+                          e.preventDefault()
+                          onOpen(s.ticker)
+                        }}
                       >
                         {s.name}
                       </a>

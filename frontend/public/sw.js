@@ -1,6 +1,7 @@
 // 最小限のサービスワーカー。静的ファイルは stale-while-revalidate、
 // API（/api）はキャッシュせず常にネットワークから取得する。
-const CACHE = 'stock-pulse-v1'
+// 名前を変えると、古いキャッシュは activate 時に捨てられる（更新を確実に届けるため）
+const CACHE = 'stock-pulse-v2'
 
 self.addEventListener('install', () => {
   self.skipWaiting()

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { API_BASE, formatSigned } from './utils.js'
 import {
   getWatchlist,
@@ -6,15 +6,22 @@ import {
   getHoldings,
   addHolding,
   removeHolding,
+  exportBackup,
+  importBackup,
 } from './store.js'
+import SymbolInput from './SymbolInput.jsx'
 
 const yen = (n) => Math.round(n).toLocaleString() + '円'
 
-export default function Portfolio() {
+export default function Portfolio({ onOpen }) {
   const [watch, setWatch] = useState(getWatchlist())
   const [holdings, setHoldings] = useState(getHoldings())
   const [quotes, setQuotes] = useState({}) // symbol -> quote
   const [form, setForm] = useState({ symbol: '', name: '', shares: '', cost: '' })
+  // 銘柄欄の表示用（社名で選んでも、送信するのはティッカー）
+  const [symbolText, setSymbolText] = useState('')
+  const [backupMessage, setBackupMessage] = useState('')
+  const fileInputRef = useRef(null)
 
   // ウォッチ＋保有の全シンボルをまとめて取得
   const symbols = useMemo(
@@ -66,15 +73,60 @@ export default function Portfolio() {
 
   function handleAdd(e) {
     e.preventDefault()
-    const symbol = form.symbol.trim()
+    // 候補から選んでいなければ、入力された文字をそのままティッカーとして扱う
+    const symbol = (form.symbol || symbolText).trim()
     const shares = Number(form.shares)
     const cost = Number(form.cost)
     if (!symbol || !shares || shares <= 0) return
     setHoldings(addHolding({ symbol, name: form.name || symbol, shares, cost: cost || 0 }))
     setForm({ symbol: '', name: '', shares: '', cost: '' })
+    setSymbolText('')
   }
 
+  // 保有に追加する銘柄を、ウォッチリストの「＋」やサジェストから流し込む
+  function fillSymbol({ symbol, name }) {
+    setForm((f) => ({ ...f, symbol, name }))
+    setSymbolText(name || symbol)
+  }
+
+  // --- バックアップ（この端末にしか残らないデータを守る） ---
+  function handleExport() {
+    const blob = new Blob([JSON.stringify(exportBackup(), null, 2)], {
+      type: 'application/json',
+    })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'stock-pulse-backup.json'
+    a.click()
+    URL.revokeObjectURL(url)
+    setBackupMessage('バックアップを保存しました。')
+  }
+
+  async function handleImport(e) {
+    const file = e.target.files?.[0]
+    e.target.value = '' // 同じファイルを選び直せるようにする
+    if (!file) return
+    try {
+      const counts = importBackup(JSON.parse(await file.text()))
+      setWatch(getWatchlist())
+      setHoldings(getHoldings())
+      setBackupMessage(
+        `復元しました（ウォッチ ${counts.watchlist} 件・保有 ${counts.holdings} 件）。`,
+      )
+    } catch (err) {
+      setBackupMessage(`復元できませんでした: ${err.message}`)
+    }
+  }
+
+  // 銘柄名クリック：この画面のまま検索タブで詳細を開く（href は別タブ用に残す）
   const link = (s) => `/?q=${encodeURIComponent(s)}`
+
+  function handleOpen(e, symbol) {
+    if (!onOpen) return
+    e.preventDefault()
+    onOpen(symbol)
+  }
 
   return (
     <div>
@@ -90,7 +142,13 @@ export default function Portfolio() {
             const q = quotes[w.symbol]
             return (
               <div className="wl-row" key={w.symbol}>
-                <a className="wl-name rec-link" href={link(w.symbol)} target="_blank" rel="noreferrer">
+                <a
+                  className="wl-name rec-link"
+                  href={link(w.symbol)}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={(e) => handleOpen(e, w.symbol)}
+                >
                   {w.name}
                 </a>
                 <span className="wl-price">
@@ -102,7 +160,7 @@ export default function Portfolio() {
                 <button
                   className="icon-btn"
                   title="保有に追加"
-                  onClick={() => setForm({ ...form, symbol: w.symbol, name: w.name })}
+                  onClick={() => fillSymbol({ symbol: w.symbol, name: w.name })}
                 >
                   ＋
                 </button>
@@ -159,7 +217,13 @@ export default function Portfolio() {
             return (
               <div className="pf-row" key={i}>
                 <div className="pf-main">
-                  <a className="rec-link" href={link(h.symbol)} target="_blank" rel="noreferrer">
+                  <a
+                    className="rec-link"
+                    href={link(h.symbol)}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={(e) => handleOpen(e, h.symbol)}
+                  >
                     {h.name}
                   </a>
                   <span className="pf-sub">
@@ -184,14 +248,21 @@ export default function Portfolio() {
         </div>
       )}
 
-      {/* 保有を追加するフォーム */}
-      <form className="pf-form" onSubmit={handleAdd}>
-        <input
-          type="text"
-          placeholder="銘柄コード/ティッカー（例: 7203.T）"
-          value={form.symbol}
-          onChange={(e) => setForm({ ...form, symbol: e.target.value, name: '' })}
-        />
+      {/* 保有を追加するフォーム（社名でも探せる） */}
+      <form className="pf-form" onSubmit={handleAdd} autoComplete="off">
+        <div className="pf-symbol">
+          <SymbolInput
+            value={symbolText}
+            onChange={(text) => {
+              setSymbolText(text)
+              // 手入力に切り替えたら、選択済みの銘柄をいったん忘れる
+              setForm((f) => ({ ...f, symbol: '', name: '' }))
+            }}
+            onPick={(s) => fillSymbol({ symbol: s.symbol, name: s.name })}
+            placeholder="社名・コードで検索（例: トヨタ / 7203 / AAPL）"
+            clearable
+          />
+        </div>
         <input
           type="number"
           placeholder="株数"
@@ -209,8 +280,33 @@ export default function Portfolio() {
         />
         <button type="submit">追加</button>
       </form>
+      {form.symbol && (
+        <p className="note">選択中: {form.name}（{form.symbol}）</p>
+      )}
+
+      {/* ===== バックアップ ===== */}
+      <div className="backup">
+        <span className="backup-label">バックアップ</span>
+        <button type="button" className="ghost-btn" onClick={handleExport}>
+          ファイルに保存
+        </button>
+        <button type="button" className="ghost-btn" onClick={() => fileInputRef.current?.click()}>
+          ファイルから復元
+        </button>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="application/json,.json"
+          hidden
+          onChange={handleImport}
+        />
+      </div>
+      {backupMessage && <p className="note">{backupMessage}</p>}
+
       <p className="note">
-        ※ 合計はすべて円換算（外国株は現在のレートで換算）。配当は税引前の概算です。データはこの端末にのみ保存されます。
+        ※ 合計はすべて円換算（外国株は現在のレートで換算）。配当は税引前の概算です。
+        データはこの端末のブラウザにのみ保存されるため、機種変更や履歴の削除で消えます。
+        大事な内容は「ファイルに保存」でバックアップしてください。
       </p>
     </div>
   )

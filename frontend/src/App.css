@@ -1,3 +1,5 @@
+/* 既定はダーク配色。ライト配色は下部の :root[data-theme='light'] で上書きする。
+   （data-theme は index.html と theme.js が設定する） */
 :root {
   --bg: #070b16;
   --surface: rgba(255, 255, 255, 0.045);
@@ -5,13 +7,34 @@
   --border: rgba(255, 255, 255, 0.10);
   --border-strong: rgba(255, 255, 255, 0.18);
   --text: #e7ebf3;
+  --text-2: #d3d9e4;
+  --text-3: #c4cad6;
   --muted: #8b94a8;
   --faint: #5c6578;
   --accent: #6366f1;
   --accent-2: #a855f7;
+  --accent-soft: #c7d2fe;
+  --accent-text: #a5b4fc;
+  --accent-tint: rgba(99, 102, 241, 0.16);
+  --accent-tint-strong: rgba(99, 102, 241, 0.26);
+  --accent-line: rgba(99, 102, 241, 0.35);
   --pos: #34d399;
+  --pos-text: #6ee7b7;
   --neg: #fb7185;
+  --neg-text: #fda4af;
+  --warn-text: #fde68a;
+  --error-text: #fecdd3;
+  --on-accent: #fff;
   --grad: linear-gradient(135deg, #6366f1, #a855f7);
+  --brand-grad: linear-gradient(120deg, #fff 10%, #b6bdf5 55%, #d8b4fe 90%);
+  --menu-bg: #0e1422;
+  --menu-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  --marker: #fff;
+  --marker-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2), 0 2px 8px rgba(0, 0, 0, 0.5);
+  --page-bg:
+    radial-gradient(1200px 600px at 12% -12%, rgba(99, 102, 241, 0.22), transparent 60%),
+    radial-gradient(1000px 520px at 112% 8%, rgba(168, 85, 247, 0.18), transparent 55%),
+    radial-gradient(820px 620px at 50% 118%, rgba(34, 211, 238, 0.12), transparent 60%);
 }
 
 * {
@@ -23,12 +46,9 @@ body {
   min-height: 100vh;
   font-family: 'Inter', system-ui, -apple-system, 'Hiragino Sans', sans-serif;
   color: var(--text);
-  background:
-    radial-gradient(1200px 600px at 12% -12%, rgba(99, 102, 241, 0.22), transparent 60%),
-    radial-gradient(1000px 520px at 112% 8%, rgba(168, 85, 247, 0.18), transparent 55%),
-    radial-gradient(820px 620px at 50% 118%, rgba(34, 211, 238, 0.12), transparent 60%),
-    var(--bg);
+  background: var(--page-bg), var(--bg);
   background-attachment: fixed;
+  transition: background-color 0.2s, color 0.2s;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -50,7 +70,7 @@ body {
   font-weight: 700;
   letter-spacing: -0.02em;
   margin: 0;
-  background: linear-gradient(120deg, #fff 10%, #b6bdf5 55%, #d8b4fe 90%);
+  background: var(--brand-grad);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -131,7 +151,7 @@ body {
 }
 
 .tabs button.active {
-  color: #fff;
+  color: var(--on-accent);
   background: var(--grad);
   box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
 }
@@ -157,10 +177,10 @@ body {
   margin: 0;
   padding: 6px;
   list-style: none;
-  background: #0e1422;
+  background: var(--menu-bg);
   border: 1px solid var(--border-strong);
   border-radius: 12px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--menu-shadow);
   max-height: 320px;
   overflow-y: auto;
 }
@@ -236,7 +256,7 @@ button {
   font-size: 0.95rem;
   font-weight: 600;
   white-space: nowrap;
-  color: #fff;
+  color: var(--on-accent);
   background: var(--grad);
   border: none;
   border-radius: 12px;
@@ -264,7 +284,7 @@ button {
 .error {
   margin-top: 22px;
   padding: 12px 16px;
-  color: #fecdd3;
+  color: var(--error-text);
   background: rgba(251, 113, 133, 0.12);
   border: 1px solid rgba(251, 113, 133, 0.3);
   border-radius: 12px;
@@ -325,7 +345,7 @@ button {
 }
 
 .watch-btn.on {
-  color: #fde68a;
+  color: var(--warn-text);
   background: rgba(251, 191, 36, 0.14);
   border-color: rgba(251, 191, 36, 0.4);
 }
@@ -437,7 +457,7 @@ button {
 .pf-form button {
   padding: 0 22px;
   font-weight: 600;
-  color: #fff;
+  color: var(--on-accent);
   background: var(--grad);
   border: none;
   border-radius: 12px;
@@ -461,7 +481,7 @@ button {
 }
 
 .chip-ticker {
-  color: #c7d2fe;
+  color: var(--accent-soft);
   background: rgba(99, 102, 241, 0.16);
   border-color: rgba(99, 102, 241, 0.35);
   letter-spacing: 0.05em;
@@ -523,13 +543,13 @@ button {
 }
 
 .timing-good {
-  color: #6ee7b7;
+  color: var(--pos-text);
   background: rgba(52, 211, 153, 0.14);
   box-shadow: 0 0 0 1px rgba(52, 211, 153, 0.35), 0 0 24px rgba(52, 211, 153, 0.25);
 }
 
 .timing-ok {
-  color: #a5b4fc;
+  color: var(--accent-text);
   background: rgba(99, 102, 241, 0.16);
   box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.35);
 }
@@ -541,7 +561,7 @@ button {
 }
 
 .timing-bad {
-  color: #fda4af;
+  color: var(--neg-text);
   background: rgba(251, 113, 133, 0.13);
   box-shadow: 0 0 0 1px rgba(251, 113, 133, 0.32);
 }
@@ -579,9 +599,9 @@ button {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: #fff;
+  background: var(--marker);
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2), 0 2px 8px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--marker-shadow);
 }
 
 /* パネル */
@@ -610,7 +630,7 @@ button {
 }
 
 .timing-panel .summary {
-  color: #d3d9e4;
+  color: var(--text-2);
 }
 
 /* 値動きの考察（買い時の根拠パネル内の小区画） */
@@ -625,7 +645,7 @@ button {
   margin-bottom: 6px;
   font-size: 0.74rem;
   font-weight: 700;
-  color: #a5b4fc;
+  color: var(--accent-text);
 }
 
 .stat-grid {
@@ -659,7 +679,7 @@ button {
   margin: 0;
   font-size: 0.88rem;
   line-height: 1.7;
-  color: #c4cad6;
+  color: var(--text-3);
 }
 
 .note {
@@ -678,7 +698,7 @@ button {
   padding: 0;
   font-size: 0.82rem;
   font-weight: 600;
-  color: #a5b4fc;
+  color: var(--accent-text);
   background: none;
   border: none;
   cursor: pointer;
@@ -716,7 +736,7 @@ button {
 }
 
 .range-tabs button.active {
-  color: #fff;
+  color: var(--on-accent);
   background: var(--grad);
   border-color: transparent;
 }
@@ -761,7 +781,7 @@ button {
   padding: 9px 16px;
   font-size: 0.84rem;
   font-weight: 600;
-  color: #c7d2fe;
+  color: var(--accent-soft);
   background: rgba(99, 102, 241, 0.14);
   border: 1px solid rgba(99, 102, 241, 0.35);
   border-radius: 10px;
@@ -791,7 +811,7 @@ button {
 }
 
 .news a {
-  color: #c7d2fe;
+  color: var(--accent-soft);
   text-decoration: none;
 }
 
@@ -865,7 +885,7 @@ button {
 }
 
 .presets button.active {
-  color: #c7d2fe;
+  color: var(--accent-soft);
   background: rgba(99, 102, 241, 0.16);
   border-color: rgba(99, 102, 241, 0.4);
 }
@@ -912,7 +932,7 @@ button {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
   font-size: 0.9rem;
-  color: #c7d2fe;
+  color: var(--accent-soft);
   background: rgba(99, 102, 241, 0.15);
   border-radius: 9px;
 }
@@ -943,7 +963,7 @@ button {
 }
 
 .rec-link:hover {
-  color: #c7d2fe;
+  color: var(--accent-soft);
   text-decoration: underline;
 }
 
@@ -1014,7 +1034,7 @@ button {
   margin: 8px 0 0;
   font-size: 0.8rem;
   line-height: 1.65;
-  color: #c4cad6;
+  color: var(--text-3);
 }
 
 @media (max-width: 540px) {
@@ -1045,4 +1065,223 @@ button {
   .stat-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* ===== 検索ボックスの入力クリア ===== */
+.clear-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--muted);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.clear-btn:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+/* 入力欄にクリアボタンが重ならないよう右側を空ける */
+.search-box input {
+  padding-right: 44px;
+}
+
+/* キーボード（↑↓）で選択中の候補 */
+.suggest li.active {
+  background: var(--accent-tint);
+  box-shadow: inset 0 0 0 1px var(--accent-line);
+}
+
+/* ===== 最近見た銘柄 ===== */
+.recent {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.recent-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--faint);
+  margin-right: 2px;
+}
+
+.recent-chip {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.recent-chip:hover {
+  color: var(--accent-soft);
+  border-color: var(--accent-line);
+  background: var(--accent-tint);
+}
+
+.recent-clear {
+  padding: 5px 8px;
+  font-size: 0.72rem;
+  color: var(--faint);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.recent-clear:hover {
+  color: var(--muted);
+}
+
+/* ===== 配色切り替えボタン ===== */
+.brand {
+  position: relative;
+}
+
+.theme-toggle {
+  position: absolute;
+  top: -8px;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.theme-toggle:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+/* ===== マイリスト：銘柄サジェスト欄とバックアップ ===== */
+.pf-symbol {
+  flex: 2 1 100%;
+}
+
+.pf-symbol .search-box input {
+  padding: 14px 44px 14px 16px;
+}
+
+.backup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+
+.backup-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--muted);
+  margin-right: 2px;
+}
+
+.ghost-btn {
+  padding: 8px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-soft);
+  background: var(--accent-tint);
+  border: 1px solid var(--accent-line);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.ghost-btn:hover {
+  background: var(--accent-tint-strong);
+}
+
+/* ===== ライト配色 ===== */
+:root[data-theme='light'] {
+  --bg: #f5f7fb;
+  --surface: rgba(255, 255, 255, 0.86);
+  --surface-2: rgba(15, 23, 42, 0.05);
+  --border: rgba(15, 23, 42, 0.10);
+  --border-strong: rgba(15, 23, 42, 0.22);
+  --text: #16192a;
+  --text-2: #2b3145;
+  --text-3: #3d4459;
+  --muted: #5c6478;
+  --faint: #838da3;
+  --accent: #4f46e5;
+  --accent-2: #9333ea;
+  --accent-soft: #4338ca;
+  --accent-text: #4f46e5;
+  --accent-tint: rgba(79, 70, 229, 0.10);
+  --accent-tint-strong: rgba(79, 70, 229, 0.18);
+  --accent-line: rgba(79, 70, 229, 0.28);
+  --pos: #059669;
+  --pos-text: #047857;
+  --neg: #e11d48;
+  --neg-text: #be123c;
+  --warn-text: #92400e;
+  --error-text: #9f1239;
+  --brand-grad: linear-gradient(120deg, #4338ca 10%, #6d28d9 55%, #a21caf 90%);
+  --menu-bg: #ffffff;
+  --menu-shadow: 0 12px 32px rgba(15, 23, 42, 0.16);
+  --marker: #16192a;
+  --marker-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9), 0 2px 8px rgba(15, 23, 42, 0.3);
+  --page-bg:
+    radial-gradient(1200px 600px at 12% -12%, rgba(99, 102, 241, 0.14), transparent 60%),
+    radial-gradient(1000px 520px at 112% 8%, rgba(168, 85, 247, 0.10), transparent 55%),
+    radial-gradient(820px 620px at 50% 118%, rgba(34, 211, 238, 0.10), transparent 60%);
+}
+
+/* ライトでは背景が明るいので、淡い色のタグ類は下地を濃いめにする */
+:root[data-theme='light'] .timing-good {
+  background: rgba(5, 150, 105, 0.12);
+  box-shadow: 0 0 0 1px rgba(5, 150, 105, 0.32);
+}
+
+:root[data-theme='light'] .timing-bad {
+  background: rgba(225, 29, 72, 0.10);
+  box-shadow: 0 0 0 1px rgba(225, 29, 72, 0.28);
+}
+
+:root[data-theme='light'] .watch-btn.on {
+  color: #92400e;
+  background: rgba(251, 191, 36, 0.22);
+  border-color: rgba(180, 83, 9, 0.35);
+}
+
+:root[data-theme='light'] .error {
+  background: rgba(225, 29, 72, 0.08);
+  border-color: rgba(225, 29, 72, 0.28);
+}
+
+:root[data-theme='light'] .rangebar-track {
+  opacity: 1;
 }
