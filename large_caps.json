@@ -1,0 +1,5534 @@
+[
+ {
+  "ticker": "7203.T",
+  "name": "トヨタ自動車",
+  "sector": "一般消費財",
+  "market_cap": 40113815945216
+ },
+ {
+  "ticker": "8306.T",
+  "name": "三菱UFJフィナンシャル・グループ",
+  "sector": "金融",
+  "market_cap": 39123440107520
+ },
+ {
+  "ticker": "6758.T",
+  "name": "ソニーグループ",
+  "sector": "テクノロジー",
+  "market_cap": 25370388594688
+ },
+ {
+  "ticker": "9983.T",
+  "name": "ファーストリテイリング",
+  "sector": "一般消費財",
+  "market_cap": 25199307128832
+ },
+ {
+  "ticker": "8316.T",
+  "name": "三井住友フィナンシャルグループ",
+  "sector": "金融",
+  "market_cap": 24831061917696
+ },
+ {
+  "ticker": "6098.T",
+  "name": "リクルートホールディングス",
+  "sector": "通信サービス",
+  "market_cap": 24358313525248
+ },
+ {
+  "ticker": "6857.T",
+  "name": "アドバンテスト",
+  "sector": "テクノロジー",
+  "market_cap": 22103606689792
+ },
+ {
+  "ticker": "6501.T",
+  "name": "日立製作所",
+  "sector": "資本財・サービス",
+  "market_cap": 22003864043520
+ },
+ {
+  "ticker": "8035.T",
+  "name": "東京エレクトロン",
+  "sector": "テクノロジー",
+  "market_cap": 21415631781888
+ },
+ {
+  "ticker": "9984.T",
+  "name": "ソフトバンクグループ",
+  "sector": "通信サービス",
+  "market_cap": 20215440080896
+ },
+ {
+  "ticker": "8058.T",
+  "name": "三菱商事",
+  "sector": "資本財・サービス",
+  "market_cap": 19800451448832
+ },
+ {
+  "ticker": "8411.T",
+  "name": "みずほフィナンシャルグループ",
+  "sector": "金融",
+  "market_cap": 19364982030336
+ },
+ {
+  "ticker": "6861.T",
+  "name": "キーエンス",
+  "sector": "テクノロジー",
+  "market_cap": 18087514472448
+ },
+ {
+  "ticker": "8766.T",
+  "name": "東京海上ホールディングス",
+  "sector": "金融",
+  "market_cap": 16752832413696
+ },
+ {
+  "ticker": "8001.T",
+  "name": "伊藤忠商事",
+  "sector": "資本財・サービス",
+  "market_cap": 16591567716352
+ },
+ {
+  "ticker": "8031.T",
+  "name": "三井物産",
+  "sector": "資本財・サービス",
+  "market_cap": 14374469107712
+ },
+ {
+  "ticker": "9432.T",
+  "name": "NTT",
+  "sector": "通信サービス",
+  "market_cap": 13600810860544
+ },
+ {
+  "ticker": "4519.T",
+  "name": "中外製薬",
+  "sector": "ヘルスケア",
+  "market_cap": 11818224320512
+ },
+ {
+  "ticker": "9434.T",
+  "name": "ソフトバンク",
+  "sector": "通信サービス",
+  "market_cap": 11505116381184
+ },
+ {
+  "ticker": "7182.T",
+  "name": "ゆうちょ銀行",
+  "sector": "金融",
+  "market_cap": 11184635904000
+ },
+ {
+  "ticker": "4502.T",
+  "name": "武田薬品工業",
+  "sector": "ヘルスケア",
+  "market_cap": 11063931174912
+ },
+ {
+  "ticker": "2914.T",
+  "name": "日本たばこ産業",
+  "sector": "生活必需品",
+  "market_cap": 10553154076672
+ },
+ {
+  "ticker": "9433.T",
+  "name": "KDDI",
+  "sector": "通信サービス",
+  "market_cap": 10504137342976
+ },
+ {
+  "ticker": "4063.T",
+  "name": "信越化学工業",
+  "sector": "素材",
+  "market_cap": 10357053587456
+ },
+ {
+  "ticker": "7974.T",
+  "name": "任天堂",
+  "sector": "通信サービス",
+  "market_cap": 10114557804544
+ },
+ {
+  "ticker": "7011.T",
+  "name": "三菱重工業",
+  "sector": "資本財・サービス",
+  "market_cap": 9817215205376
+ },
+ {
+  "ticker": "6503.T",
+  "name": "三菱電機",
+  "sector": "資本財・サービス",
+  "market_cap": 9732914937856
+ },
+ {
+  "ticker": "6981.T",
+  "name": "村田製作所",
+  "sector": "テクノロジー",
+  "market_cap": 9353093447680
+ },
+ {
+  "ticker": "8002.T",
+  "name": "丸紅",
+  "sector": "資本財・サービス",
+  "market_cap": 8410535297024
+ },
+ {
+  "ticker": "8053.T",
+  "name": "住友商事",
+  "sector": "資本財・サービス",
+  "market_cap": 8182288089088
+ },
+ {
+  "ticker": "7741.T",
+  "name": "HOYA",
+  "sector": "ヘルスケア",
+  "market_cap": 7934296195072
+ },
+ {
+  "ticker": "8725.T",
+  "name": "MS&ADインシュアランスグループホールディングス",
+  "sector": "金融",
+  "market_cap": 7547710865408
+ },
+ {
+  "ticker": "6752.T",
+  "name": "パナソニック ホールディングス",
+  "sector": "テクノロジー",
+  "market_cap": 7455978291200
+ },
+ {
+  "ticker": "7267.T",
+  "name": "本田技研工業",
+  "sector": "一般消費財",
+  "market_cap": 7168990904320
+ },
+ {
+  "ticker": "6178.T",
+  "name": "日本郵政",
+  "sector": "金融",
+  "market_cap": 6532683005952
+ },
+ {
+  "ticker": "6367.T",
+  "name": "ダイキン工業",
+  "sector": "資本財・サービス",
+  "market_cap": 6532292935680
+ },
+ {
+  "ticker": "8750.T",
+  "name": "第一ライフグループ",
+  "sector": "金融",
+  "market_cap": 6526104764416
+ },
+ {
+  "ticker": "4578.T",
+  "name": "大塚ホールディングス",
+  "sector": "ヘルスケア",
+  "market_cap": 6440939945984
+ },
+ {
+  "ticker": "8630.T",
+  "name": "SOMPOホールディングス",
+  "sector": "金融",
+  "market_cap": 6425918046208
+ },
+ {
+  "ticker": "8015.T",
+  "name": "豊田通商",
+  "sector": "資本財・サービス",
+  "market_cap": 6260521435136
+ },
+ {
+  "ticker": "4661.T",
+  "name": "オリエンタルランド",
+  "sector": "一般消費財",
+  "market_cap": 6253764935680
+ },
+ {
+  "ticker": "6702.T",
+  "name": "富士通",
+  "sector": "テクノロジー",
+  "market_cap": 5937839472640
+ },
+ {
+  "ticker": "8591.T",
+  "name": "オリックス",
+  "sector": "金融",
+  "market_cap": 5915756986368
+ },
+ {
+  "ticker": "6701.T",
+  "name": "日本電気",
+  "sector": "テクノロジー",
+  "market_cap": 5727878381568
+ },
+ {
+  "ticker": "6301.T",
+  "name": "小松製作所",
+  "sector": "資本財・サービス",
+  "market_cap": 5456019849216
+ },
+ {
+  "ticker": "5108.T",
+  "name": "ブリヂストン",
+  "sector": "一般消費財",
+  "market_cap": 5432622448640
+ },
+ {
+  "ticker": "6723.T",
+  "name": "ルネサスエレクトロニクス",
+  "sector": "テクノロジー",
+  "market_cap": 5203775979520
+ },
+ {
+  "ticker": "4568.T",
+  "name": "第一三共",
+  "sector": "ヘルスケア",
+  "market_cap": 5197443104768
+ },
+ {
+  "ticker": "AAPL",
+  "name": "Apple",
+  "sector": "テクノロジー",
+  "market_cap": 5177380175872
+ },
+ {
+  "ticker": "6146.T",
+  "name": "ディスコ",
+  "sector": "テクノロジー",
+  "market_cap": 5150847533056
+ },
+ {
+  "ticker": "6954.T",
+  "name": "ファナック",
+  "sector": "資本財・サービス",
+  "market_cap": 5124945084416
+ },
+ {
+  "ticker": "8308.T",
+  "name": "りそなホールディングス",
+  "sector": "金融",
+  "market_cap": 5016366088192
+ },
+ {
+  "ticker": "3382.T",
+  "name": "セブン&アイ・ホールディングス",
+  "sector": "生活必需品",
+  "market_cap": 4985317228544
+ },
+ {
+  "ticker": "8802.T",
+  "name": "三菱地所",
+  "sector": "不動産",
+  "market_cap": 4921053675520
+ },
+ {
+  "ticker": "8309.T",
+  "name": "三井住友トラストグループ",
+  "sector": "金融",
+  "market_cap": 4919925932032
+ },
+ {
+  "ticker": "6902.T",
+  "name": "デンソー",
+  "sector": "一般消費財",
+  "market_cap": 4860515713024
+ },
+ {
+  "ticker": "4503.T",
+  "name": "アステラス製薬",
+  "sector": "ヘルスケア",
+  "market_cap": 4839638564864
+ },
+ {
+  "ticker": "5803.T",
+  "name": "フジクラ",
+  "sector": "資本財・サービス",
+  "market_cap": 4812912459776
+ },
+ {
+  "ticker": "5802.T",
+  "name": "住友電気工業",
+  "sector": "一般消費財",
+  "market_cap": 4739700883456
+ },
+ {
+  "ticker": "9020.T",
+  "name": "東日本旅客鉄道",
+  "sector": "資本財・サービス",
+  "market_cap": 4628347355136
+ },
+ {
+  "ticker": "8604.T",
+  "name": "野村ホールディングス",
+  "sector": "金融",
+  "market_cap": 4537322569728
+ },
+ {
+  "ticker": "7832.T",
+  "name": "バンダイナムコホールディングス",
+  "sector": "一般消費財",
+  "market_cap": 4423194509312
+ },
+ {
+  "ticker": "6762.T",
+  "name": "TDK",
+  "sector": "テクノロジー",
+  "market_cap": 4385150337024
+ },
+ {
+  "ticker": "8801.T",
+  "name": "三井不動産",
+  "sector": "不動産",
+  "market_cap": 4369635868672
+ },
+ {
+  "ticker": "4901.T",
+  "name": "富士フイルムホールディングス",
+  "sector": "資本財・サービス",
+  "market_cap": 4323842981888
+ },
+ {
+  "ticker": "9022.T",
+  "name": "東海旅客鉄道",
+  "sector": "資本財・サービス",
+  "market_cap": 4246577086464
+ },
+ {
+  "ticker": "7269.T",
+  "name": "スズキ",
+  "sector": "一般消費財",
+  "market_cap": 4183867785216
+ },
+ {
+  "ticker": "1605.T",
+  "name": "INPEX",
+  "sector": "エネルギー",
+  "market_cap": 4135714553856
+ },
+ {
+  "ticker": "7751.T",
+  "name": "キヤノン",
+  "sector": "テクノロジー",
+  "market_cap": 4026618871808
+ },
+ {
+  "ticker": "2802.T",
+  "name": "味の素",
+  "sector": "生活必需品",
+  "market_cap": 4017029382144
+ },
+ {
+  "ticker": "9766.T",
+  "name": "コナミグループ",
+  "sector": "通信サービス",
+  "market_cap": 3955533807616
+ },
+ {
+  "ticker": "NVDA",
+  "name": "NVIDIA",
+  "sector": "テクノロジー",
+  "market_cap": 3932339044352
+ },
+ {
+  "ticker": "MSFT",
+  "name": "Microsoft",
+  "sector": "テクノロジー",
+  "market_cap": 3890434801664
+ },
+ {
+  "ticker": "6273.T",
+  "name": "SMC",
+  "sector": "資本財・サービス",
+  "market_cap": 3884725305344
+ },
+ {
+  "ticker": "6971.T",
+  "name": "京セラ",
+  "sector": "資本財・サービス",
+  "market_cap": 3770822688768
+ },
+ {
+  "ticker": "4689.T",
+  "name": "LINEヤフー",
+  "sector": "一般消費財",
+  "market_cap": 3670250094592
+ },
+ {
+  "ticker": "5401.T",
+  "name": "日本製鉄",
+  "sector": "素材",
+  "market_cap": 3647937708032
+ },
+ {
+  "ticker": "GOOGL",
+  "name": "Alphabet",
+  "sector": "通信サービス",
+  "market_cap": 3636196016128
+ },
+ {
+  "ticker": "4452.T",
+  "name": "花王",
+  "sector": "生活必需品",
+  "market_cap": 3624460615680
+ },
+ {
+  "ticker": "8267.T",
+  "name": "イオン",
+  "sector": "一般消費財",
+  "market_cap": 3551478415360
+ },
+ {
+  "ticker": "4543.T",
+  "name": "テルモ",
+  "sector": "ヘルスケア",
+  "market_cap": 3540559855616
+ },
+ {
+  "ticker": "4062.T",
+  "name": "イビデン",
+  "sector": "テクノロジー",
+  "market_cap": 3473577607168
+ },
+ {
+  "ticker": "4612.T",
+  "name": "日本ペイントホールディングス",
+  "sector": "素材",
+  "market_cap": 3349301166080
+ },
+ {
+  "ticker": "4307.T",
+  "name": "野村総合研究所",
+  "sector": "テクノロジー",
+  "market_cap": 3338979508224
+ },
+ {
+  "ticker": "8830.T",
+  "name": "住友不動産",
+  "sector": "不動産",
+  "market_cap": 3316945518592
+ },
+ {
+  "ticker": "5020.T",
+  "name": "ENEOSホールディングス",
+  "sector": "エネルギー",
+  "market_cap": 3261404545024
+ },
+ {
+  "ticker": "6920.T",
+  "name": "レーザーテック",
+  "sector": "テクノロジー",
+  "market_cap": 3241099919360
+ },
+ {
+  "ticker": "9503.T",
+  "name": "関西電力",
+  "sector": "公益事業",
+  "market_cap": 3041230848000
+ },
+ {
+  "ticker": "1925.T",
+  "name": "大和ハウス工業",
+  "sector": "不動産",
+  "market_cap": 2949628821504
+ },
+ {
+  "ticker": "7936.T",
+  "name": "アシックス",
+  "sector": "一般消費財",
+  "market_cap": 2945774780416
+ },
+ {
+  "ticker": "AMZN",
+  "name": "Amazon.com",
+  "sector": "一般消費財",
+  "market_cap": 2883431432192
+ },
+ {
+  "ticker": "6326.T",
+  "name": "クボタ",
+  "sector": "資本財・サービス",
+  "market_cap": 2799085289472
+ },
+ {
+  "ticker": "9735.T",
+  "name": "セコム",
+  "sector": "資本財・サービス",
+  "market_cap": 2793999433728
+ },
+ {
+  "ticker": "9101.T",
+  "name": "日本郵船",
+  "sector": "資本財・サービス",
+  "market_cap": 2790975340544
+ },
+ {
+  "ticker": "4507.T",
+  "name": "塩野義製薬",
+  "sector": "ヘルスケア",
+  "market_cap": 2699922505728
+ },
+ {
+  "ticker": "4091.T",
+  "name": "日本酸素ホールディングス",
+  "sector": "素材",
+  "market_cap": 2667671453696
+ },
+ {
+  "ticker": "4004.T",
+  "name": "レゾナック・ホールディングス",
+  "sector": "素材",
+  "market_cap": 2657794916352
+ },
+ {
+  "ticker": "4684.T",
+  "name": "オービック",
+  "sector": "テクノロジー",
+  "market_cap": 2651939667968
+ },
+ {
+  "ticker": "2502.T",
+  "name": "アサヒグループホールディングス",
+  "sector": "生活必需品",
+  "market_cap": 2640105439232
+ },
+ {
+  "ticker": "7453.T",
+  "name": "良品計画",
+  "sector": "一般消費財",
+  "market_cap": 2571332222976
+ },
+ {
+  "ticker": "8601.T",
+  "name": "大和証券グループ本社",
+  "sector": "金融",
+  "market_cap": 2482066685952
+ },
+ {
+  "ticker": "7013.T",
+  "name": "IHI",
+  "sector": "資本財・サービス",
+  "market_cap": 2463949127680
+ },
+ {
+  "ticker": "2503.T",
+  "name": "キリンホールディングス",
+  "sector": "生活必需品",
+  "market_cap": 2459482980352
+ },
+ {
+  "ticker": "7532.T",
+  "name": "パン・パシフィック・インターナショナルホールディングス",
+  "sector": "生活必需品",
+  "market_cap": 2435742433280
+ },
+ {
+  "ticker": "3659.T",
+  "name": "ネクソン",
+  "sector": "通信サービス",
+  "market_cap": 2403866509312
+ },
+ {
+  "ticker": "9104.T",
+  "name": "商船三井",
+  "sector": "資本財・サービス",
+  "market_cap": 2347649728512
+ },
+ {
+  "ticker": "1928.T",
+  "name": "積水ハウス",
+  "sector": "一般消費財",
+  "market_cap": 2345274966016
+ },
+ {
+  "ticker": "8795.T",
+  "name": "T&Dホールディングス",
+  "sector": "金融",
+  "market_cap": 2337795473408
+ },
+ {
+  "ticker": "6988.T",
+  "name": "日東電工",
+  "sector": "素材",
+  "market_cap": 2336566280192
+ },
+ {
+  "ticker": "1802.T",
+  "name": "大林組",
+  "sector": "資本財・サービス",
+  "market_cap": 2321068851200
+ },
+ {
+  "ticker": "1812.T",
+  "name": "鹿島建設",
+  "sector": "資本財・サービス",
+  "market_cap": 2296876367872
+ },
+ {
+  "ticker": "8697.T",
+  "name": "日本取引所グループ",
+  "sector": "金融",
+  "market_cap": 2236918792192
+ },
+ {
+  "ticker": "9532.T",
+  "name": "大阪瓦斯",
+  "sector": "公益事業",
+  "market_cap": 2225647910912
+ },
+ {
+  "ticker": "5016.T",
+  "name": "JX金属",
+  "sector": "テクノロジー",
+  "market_cap": 2220351291392
+ },
+ {
+  "ticker": "9531.T",
+  "name": "東京瓦斯",
+  "sector": "公益事業",
+  "market_cap": 2207051939840
+ },
+ {
+  "ticker": "5838.T",
+  "name": "楽天銀行",
+  "sector": "金融",
+  "market_cap": 2200542380032
+ },
+ {
+  "ticker": "3407.T",
+  "name": "旭化成",
+  "sector": "資本財・サービス",
+  "market_cap": 2174769168384
+ },
+ {
+  "ticker": "7550.T",
+  "name": "ゼンショーホールディングス",
+  "sector": "一般消費財",
+  "market_cap": 2076961800192
+ },
+ {
+  "ticker": "TSM",
+  "name": "Taiwan Semiconductor Manufactur",
+  "sector": "テクノロジー",
+  "market_cap": 2068002373632
+ },
+ {
+  "ticker": "6594.T",
+  "name": "ニデック",
+  "sector": "資本財・サービス",
+  "market_cap": 2052585029632
+ },
+ {
+  "ticker": "1801.T",
+  "name": "大成建設",
+  "sector": "資本財・サービス",
+  "market_cap": 2030805975040
+ },
+ {
+  "ticker": "3402.T",
+  "name": "東レ",
+  "sector": "一般消費財",
+  "market_cap": 2009794871296
+ },
+ {
+  "ticker": "9502.T",
+  "name": "中部電力",
+  "sector": "公益事業",
+  "market_cap": 1944747114496
+ },
+ {
+  "ticker": "7181.T",
+  "name": "かんぽ生命保険",
+  "sector": "金融",
+  "market_cap": 1937606836224
+ },
+ {
+  "ticker": "5713.T",
+  "name": "住友金属鉱山",
+  "sector": "素材",
+  "market_cap": 1931228610560
+ },
+ {
+  "ticker": "8113.T",
+  "name": "ユニ・チャーム",
+  "sector": "生活必需品",
+  "market_cap": 1927296319488
+ },
+ {
+  "ticker": "7270.T",
+  "name": "SUBARU",
+  "sector": "一般消費財",
+  "market_cap": 1925130878976
+ },
+ {
+  "ticker": "7186.T",
+  "name": "横浜フィナンシャルグループ",
+  "sector": "金融",
+  "market_cap": 1923789619200
+ },
+ {
+  "ticker": "8473.T",
+  "name": "SBIホールディングス",
+  "sector": "金融",
+  "market_cap": 1904925212672
+ },
+ {
+  "ticker": "9843.T",
+  "name": "ニトリホールディングス",
+  "sector": "一般消費財",
+  "market_cap": 1901419036672
+ },
+ {
+  "ticker": "7733.T",
+  "name": "オリンパス",
+  "sector": "ヘルスケア",
+  "market_cap": 1887625936896
+ },
+ {
+  "ticker": "9697.T",
+  "name": "カプコン",
+  "sector": "通信サービス",
+  "market_cap": 1887557255168
+ },
+ {
+  "ticker": "8593.T",
+  "name": "三菱HCキャピタル",
+  "sector": "金融",
+  "market_cap": 1882874970112
+ },
+ {
+  "ticker": "6532.T",
+  "name": "ベイカレント",
+  "sector": "資本財・サービス",
+  "market_cap": 1811578224640
+ },
+ {
+  "ticker": "7309.T",
+  "name": "シマノ",
+  "sector": "一般消費財",
+  "market_cap": 1787370405888
+ },
+ {
+  "ticker": "9435.T",
+  "name": "光通信",
+  "sector": "資本財・サービス",
+  "market_cap": 1785729515520
+ },
+ {
+  "ticker": "8331.T",
+  "name": "千葉銀行",
+  "sector": "金融",
+  "market_cap": 1782756933632
+ },
+ {
+  "ticker": "6383.T",
+  "name": "ダイフク",
+  "sector": "資本財・サービス",
+  "market_cap": 1777321639936
+ },
+ {
+  "ticker": "7272.T",
+  "name": "ヤマハ発動機",
+  "sector": "一般消費財",
+  "market_cap": 1726245109760
+ },
+ {
+  "ticker": "5831.T",
+  "name": "しずおかフィナンシャルグループ",
+  "sector": "金融",
+  "market_cap": 1702709166080
+ },
+ {
+  "ticker": "9107.T",
+  "name": "川崎汽船",
+  "sector": "資本財・サービス",
+  "market_cap": 1698092941312
+ },
+ {
+  "ticker": "4911.T",
+  "name": "資生堂",
+  "sector": "生活必需品",
+  "market_cap": 1680396124160
+ },
+ {
+  "ticker": "AVGO",
+  "name": "Broadcom",
+  "sector": "テクノロジー",
+  "market_cap": 1656497373184
+ },
+ {
+  "ticker": "6504.T",
+  "name": "富士電機",
+  "sector": "資本財・サービス",
+  "market_cap": 1654825156608
+ },
+ {
+  "ticker": "META",
+  "name": "Meta Platforms",
+  "sector": "通信サービス",
+  "market_cap": 1640314437632
+ },
+ {
+  "ticker": "2587.T",
+  "name": "サントリービバレッジ&フード",
+  "sector": "生活必需品",
+  "market_cap": 1630900191232
+ },
+ {
+  "ticker": "6361.T",
+  "name": "荏原製作所",
+  "sector": "資本財・サービス",
+  "market_cap": 1621670494208
+ },
+ {
+  "ticker": "7735.T",
+  "name": "SCREENホールディングス",
+  "sector": "テクノロジー",
+  "market_cap": 1621115011072
+ },
+ {
+  "ticker": "2801.T",
+  "name": "キッコーマン",
+  "sector": "生活必需品",
+  "market_cap": 1616418439168
+ },
+ {
+  "ticker": "7012.T",
+  "name": "川崎重工業",
+  "sector": "資本財・サービス",
+  "market_cap": 1584611065856
+ },
+ {
+  "ticker": "8303.T",
+  "name": "SBI新生銀行",
+  "sector": "金融",
+  "market_cap": 1562450460672
+ },
+ {
+  "ticker": "7259.T",
+  "name": "アイシン",
+  "sector": "一般消費財",
+  "market_cap": 1561498091520
+ },
+ {
+  "ticker": "5019.T",
+  "name": "出光興産",
+  "sector": "エネルギー",
+  "market_cap": 1550753202176
+ },
+ {
+  "ticker": "7202.T",
+  "name": "いすゞ自動車",
+  "sector": "一般消費財",
+  "market_cap": 1549418496000
+ },
+ {
+  "ticker": "TSLA",
+  "name": "Tesla",
+  "sector": "一般消費財",
+  "market_cap": 1542445203456
+ },
+ {
+  "ticker": "9021.T",
+  "name": "西日本旅客鉄道",
+  "sector": "資本財・サービス",
+  "market_cap": 1539743023104
+ },
+ {
+  "ticker": "9602.T",
+  "name": "東宝",
+  "sector": "通信サービス",
+  "market_cap": 1531573698560
+ },
+ {
+  "ticker": "5801.T",
+  "name": "古河電気工業",
+  "sector": "資本財・サービス",
+  "market_cap": 1525243445248
+ },
+ {
+  "ticker": "9201.T",
+  "name": "日本航空",
+  "sector": "資本財・サービス",
+  "market_cap": 1523749879808
+ },
+ {
+  "ticker": "3003.T",
+  "name": "ヒューリック",
+  "sector": "不動産",
+  "market_cap": 1509026037760
+ },
+ {
+  "ticker": "1803.T",
+  "name": "清水建設",
+  "sector": "資本財・サービス",
+  "market_cap": 1504413614080
+ },
+ {
+  "ticker": "5334.T",
+  "name": "日本特殊陶業",
+  "sector": "一般消費財",
+  "market_cap": 1495360733184
+ },
+ {
+  "ticker": "4188.T",
+  "name": "三菱ケミカルグループ",
+  "sector": "素材",
+  "market_cap": 1475606347776
+ },
+ {
+  "ticker": "4523.T",
+  "name": "エーザイ",
+  "sector": "ヘルスケア",
+  "market_cap": 1461883109376
+ },
+ {
+  "ticker": "6586.T",
+  "name": "マキタ",
+  "sector": "資本財・サービス",
+  "market_cap": 1435190820864
+ },
+ {
+  "ticker": "9147.T",
+  "name": "NIPPON EXPRESSホールディングス",
+  "sector": "資本財・サービス",
+  "market_cap": 1427849609216
+ },
+ {
+  "ticker": "4768.T",
+  "name": "大塚商会",
+  "sector": "テクノロジー",
+  "market_cap": 1420487688192
+ },
+ {
+  "ticker": "7167.T",
+  "name": "めぶきフィナンシャルグループ",
+  "sector": "金融",
+  "market_cap": 1420029853696
+ },
+ {
+  "ticker": "9202.T",
+  "name": "ANAホールディングス",
+  "sector": "資本財・サービス",
+  "market_cap": 1405134962688
+ },
+ {
+  "ticker": "6525.T",
+  "name": "KOKUSAI ELECTRIC",
+  "sector": "テクノロジー",
+  "market_cap": 1396569407488
+ },
+ {
+  "ticker": "4755.T",
+  "name": "楽天グループ",
+  "sector": "一般消費財",
+  "market_cap": 1389924843520
+ },
+ {
+  "ticker": "3563.T",
+  "name": "FOOD & LIFE COMPANIES",
+  "sector": "一般消費財",
+  "market_cap": 1382934904832
+ },
+ {
+  "ticker": "8354.T",
+  "name": "ふくおかフィナンシャルグループ",
+  "sector": "金融",
+  "market_cap": 1359341420544
+ },
+ {
+  "ticker": "4151.T",
+  "name": "協和キリン",
+  "sector": "ヘルスケア",
+  "market_cap": 1353471098880
+ },
+ {
+  "ticker": "5333.T",
+  "name": "NGK",
+  "sector": "資本財・サービス",
+  "market_cap": 1352984166400
+ },
+ {
+  "ticker": "8136.T",
+  "name": "サンリオ",
+  "sector": "一般消費財",
+  "market_cap": 1346334359552
+ },
+ {
+  "ticker": "8439.T",
+  "name": "東京センチュリー",
+  "sector": "資本財・サービス",
+  "market_cap": 1322685300736
+ },
+ {
+  "ticker": "7701.T",
+  "name": "島津製作所",
+  "sector": "テクノロジー",
+  "market_cap": 1316425039872
+ },
+ {
+  "ticker": "4716.T",
+  "name": "日本オラクル",
+  "sector": "テクノロジー",
+  "market_cap": 1308803596288
+ },
+ {
+  "ticker": "LLY",
+  "name": "Eli Lilly and",
+  "sector": "ヘルスケア",
+  "market_cap": 1285790498816
+ },
+ {
+  "ticker": "9684.T",
+  "name": "スクウェア・エニックス・ホールディングス",
+  "sector": "通信サービス",
+  "market_cap": 1280619315200
+ },
+ {
+  "ticker": "2702.T",
+  "name": "日本マクドナルドホールディングス",
+  "sector": "一般消費財",
+  "market_cap": 1275605286912
+ },
+ {
+  "ticker": "3099.T",
+  "name": "三越伊勢丹ホールディングス",
+  "sector": "一般消費財",
+  "market_cap": 1270138535936
+ },
+ {
+  "ticker": "BRK-B",
+  "name": "Berkshire Hathaway Inc. New",
+  "sector": "金融",
+  "market_cap": 1259712413696
+ },
+ {
+  "ticker": "6869.T",
+  "name": "シスメックス",
+  "sector": "ヘルスケア",
+  "market_cap": 1252913709056
+ },
+ {
+  "ticker": "6479.T",
+  "name": "ミネベアミツミ",
+  "sector": "テクノロジー",
+  "market_cap": 1224062140416
+ },
+ {
+  "ticker": "2413.T",
+  "name": "エムスリー",
+  "sector": "ヘルスケア",
+  "market_cap": 1217643413504
+ },
+ {
+  "ticker": "2269.T",
+  "name": "明治ホールディングス",
+  "sector": "生活必需品",
+  "market_cap": 1200775888896
+ },
+ {
+  "ticker": "3064.T",
+  "name": "MonotaRO",
+  "sector": "一般消費財",
+  "market_cap": 1196810174464
+ },
+ {
+  "ticker": "5411.T",
+  "name": "JFEホールディングス",
+  "sector": "素材",
+  "market_cap": 1170468110336
+ },
+ {
+  "ticker": "4528.T",
+  "name": "小野薬品工業",
+  "sector": "ヘルスケア",
+  "market_cap": 1162104406016
+ },
+ {
+  "ticker": "7912.T",
+  "name": "大日本印刷",
+  "sector": "資本財・サービス",
+  "market_cap": 1161599385600
+ },
+ {
+  "ticker": "5844.T",
+  "name": "京都フィナンシャルグループ",
+  "sector": "金融",
+  "market_cap": 1156875812864
+ },
+ {
+  "ticker": "5101.T",
+  "name": "横浜ゴム",
+  "sector": "一般消費財",
+  "market_cap": 1154868576256
+ },
+ {
+  "ticker": "9042.T",
+  "name": "阪急阪神ホールディングス",
+  "sector": "資本財・サービス",
+  "market_cap": 1146559135744
+ },
+ {
+  "ticker": "7911.T",
+  "name": "TOPPANホールディングス",
+  "sector": "資本財・サービス",
+  "market_cap": 1145931825152
+ },
+ {
+  "ticker": "3391.T",
+  "name": "ツルハホールディングス",
+  "sector": "ヘルスケア",
+  "market_cap": 1134931083264
+ },
+ {
+  "ticker": "8359.T",
+  "name": "八十二長野銀行",
+  "sector": "金融",
+  "market_cap": 1126512852992
+ },
+ {
+  "ticker": "6963.T",
+  "name": "ローム",
+  "sector": "テクノロジー",
+  "market_cap": 1126158172160
+ },
+ {
+  "ticker": "6448.T",
+  "name": "ブラザー工業",
+  "sector": "資本財・サービス",
+  "market_cap": 1123026075648
+ },
+ {
+  "ticker": "3088.T",
+  "name": "マツキヨココカラ&カンパニー",
+  "sector": "ヘルスケア",
+  "market_cap": 1100969541632
+ },
+ {
+  "ticker": "2768.T",
+  "name": "双日",
+  "sector": "資本財・サービス",
+  "market_cap": 1098412064768
+ },
+ {
+  "ticker": "4204.T",
+  "name": "積水化学工業",
+  "sector": "資本財・サービス",
+  "market_cap": 1094559006720
+ },
+ {
+  "ticker": "6841.T",
+  "name": "横河電機",
+  "sector": "資本財・サービス",
+  "market_cap": 1082897530880
+ },
+ {
+  "ticker": "1878.T",
+  "name": "大東建託",
+  "sector": "不動産",
+  "market_cap": 1078377775104
+ },
+ {
+  "ticker": "5201.T",
+  "name": "AGC",
+  "sector": "資本財・サービス",
+  "market_cap": 1066992009216
+ },
+ {
+  "ticker": "8951.T",
+  "name": "日本ビルファンド投資法人",
+  "sector": "不動産",
+  "market_cap": 1062207488000
+ },
+ {
+  "ticker": "6305.T",
+  "name": "日立建機",
+  "sector": "資本財・サービス",
+  "market_cap": 1053860102144
+ },
+ {
+  "ticker": "9962.T",
+  "name": "ミスミグループ本社",
+  "sector": "資本財・サービス",
+  "market_cap": 1030850936832
+ },
+ {
+  "ticker": "4324.T",
+  "name": "電通グループ",
+  "sector": "通信サービス",
+  "market_cap": 1028999675904
+ },
+ {
+  "ticker": "3092.T",
+  "name": "ZOZO",
+  "sector": "一般消費財",
+  "market_cap": 1017379880960
+ },
+ {
+  "ticker": "WMT",
+  "name": "Walmart",
+  "sector": "生活必需品",
+  "market_cap": 1016233525248
+ },
+ {
+  "ticker": "7747.T",
+  "name": "朝日インテック",
+  "sector": "ヘルスケア",
+  "market_cap": 1011151011840
+ },
+ {
+  "ticker": "2875.T",
+  "name": "東洋水産",
+  "sector": "生活必需品",
+  "market_cap": 1009796710400
+ },
+ {
+  "ticker": "6506.T",
+  "name": "安川電機",
+  "sector": "資本財・サービス",
+  "market_cap": 983534534656
+ },
+ {
+  "ticker": "9024.T",
+  "name": "西武ホールディングス",
+  "sector": "資本財・サービス",
+  "market_cap": 979113672704
+ },
+ {
+  "ticker": "6645.T",
+  "name": "オムロン",
+  "sector": "テクノロジー",
+  "market_cap": 978624512000
+ },
+ {
+  "ticker": "1944.T",
+  "name": "きんでん",
+  "sector": "資本財・サービス",
+  "market_cap": 978526076928
+ },
+ {
+  "ticker": "8729.T",
+  "name": "ソニーフィナンシャルグループ",
+  "sector": "金融",
+  "market_cap": 973395525632
+ },
+ {
+  "ticker": "9143.T",
+  "name": "SGホールディングス",
+  "sector": "資本財・サービス",
+  "market_cap": 960155418624
+ },
+ {
+  "ticker": "7752.T",
+  "name": "リコー",
+  "sector": "資本財・サービス",
+  "market_cap": 958959190016
+ },
+ {
+  "ticker": "9401.T",
+  "name": "TBSホールディングス",
+  "sector": "通信サービス",
+  "market_cap": 957841866752
+ },
+ {
+  "ticker": "8334.T",
+  "name": "群馬銀行",
+  "sector": "金融",
+  "market_cap": 956847095808
+ },
+ {
+  "ticker": "6976.T",
+  "name": "太陽誘電",
+  "sector": "テクノロジー",
+  "market_cap": 944564862976
+ },
+ {
+  "ticker": "4704.T",
+  "name": "トレンドマイクロ",
+  "sector": "テクノロジー",
+  "market_cap": 936321941504
+ },
+ {
+  "ticker": "5332.T",
+  "name": "TOTO",
+  "sector": "資本財・サービス",
+  "market_cap": 931964190720
+ },
+ {
+  "ticker": "7201.T",
+  "name": "日産自動車",
+  "sector": "一般消費財",
+  "market_cap": 930321858560
+ },
+ {
+  "ticker": "4021.T",
+  "name": "日産化学",
+  "sector": "素材",
+  "market_cap": 927784697856
+ },
+ {
+  "ticker": "1942.T",
+  "name": "関電工",
+  "sector": "資本財・サービス",
+  "market_cap": 925636493312
+ },
+ {
+  "ticker": "JPM",
+  "name": "JP Morgan Chase & Co.",
+  "sector": "金融",
+  "market_cap": 919345496064
+ },
+ {
+  "ticker": "2501.T",
+  "name": "サッポロホールディングス",
+  "sector": "生活必需品",
+  "market_cap": 915034734592
+ },
+ {
+  "ticker": "4506.T",
+  "name": "住友ファーマ",
+  "sector": "ヘルスケア",
+  "market_cap": 909746765824
+ },
+ {
+  "ticker": "9005.T",
+  "name": "東急",
+  "sector": "一般消費財",
+  "market_cap": 908985040896
+ },
+ {
+  "ticker": "3626.T",
+  "name": "TIS",
+  "sector": "テクノロジー",
+  "market_cap": 904389591040
+ },
+ {
+  "ticker": "6724.T",
+  "name": "セイコーエプソン",
+  "sector": "テクノロジー",
+  "market_cap": 903774142464
+ },
+ {
+  "ticker": "5830.T",
+  "name": "いよぎんホールディングス",
+  "sector": "金融",
+  "market_cap": 903244546048
+ },
+ {
+  "ticker": "8377.T",
+  "name": "ほくほくフィナンシャルグループ",
+  "sector": "金融",
+  "market_cap": 902526074880
+ },
+ {
+  "ticker": "4186.T",
+  "name": "東京応化工業",
+  "sector": "テクノロジー",
+  "market_cap": 887454040064
+ },
+ {
+  "ticker": "MU",
+  "name": "Micron Technology",
+  "sector": "テクノロジー",
+  "market_cap": 880597991424
+ },
+ {
+  "ticker": "5706.T",
+  "name": "三井金属",
+  "sector": "資本財・サービス",
+  "market_cap": 879950364672
+ },
+ {
+  "ticker": "AMD",
+  "name": "Advanced Micro Devices",
+  "sector": "テクノロジー",
+  "market_cap": 875905024000
+ },
+ {
+  "ticker": "3289.T",
+  "name": "東急不動産ホールディングス",
+  "sector": "不動産",
+  "market_cap": 872836169728
+ },
+ {
+  "ticker": "9023.T",
+  "name": "東京地下鉄",
+  "sector": "資本財・サービス",
+  "market_cap": 865479950336
+ },
+ {
+  "ticker": "6856.T",
+  "name": "堀場製作所",
+  "sector": "テクノロジー",
+  "market_cap": 865433944064
+ },
+ {
+  "ticker": "2897.T",
+  "name": "日清食品ホールディングス",
+  "sector": "生活必需品",
+  "market_cap": 853523628032
+ },
+ {
+  "ticker": "4005.T",
+  "name": "住友化学",
+  "sector": "素材",
+  "market_cap": 851185827840
+ },
+ {
+  "ticker": "4732.T",
+  "name": "ユー・エス・エス",
+  "sector": "一般消費財",
+  "market_cap": 848831840256
+ },
+ {
+  "ticker": "3288.T",
+  "name": "オープンハウスグループ",
+  "sector": "不動産",
+  "market_cap": 839635238912
+ },
+ {
+  "ticker": "3197.T",
+  "name": "すかいらーくホールディングス",
+  "sector": "一般消費財",
+  "market_cap": 829634904064
+ },
+ {
+  "ticker": "5929.T",
+  "name": "三和ホールディングス",
+  "sector": "資本財・サービス",
+  "market_cap": 822624124928
+ },
+ {
+  "ticker": "2212.T",
+  "name": "山崎製パン",
+  "sector": "生活必需品",
+  "market_cap": 821880619008
+ },
+ {
+  "ticker": "2670.T",
+  "name": "エービーシー・マート",
+  "sector": "一般消費財",
+  "market_cap": 807230177280
+ },
+ {
+  "ticker": "2267.T",
+  "name": "ヤクルト本社",
+  "sector": "生活必需品",
+  "market_cap": 803163865088
+ },
+ {
+  "ticker": "3231.T",
+  "name": "野村不動産ホールディングス",
+  "sector": "不動産",
+  "market_cap": 794920288256
+ },
+ {
+  "ticker": "V",
+  "name": "Visa",
+  "sector": "金融",
+  "market_cap": 794383024128
+ },
+ {
+  "ticker": "5406.T",
+  "name": "神戸製鋼所",
+  "sector": "素材",
+  "market_cap": 794000031744
+ },
+ {
+  "ticker": "8952.T",
+  "name": "ジャパンリアルエステイト投資法人",
+  "sector": "不動産",
+  "market_cap": 789540044800
+ },
+ {
+  "ticker": "8341.T",
+  "name": "七十七銀行",
+  "sector": "金融",
+  "market_cap": 783967322112
+ },
+ {
+  "ticker": "4042.T",
+  "name": "東ソー",
+  "sector": "素材",
+  "market_cap": 779681005568
+ },
+ {
+  "ticker": "1911.T",
+  "name": "住友林業",
+  "sector": "一般消費財",
+  "market_cap": 779354112000
+ },
+ {
+  "ticker": "6845.T",
+  "name": "アズビル",
+  "sector": "資本財・サービス",
+  "market_cap": 772390322176
+ },
+ {
+  "ticker": "4733.T",
+  "name": "オービックビジネスコンサルタント",
+  "sector": "テクノロジー",
+  "market_cap": 767554158592
+ },
+ {
+  "ticker": "3086.T",
+  "name": "J.フロント リテイリング",
+  "sector": "一般消費財",
+  "market_cap": 759131734016
+ },
+ {
+  "ticker": "6113.T",
+  "name": "アマダ",
+  "sector": "資本財・サービス",
+  "market_cap": 741705777152
+ },
+ {
+  "ticker": "3436.T",
+  "name": "SUMCO",
+  "sector": "テクノロジー",
+  "market_cap": 739509010432
+ },
+ {
+  "ticker": "9009.T",
+  "name": "京成電鉄",
+  "sector": "資本財・サービス",
+  "market_cap": 738549366784
+ },
+ {
+  "ticker": "2579.T",
+  "name": "コカ・コーラ ボトラーズジャパンホールディングス",
+  "sector": "生活必需品",
+  "market_cap": 737660436480
+ },
+ {
+  "ticker": "3774.T",
+  "name": "インターネットイニシアティブ",
+  "sector": "通信サービス",
+  "market_cap": 736983449600
+ },
+ {
+  "ticker": "8227.T",
+  "name": "しまむら",
+  "sector": "一般消費財",
+  "market_cap": 734206427136
+ },
+ {
+  "ticker": "9064.T",
+  "name": "ヤマトホールディングス",
+  "sector": "資本財・サービス",
+  "market_cap": 734143905792
+ },
+ {
+  "ticker": "9513.T",
+  "name": "電源開発",
+  "sector": "公益事業",
+  "market_cap": 725827584000
+ },
+ {
+  "ticker": "9501.T",
+  "name": "東京電力ホールディングス",
+  "sector": "公益事業",
+  "market_cap": 723934052352
+ },
+ {
+  "ticker": "9404.T",
+  "name": "日本テレビホールディングス",
+  "sector": "通信サービス",
+  "market_cap": 723417956352
+ },
+ {
+  "ticker": "6806.T",
+  "name": "ヒロセ電機",
+  "sector": "テクノロジー",
+  "market_cap": 719309766656
+ },
+ {
+  "ticker": "5076.T",
+  "name": "インフロニア・ホールディングス",
+  "sector": "資本財・サービス",
+  "market_cap": 715055693824
+ },
+ {
+  "ticker": "3861.T",
+  "name": "王子ホールディングス",
+  "sector": "素材",
+  "market_cap": 714867605504
+ },
+ {
+  "ticker": "7261.T",
+  "name": "マツダ",
+  "sector": "一般消費財",
+  "market_cap": 713747660800
+ },
+ {
+  "ticker": "1808.T",
+  "name": "長谷工コーポレーション",
+  "sector": "一般消費財",
+  "market_cap": 709901418496
+ },
+ {
+  "ticker": "6465.T",
+  "name": "ホシザキ",
+  "sector": "資本財・サービス",
+  "market_cap": 705601273856
+ },
+ {
+  "ticker": "8804.T",
+  "name": "東京建物",
+  "sector": "不動産",
+  "market_cap": 703237062656
+ },
+ {
+  "ticker": "6460.T",
+  "name": "セガサミーホールディングス",
+  "sector": "通信サービス",
+  "market_cap": 698195181568
+ },
+ {
+  "ticker": "4751.T",
+  "name": "サイバーエージェント",
+  "sector": "通信サービス",
+  "market_cap": 696247058432
+ },
+ {
+  "ticker": "XOM",
+  "name": "ExxonMobil",
+  "sector": "エネルギー",
+  "market_cap": 695874551808
+ },
+ {
+  "ticker": "JNJ",
+  "name": "Johnson & Johnson",
+  "sector": "ヘルスケア",
+  "market_cap": 687888924672
+ },
+ {
+  "ticker": "9041.T",
+  "name": "近鉄グループホールディングス",
+  "sector": "資本財・サービス",
+  "market_cap": 685294616576
+ },
+ {
+  "ticker": "2002.T",
+  "name": "日清製粉グループ本社",
+  "sector": "生活必需品",
+  "market_cap": 682262265856
+ },
+ {
+  "ticker": "4816.T",
+  "name": "東映アニメーション",
+  "sector": "通信サービス",
+  "market_cap": 681842835456
+ },
+ {
+  "ticker": "8233.T",
+  "name": "高島屋",
+  "sector": "一般消費財",
+  "market_cap": 678789513216
+ },
+ {
+  "ticker": "3038.T",
+  "name": "神戸物産",
+  "sector": "生活必需品",
+  "market_cap": 673350811648
+ },
+ {
+  "ticker": "8050.T",
+  "name": "セイコーグループ",
+  "sector": "一般消費財",
+  "market_cap": 668908322816
+ },
+ {
+  "ticker": "6473.T",
+  "name": "ジェイテクト",
+  "sector": "一般消費財",
+  "market_cap": 664939659264
+ },
+ {
+  "ticker": "3769.T",
+  "name": "GMOペイメントゲートウェイ",
+  "sector": "テクノロジー",
+  "market_cap": 664881594368
+ },
+ {
+  "ticker": "4088.T",
+  "name": "エア・ウォーター",
+  "sector": "資本財・サービス",
+  "market_cap": 661655584768
+ },
+ {
+  "ticker": "2181.T",
+  "name": "パーソルホールディングス",
+  "sector": "資本財・サービス",
+  "market_cap": 661076180992
+ },
+ {
+  "ticker": "4183.T",
+  "name": "三井化学",
+  "sector": "素材",
+  "market_cap": 656171859968
+ },
+ {
+  "ticker": "5105.T",
+  "name": "TOYO TIRE",
+  "sector": "一般消費財",
+  "market_cap": 655629484032
+ },
+ {
+  "ticker": "2809.T",
+  "name": "キユーピー",
+  "sector": "生活必需品",
+  "market_cap": 655553527808
+ },
+ {
+  "ticker": "9506.T",
+  "name": "東北電力",
+  "sector": "公益事業",
+  "market_cap": 655533342720
+ },
+ {
+  "ticker": "4536.T",
+  "name": "参天製薬",
+  "sector": "ヘルスケア",
+  "market_cap": 654819328000
+ },
+ {
+  "ticker": "5444.T",
+  "name": "大和工業",
+  "sector": "素材",
+  "market_cap": 653110214656
+ },
+ {
+  "ticker": "4182.T",
+  "name": "三菱瓦斯化学",
+  "sector": "素材",
+  "market_cap": 650993926144
+ },
+ {
+  "ticker": "7189.T",
+  "name": "西日本フィナンシャルホールディングス",
+  "sector": "金融",
+  "market_cap": 648917024768
+ },
+ {
+  "ticker": "7276.T",
+  "name": "小糸製作所",
+  "sector": "一般消費財",
+  "market_cap": 646690177024
+ },
+ {
+  "ticker": "4203.T",
+  "name": "住友ベークライト",
+  "sector": "素材",
+  "market_cap": 639234277376
+ },
+ {
+  "ticker": "6965.T",
+  "name": "浜松ホトニクス",
+  "sector": "テクノロジー",
+  "market_cap": 628851605504
+ },
+ {
+  "ticker": "3635.T",
+  "name": "コーエーテクモホールディングス",
+  "sector": "通信サービス",
+  "market_cap": 628366376960
+ },
+ {
+  "ticker": "7282.T",
+  "name": "豊田合成",
+  "sector": "一般消費財",
+  "market_cap": 627931348992
+ },
+ {
+  "ticker": "9007.T",
+  "name": "小田急電鉄",
+  "sector": "資本財・サービス",
+  "market_cap": 622344470528
+ },
+ {
+  "ticker": "7180.T",
+  "name": "九州フィナンシャルグループ",
+  "sector": "金融",
+  "market_cap": 620822396928
+ },
+ {
+  "ticker": "6481.T",
+  "name": "THK",
+  "sector": "資本財・サービス",
+  "market_cap": 613267865600
+ },
+ {
+  "ticker": "4912.T",
+  "name": "ライオン",
+  "sector": "生活必需品",
+  "market_cap": 604867198976
+ },
+ {
+  "ticker": "8253.T",
+  "name": "クレディセゾン",
+  "sector": "金融",
+  "market_cap": 602937491456
+ },
+ {
+  "ticker": "6370.T",
+  "name": "栗田工業",
+  "sector": "資本財・サービス",
+  "market_cap": 602847117312
+ },
+ {
+  "ticker": "6302.T",
+  "name": "住友重機械工業",
+  "sector": "資本財・サービス",
+  "market_cap": 601832620032
+ },
+ {
+  "ticker": "1721.T",
+  "name": "コムシスホールディングス",
+  "sector": "資本財・サービス",
+  "market_cap": 600812683264
+ },
+ {
+  "ticker": "7327.T",
+  "name": "第四北越フィナンシャルグループ",
+  "sector": "金融",
+  "market_cap": 598901325824
+ },
+ {
+  "ticker": "9706.T",
+  "name": "日本空港ビルデング",
+  "sector": "資本財・サービス",
+  "market_cap": 596124631040
+ },
+ {
+  "ticker": "5991.T",
+  "name": "日本発條",
+  "sector": "一般消費財",
+  "market_cap": 591795060736
+ },
+ {
+  "ticker": "2871.T",
+  "name": "ニチレイ",
+  "sector": "生活必需品",
+  "market_cap": 591326085120
+ },
+ {
+  "ticker": "4676.T",
+  "name": "フジ・メディア・ホールディングス",
+  "sector": "通信サービス",
+  "market_cap": 588246548480
+ },
+ {
+  "ticker": "9001.T",
+  "name": "東武鉄道",
+  "sector": "資本財・サービス",
+  "market_cap": 586496278528
+ },
+ {
+  "ticker": "9142.T",
+  "name": "九州旅客鉄道",
+  "sector": "資本財・サービス",
+  "market_cap": 583351271424
+ },
+ {
+  "ticker": "6269.T",
+  "name": "三井海洋開発",
+  "sector": "エネルギー",
+  "market_cap": 579285942272
+ },
+ {
+  "ticker": "3405.T",
+  "name": "クラレ",
+  "sector": "素材",
+  "market_cap": 577134133248
+ },
+ {
+  "ticker": "7951.T",
+  "name": "ヤマハ",
+  "sector": "一般消費財",
+  "market_cap": 576704086016
+ },
+ {
+  "ticker": "ASML",
+  "name": "ASML Holding N.V. - New York Re",
+  "sector": "テクノロジー",
+  "market_cap": 576261193728
+ },
+ {
+  "ticker": "MA",
+  "name": "Mastercard Incorporated",
+  "sector": "金融",
+  "market_cap": 576012943360
+ },
+ {
+  "ticker": "4403.T",
+  "name": "日油",
+  "sector": "素材",
+  "market_cap": 572672376832
+ },
+ {
+  "ticker": "6323.T",
+  "name": "ローツェ",
+  "sector": "テクノロジー",
+  "market_cap": 564173471744
+ },
+ {
+  "ticker": "5711.T",
+  "name": "三菱マテリアル",
+  "sector": "素材",
+  "market_cap": 562745180160
+ },
+ {
+  "ticker": "4812.T",
+  "name": "電通総研",
+  "sector": "テクノロジー",
+  "market_cap": 561533222912
+ },
+ {
+  "ticker": "4385.T",
+  "name": "メルカリ",
+  "sector": "一般消費財",
+  "market_cap": 561285365760
+ },
+ {
+  "ticker": "3132.T",
+  "name": "マクニカホールディングス",
+  "sector": "テクノロジー",
+  "market_cap": 559726788608
+ },
+ {
+  "ticker": "3291.T",
+  "name": "飯田グループホールディングス",
+  "sector": "一般消費財",
+  "market_cap": 555837751296
+ },
+ {
+  "ticker": "5021.T",
+  "name": "コスモエネルギーホールディングス",
+  "sector": "エネルギー",
+  "market_cap": 552836071424
+ },
+ {
+  "ticker": "4527.T",
+  "name": "ロート製薬",
+  "sector": "生活必需品",
+  "market_cap": 550055772160
+ },
+ {
+  "ticker": "1969.T",
+  "name": "高砂熱学工業",
+  "sector": "資本財・サービス",
+  "market_cap": 548638457856
+ },
+ {
+  "ticker": "5344.T",
+  "name": "MARUWA",
+  "sector": "テクノロジー",
+  "market_cap": 544605110272
+ },
+ {
+  "ticker": "2282.T",
+  "name": "日本ハム",
+  "sector": "生活必需品",
+  "market_cap": 542790156288
+ },
+ {
+  "ticker": "2531.T",
+  "name": "宝ホールディングス",
+  "sector": "生活必需品",
+  "market_cap": 535086858240
+ },
+ {
+  "ticker": "7729.T",
+  "name": "東京精密",
+  "sector": "テクノロジー",
+  "market_cap": 533755461632
+ },
+ {
+  "ticker": "8366.T",
+  "name": "滋賀銀行",
+  "sector": "金融",
+  "market_cap": 531136282624
+ },
+ {
+  "ticker": "7731.T",
+  "name": "ニコン",
+  "sector": "一般消費財",
+  "market_cap": 528474669056
+ },
+ {
+  "ticker": "7649.T",
+  "name": "スギホールディングス",
+  "sector": "ヘルスケア",
+  "market_cap": 527189966848
+ },
+ {
+  "ticker": "5110.T",
+  "name": "住友ゴム工業",
+  "sector": "一般消費財",
+  "market_cap": 526087061504
+ },
+ {
+  "ticker": "4613.T",
+  "name": "関西ペイント",
+  "sector": "素材",
+  "market_cap": 523821088768
+ },
+ {
+  "ticker": "4626.T",
+  "name": "太陽ホールディングス",
+  "sector": "素材",
+  "market_cap": 521545515008
+ },
+ {
+  "ticker": "ABBV",
+  "name": "AbbVie",
+  "sector": "ヘルスケア",
+  "market_cap": 521499836416
+ },
+ {
+  "ticker": "3349.T",
+  "name": "コスモス薬品",
+  "sector": "ヘルスケア",
+  "market_cap": 510178754560
+ },
+ {
+  "ticker": "1963.T",
+  "name": "日揮ホールディングス",
+  "sector": "資本財・サービス",
+  "market_cap": 509690281984
+ },
+ {
+  "ticker": "8985.T",
+  "name": "ジャパン・ホテル・リート投資法人",
+  "sector": "不動産",
+  "market_cap": 508334931968
+ },
+ {
+  "ticker": "8252.T",
+  "name": "丸井グループ",
+  "sector": "金融",
+  "market_cap": 506267828224
+ },
+ {
+  "ticker": "9831.T",
+  "name": "ヤマダホールディングス",
+  "sector": "一般消費財",
+  "market_cap": 503220371456
+ },
+ {
+  "ticker": "8368.T",
+  "name": "百五銀行",
+  "sector": "金融",
+  "market_cap": 497020928000
+ },
+ {
+  "ticker": "5714.T",
+  "name": "DOWAホールディングス",
+  "sector": "素材",
+  "market_cap": 496174989312
+ },
+ {
+  "ticker": "9412.T",
+  "name": "スカパーJSAT",
+  "sector": "通信サービス",
+  "market_cap": 494179614720
+ },
+ {
+  "ticker": "7762.T",
+  "name": "シチズン時計",
+  "sector": "一般消費財",
+  "market_cap": 492870041600
+ },
+ {
+  "ticker": "6471.T",
+  "name": "日本精工",
+  "sector": "一般消費財",
+  "market_cap": 490299621376
+ },
+ {
+  "ticker": "COST",
+  "name": "Costco Wholesale",
+  "sector": "生活必需品",
+  "market_cap": 490194108416
+ },
+ {
+  "ticker": "5938.T",
+  "name": "LIXIL",
+  "sector": "資本財・サービス",
+  "market_cap": 489047425024
+ },
+ {
+  "ticker": "4631.T",
+  "name": "DIC",
+  "sector": "素材",
+  "market_cap": 489036120064
+ },
+ {
+  "ticker": "3110.T",
+  "name": "日東紡績",
+  "sector": "一般消費財",
+  "market_cap": 483199614976
+ },
+ {
+  "ticker": "8963.T",
+  "name": "インヴィンシブル投資法人",
+  "sector": "不動産",
+  "market_cap": 480961888256
+ },
+ {
+  "ticker": "6268.T",
+  "name": "ナブテスコ",
+  "sector": "資本財・サービス",
+  "market_cap": 478599905280
+ },
+ {
+  "ticker": "3397.T",
+  "name": "トリドールホールディングス",
+  "sector": "一般消費財",
+  "market_cap": 473238110208
+ },
+ {
+  "ticker": "8056.T",
+  "name": "BIPROGY",
+  "sector": "テクノロジー",
+  "market_cap": 471640506368
+ },
+ {
+  "ticker": "8524.T",
+  "name": "北洋銀行",
+  "sector": "金融",
+  "market_cap": 462034599936
+ },
+ {
+  "ticker": "7867.T",
+  "name": "タカラトミー",
+  "sector": "一般消費財",
+  "market_cap": 460722700288
+ },
+ {
+  "ticker": "9989.T",
+  "name": "サンドラッグ",
+  "sector": "ヘルスケア",
+  "market_cap": 459100946432
+ },
+ {
+  "ticker": "8358.T",
+  "name": "スルガ銀行",
+  "sector": "金融",
+  "market_cap": 456350334976
+ },
+ {
+  "ticker": "2222.T",
+  "name": "寿スピリッツ",
+  "sector": "生活必需品",
+  "market_cap": 455603716096
+ },
+ {
+  "ticker": "6324.T",
+  "name": "ハーモニック・ドライブ・システムズ",
+  "sector": "資本財・サービス",
+  "market_cap": 452081287168
+ },
+ {
+  "ticker": "7564.T",
+  "name": "ワークマン",
+  "sector": "一般消費財",
+  "market_cap": 451335585792
+ },
+ {
+  "ticker": "6674.T",
+  "name": "ジーエス・ユアサ コーポレーション",
+  "sector": "一般消費財",
+  "market_cap": 447421513728
+ },
+ {
+  "ticker": "5233.T",
+  "name": "太平洋セメント",
+  "sector": "素材",
+  "market_cap": 445991747584
+ },
+ {
+  "ticker": "6952.T",
+  "name": "カシオ計算機",
+  "sector": "テクノロジー",
+  "market_cap": 445845405696
+ },
+ {
+  "ticker": "8304.T",
+  "name": "あおぞら銀行",
+  "sector": "金融",
+  "market_cap": 443058880512
+ },
+ {
+  "ticker": "7211.T",
+  "name": "三菱自動車工業",
+  "sector": "一般消費財",
+  "market_cap": 443020673024
+ },
+ {
+  "ticker": "6417.T",
+  "name": "SANKYO",
+  "sector": "一般消費財",
+  "market_cap": 441541722112
+ },
+ {
+  "ticker": "6134.T",
+  "name": "FUJI",
+  "sector": "資本財・サービス",
+  "market_cap": 440037441536
+ },
+ {
+  "ticker": "7581.T",
+  "name": "サイゼリヤ",
+  "sector": "一般消費財",
+  "market_cap": 436261912576
+ },
+ {
+  "ticker": "CVX",
+  "name": "Chevron",
+  "sector": "エネルギー",
+  "market_cap": 429061144576
+ },
+ {
+  "ticker": "6592.T",
+  "name": "マブチモーター",
+  "sector": "一般消費財",
+  "market_cap": 427616796672
+ },
+ {
+  "ticker": "KO",
+  "name": "Coca-Cola Company (The)",
+  "sector": "生活必需品",
+  "market_cap": 426963795968
+ },
+ {
+  "ticker": "6368.T",
+  "name": "オルガノ",
+  "sector": "資本財・サービス",
+  "market_cap": 420875567104
+ },
+ {
+  "ticker": "6787.T",
+  "name": "メイコー",
+  "sector": "テクノロジー",
+  "market_cap": 420446961664
+ },
+ {
+  "ticker": "4202.T",
+  "name": "ダイセル",
+  "sector": "素材",
+  "market_cap": 420098801664
+ },
+ {
+  "ticker": "7173.T",
+  "name": "東京きらぼしフィナンシャルグループ",
+  "sector": "金融",
+  "market_cap": 419793207296
+ },
+ {
+  "ticker": "9301.T",
+  "name": "三菱倉庫",
+  "sector": "資本財・サービス",
+  "market_cap": 415336103936
+ },
+ {
+  "ticker": "1980.T",
+  "name": "ダイダン",
+  "sector": "資本財・サービス",
+  "market_cap": 415189499904
+ },
+ {
+  "ticker": "3994.T",
+  "name": "マネーフォワード",
+  "sector": "テクノロジー",
+  "market_cap": 413769203712
+ },
+ {
+  "ticker": "6871.T",
+  "name": "日本マイクロニクス",
+  "sector": "テクノロジー",
+  "market_cap": 413686497280
+ },
+ {
+  "ticker": "1662.T",
+  "name": "石油資源開発",
+  "sector": "エネルギー",
+  "market_cap": 411957854208
+ },
+ {
+  "ticker": "6141.T",
+  "name": "DMG森精機",
+  "sector": "資本財・サービス",
+  "market_cap": 410387349504
+ },
+ {
+  "ticker": "4194.T",
+  "name": "ビジョナル",
+  "sector": "通信サービス",
+  "market_cap": 407040327680
+ },
+ {
+  "ticker": "PLTR",
+  "name": "Palantir Technologies",
+  "sector": "テクノロジー",
+  "market_cap": 404771504128
+ },
+ {
+  "ticker": "2264.T",
+  "name": "森永乳業",
+  "sector": "生活必需品",
+  "market_cap": 404072955904
+ },
+ {
+  "ticker": "9504.T",
+  "name": "中国電力",
+  "sector": "公益事業",
+  "market_cap": 403277512704
+ },
+ {
+  "ticker": "4205.T",
+  "name": "日本ゼオン",
+  "sector": "素材",
+  "market_cap": 402235916288
+ },
+ {
+  "ticker": "5631.T",
+  "name": "日本製鋼所",
+  "sector": "資本財・サービス",
+  "market_cap": 398963310592
+ },
+ {
+  "ticker": "6923.T",
+  "name": "スタンレー電気",
+  "sector": "一般消費財",
+  "market_cap": 398960525312
+ },
+ {
+  "ticker": "PG",
+  "name": "Procter & Gamble Company (The)",
+  "sector": "生活必需品",
+  "market_cap": 393559572480
+ },
+ {
+  "ticker": "ORCL",
+  "name": "Oracle",
+  "sector": "テクノロジー",
+  "market_cap": 390804701184
+ },
+ {
+  "ticker": "5471.T",
+  "name": "大同特殊鋼",
+  "sector": "素材",
+  "market_cap": 388554752000
+ },
+ {
+  "ticker": "1893.T",
+  "name": "五洋建設",
+  "sector": "資本財・サービス",
+  "market_cap": 387532226560
+ },
+ {
+  "ticker": "4680.T",
+  "name": "ラウンドワン",
+  "sector": "一般消費財",
+  "market_cap": 383530729472
+ },
+ {
+  "ticker": "6890.T",
+  "name": "フェローテック",
+  "sector": "テクノロジー",
+  "market_cap": 377971441664
+ },
+ {
+  "ticker": "CSCO",
+  "name": "Cisco Systems",
+  "sector": "テクノロジー",
+  "market_cap": 376532795392
+ },
+ {
+  "ticker": "6770.T",
+  "name": "アルプスアルパイン",
+  "sector": "テクノロジー",
+  "market_cap": 374791340032
+ },
+ {
+  "ticker": "7003.T",
+  "name": "三井E&S",
+  "sector": "資本財・サービス",
+  "market_cap": 370514132992
+ },
+ {
+  "ticker": "3941.T",
+  "name": "レンゴー",
+  "sector": "一般消費財",
+  "market_cap": 368405381120
+ },
+ {
+  "ticker": "2607.T",
+  "name": "不二製油",
+  "sector": "生活必需品",
+  "market_cap": 367573860352
+ },
+ {
+  "ticker": "UNH",
+  "name": "UnitedHealth Group Incorporated",
+  "sector": "ヘルスケア",
+  "market_cap": 365093355520
+ },
+ {
+  "ticker": "MRK",
+  "name": "Merck &",
+  "sector": "ヘルスケア",
+  "market_cap": 364264685568
+ },
+ {
+  "ticker": "5214.T",
+  "name": "日本電気硝子",
+  "sector": "テクノロジー",
+  "market_cap": 361727328256
+ },
+ {
+  "ticker": "4114.T",
+  "name": "日本触媒",
+  "sector": "素材",
+  "market_cap": 361385033728
+ },
+ {
+  "ticker": "BAC",
+  "name": "Bank of America",
+  "sector": "金融",
+  "market_cap": 352048676864
+ },
+ {
+  "ticker": "9616.T",
+  "name": "共立メンテナンス",
+  "sector": "一般消費財",
+  "market_cap": 349116956672
+ },
+ {
+  "ticker": "HD",
+  "name": "Home Depot, Inc. (The)",
+  "sector": "一般消費財",
+  "market_cap": 347884388352
+ },
+ {
+  "ticker": "4980.T",
+  "name": "デクセリアルズ",
+  "sector": "テクノロジー",
+  "market_cap": 346681311232
+ },
+ {
+  "ticker": "6728.T",
+  "name": "アルバック",
+  "sector": "資本財・サービス",
+  "market_cap": 345593479168
+ },
+ {
+  "ticker": "6753.T",
+  "name": "シャープ",
+  "sector": "テクノロジー",
+  "market_cap": 343482957824
+ },
+ {
+  "ticker": "GE",
+  "name": "GE Aerospace",
+  "sector": "資本財・サービス",
+  "market_cap": 342876487680
+ },
+ {
+  "ticker": "6432.T",
+  "name": "竹内製作所",
+  "sector": "資本財・サービス",
+  "market_cap": 340451426304
+ },
+ {
+  "ticker": "1332.T",
+  "name": "ニッスイ",
+  "sector": "生活必需品",
+  "market_cap": 339938607104
+ },
+ {
+  "ticker": "4922.T",
+  "name": "コーセーホールディングス",
+  "sector": "生活必需品",
+  "market_cap": 339878445056
+ },
+ {
+  "ticker": "5741.T",
+  "name": "UACJ",
+  "sector": "素材",
+  "market_cap": 335584624640
+ },
+ {
+  "ticker": "6508.T",
+  "name": "明電舎",
+  "sector": "資本財・サービス",
+  "market_cap": 334695235584
+ },
+ {
+  "ticker": "6526.T",
+  "name": "ソシオネクスト",
+  "sector": "資本財・サービス",
+  "market_cap": 333634928640
+ },
+ {
+  "ticker": "5301.T",
+  "name": "東海カーボン",
+  "sector": "素材",
+  "market_cap": 329706143744
+ },
+ {
+  "ticker": "4208.T",
+  "name": "UBE",
+  "sector": "素材",
+  "market_cap": 326610911232
+ },
+ {
+  "ticker": "6951.T",
+  "name": "日本電子",
+  "sector": "テクノロジー",
+  "market_cap": 326017220608
+ },
+ {
+  "ticker": "6135.T",
+  "name": "牧野フライス製作所",
+  "sector": "資本財・サービス",
+  "market_cap": 323183706112
+ },
+ {
+  "ticker": "INTC",
+  "name": "Intel",
+  "sector": "テクノロジー",
+  "market_cap": 317092888576
+ },
+ {
+  "ticker": "7966.T",
+  "name": "リンテック",
+  "sector": "素材",
+  "market_cap": 316570009600
+ },
+ {
+  "ticker": "4666.T",
+  "name": "パーク24",
+  "sector": "資本財・サービス",
+  "market_cap": 316364849152
+ },
+ {
+  "ticker": "8848.T",
+  "name": "レオパレス21",
+  "sector": "不動産",
+  "market_cap": 314378715136
+ },
+ {
+  "ticker": "9861.T",
+  "name": "吉野家ホールディングス",
+  "sector": "一般消費財",
+  "market_cap": 311597498368
+ },
+ {
+  "ticker": "PM",
+  "name": "Philip Morris International",
+  "sector": "生活必需品",
+  "market_cap": 310110126080
+ },
+ {
+  "ticker": "HSBC",
+  "name": "HSBC Holdings, plc.",
+  "sector": "金融",
+  "market_cap": 306353176576
+ },
+ {
+  "ticker": "4368.T",
+  "name": "扶桑化学工業",
+  "sector": "素材",
+  "market_cap": 305881939968
+ },
+ {
+  "ticker": "7552.T",
+  "name": "ハピネット",
+  "sector": "一般消費財",
+  "market_cap": 305511759872
+ },
+ {
+  "ticker": "6754.T",
+  "name": "アンリツ",
+  "sector": "テクノロジー",
+  "market_cap": 304972169216
+ },
+ {
+  "ticker": "3105.T",
+  "name": "日清紡ホールディングス",
+  "sector": "資本財・サービス",
+  "market_cap": 303241691136
+ },
+ {
+  "ticker": "NVS",
+  "name": "Novartis AG",
+  "sector": "ヘルスケア",
+  "market_cap": 303124086784
+ },
+ {
+  "ticker": "MS",
+  "name": "Morgan Stanley",
+  "sector": "金融",
+  "market_cap": 297994289152
+ },
+ {
+  "ticker": "AMAT",
+  "name": "Applied Materials",
+  "sector": "テクノロジー",
+  "market_cap": 294027853824
+ },
+ {
+  "ticker": "AZN",
+  "name": "AstraZeneca",
+  "sector": "ヘルスケア",
+  "market_cap": 286066737152
+ },
+ {
+  "ticker": "LRCX",
+  "name": "Lam Research",
+  "sector": "テクノロジー",
+  "market_cap": 282212696064
+ },
+ {
+  "ticker": "SHEL",
+  "name": "Shell",
+  "sector": "エネルギー",
+  "market_cap": 280064360448
+ },
+ {
+  "ticker": "TXN",
+  "name": "Texas Instruments Incorporated",
+  "sector": "テクノロジー",
+  "market_cap": 277420670976
+ },
+ {
+  "ticker": "CAT",
+  "name": "Caterpillar",
+  "sector": "資本財・サービス",
+  "market_cap": 274648023040
+ },
+ {
+  "ticker": "SAP",
+  "name": "SAP  SE",
+  "sector": "テクノロジー",
+  "market_cap": 271122579456
+ },
+ {
+  "ticker": "RTX",
+  "name": "RTX",
+  "sector": "資本財・サービス",
+  "market_cap": 267971903488
+ },
+ {
+  "ticker": "GS",
+  "name": "Goldman Sachs Group, Inc. (The)",
+  "sector": "金融",
+  "market_cap": 264367603712
+ },
+ {
+  "ticker": "PANW",
+  "name": "Palo Alto Networks",
+  "sector": "テクノロジー",
+  "market_cap": 263840972800
+ },
+ {
+  "ticker": "TMO",
+  "name": "Thermo Fisher Scientific",
+  "sector": "ヘルスケア",
+  "market_cap": 259442606080
+ },
+ {
+  "ticker": "WFC",
+  "name": "Wells Fargo &",
+  "sector": "金融",
+  "market_cap": 258309226496
+ },
+ {
+  "ticker": "NFLX",
+  "name": "Netflix",
+  "sector": "通信サービス",
+  "market_cap": 255208161280
+ },
+ {
+  "ticker": "AMGN",
+  "name": "Amgen",
+  "sector": "ヘルスケア",
+  "market_cap": 251886256128
+ },
+ {
+  "ticker": "TM",
+  "name": "Toyota Motor",
+  "sector": "一般消費財",
+  "market_cap": 249308872704
+ },
+ {
+  "ticker": "ANET",
+  "name": "Arista Networks",
+  "sector": "テクノロジー",
+  "market_cap": 249256640512
+ },
+ {
+  "ticker": "LIN",
+  "name": "Linde",
+  "sector": "素材",
+  "market_cap": 241505615872
+ },
+ {
+  "ticker": "BABA",
+  "name": "Alibaba Group Holding",
+  "sector": "一般消費財",
+  "market_cap": 234793369600
+ },
+ {
+  "ticker": "IBM",
+  "name": "International Business Machines",
+  "sector": "テクノロジー",
+  "market_cap": 233567715328
+ },
+ {
+  "ticker": "CRWD",
+  "name": "CrowdStrike",
+  "sector": "テクノロジー",
+  "market_cap": 232033878016
+ },
+ {
+  "ticker": "DELL",
+  "name": "Dell Technologies",
+  "sector": "テクノロジー",
+  "market_cap": 219056553984
+ },
+ {
+  "ticker": "AXP",
+  "name": "American Express",
+  "sector": "金融",
+  "market_cap": 214978969600
+ },
+ {
+  "ticker": "GEV",
+  "name": "GE Vernova",
+  "sector": "資本財・サービス",
+  "market_cap": 212570095616
+ },
+ {
+  "ticker": "GILD",
+  "name": "Gilead Sciences",
+  "sector": "ヘルスケア",
+  "market_cap": 208476110848
+ },
+ {
+  "ticker": "DIS",
+  "name": "Walt Disney Company (The)",
+  "sector": "通信サービス",
+  "market_cap": 205423935488
+ },
+ {
+  "ticker": "C",
+  "name": "Citigroup",
+  "sector": "金融",
+  "market_cap": 205261914112
+ },
+ {
+  "ticker": "ARM",
+  "name": "Arm",
+  "sector": "テクノロジー",
+  "market_cap": 203867095040
+ },
+ {
+  "ticker": "KLAC",
+  "name": "KLA",
+  "sector": "テクノロジー",
+  "market_cap": 198467239936
+ },
+ {
+  "ticker": "PEP",
+  "name": "Pepsico",
+  "sector": "生活必需品",
+  "market_cap": 198197067776
+ },
+ {
+  "ticker": "APH",
+  "name": "Amphenol",
+  "sector": "テクノロジー",
+  "market_cap": 193170325504
+ },
+ {
+  "ticker": "ADI",
+  "name": "Analog Devices",
+  "sector": "テクノロジー",
+  "market_cap": 192842514432
+ },
+ {
+  "ticker": "VZ",
+  "name": "Verizon Communications",
+  "sector": "通信サービス",
+  "market_cap": 192143572992
+ },
+ {
+  "ticker": "MCD",
+  "name": "McDonald's",
+  "sector": "一般消費財",
+  "market_cap": 191952289792
+ },
+ {
+  "ticker": "SHOP",
+  "name": "Shopify",
+  "sector": "テクノロジー",
+  "market_cap": 189234511872
+ },
+ {
+  "ticker": "BLK",
+  "name": "BlackRock",
+  "sector": "金融",
+  "market_cap": 188845948928
+ },
+ {
+  "ticker": "ABT",
+  "name": "Abbott Laboratories",
+  "sector": "ヘルスケア",
+  "market_cap": 187950301184
+ },
+ {
+  "ticker": "QCOM",
+  "name": "QUALCOMM Incorporated",
+  "sector": "テクノロジー",
+  "market_cap": 184542904320
+ },
+ {
+  "ticker": "NVO",
+  "name": "Novo Nordisk A/S",
+  "sector": "ヘルスケア",
+  "market_cap": 183519838208
+ },
+ {
+  "ticker": "DE",
+  "name": "Deere &",
+  "sector": "資本財・サービス",
+  "market_cap": 181603483648
+ },
+ {
+  "ticker": "TMUS",
+  "name": "T-Mobile US",
+  "sector": "通信サービス",
+  "market_cap": 180023377920
+ },
+ {
+  "ticker": "UNP",
+  "name": "Union Pacific",
+  "sector": "資本財・サービス",
+  "market_cap": 179725107200
+ },
+ {
+  "ticker": "WELL",
+  "name": "Welltower",
+  "sector": "不動産",
+  "market_cap": 179338264576
+ },
+ {
+  "ticker": "CRM",
+  "name": "Salesforce",
+  "sector": "テクノロジー",
+  "market_cap": 179282313216
+ },
+ {
+  "ticker": "NEE",
+  "name": "NextEra Energy",
+  "sector": "公益事業",
+  "market_cap": 178522701824
+ },
+ {
+  "ticker": "COP",
+  "name": "ConocoPhillips",
+  "sector": "エネルギー",
+  "market_cap": 168222638080
+ },
+ {
+  "ticker": "PFE",
+  "name": "Pfizer",
+  "sector": "ヘルスケア",
+  "market_cap": 164668768256
+ },
+ {
+  "ticker": "DHR",
+  "name": "Danaher",
+  "sector": "ヘルスケア",
+  "market_cap": 163936747520
+ },
+ {
+  "ticker": "SCHW",
+  "name": "Charles Schwab Corporation (The",
+  "sector": "金融",
+  "market_cap": 160484196352
+ },
+ {
+  "ticker": "SONY",
+  "name": "Sony",
+  "sector": "テクノロジー",
+  "market_cap": 157770825728
+ },
+ {
+  "ticker": "ISRG",
+  "name": "Intuitive Surgical",
+  "sector": "ヘルスケア",
+  "market_cap": 153767690240
+ },
+ {
+  "ticker": "T",
+  "name": "AT&T",
+  "sector": "通信サービス",
+  "market_cap": 149414985728
+ },
+ {
+  "ticker": "TJX",
+  "name": "TJX Companies, Inc. (The)",
+  "sector": "一般消費財",
+  "market_cap": 148439121920
+ },
+ {
+  "ticker": "BX",
+  "name": "Blackstone",
+  "sector": "金融",
+  "market_cap": 148359348224
+ },
+ {
+  "ticker": "ACN",
+  "name": "Accenture",
+  "sector": "テクノロジー",
+  "market_cap": 147973832704
+ },
+ {
+  "ticker": "CB",
+  "name": "Chubb",
+  "sector": "金融",
+  "market_cap": 143562440704
+ },
+ {
+  "ticker": "UL",
+  "name": "Unilever",
+  "sector": "生活必需品",
+  "market_cap": 142574436352
+ },
+ {
+  "ticker": "UBER",
+  "name": "Uber Technologies",
+  "sector": "テクノロジー",
+  "market_cap": 142299889664
+ },
+ {
+  "ticker": "MRVL",
+  "name": "Marvell Technology",
+  "sector": "テクノロジー",
+  "market_cap": 141047300096
+ },
+ {
+  "ticker": "IBKR",
+  "name": "Interactive Brokers",
+  "sector": "金融",
+  "market_cap": 139357175808
+ },
+ {
+  "ticker": "LMT",
+  "name": "Lockheed Martin",
+  "sector": "資本財・サービス",
+  "market_cap": 137688006656
+ },
+ {
+  "ticker": "SPGI",
+  "name": "S&P Global",
+  "sector": "金融",
+  "market_cap": 137293742080
+ },
+ {
+  "ticker": "ETN",
+  "name": "Eaton Corporation",
+  "sector": "資本財・サービス",
+  "market_cap": 137128845312
+ },
+ {
+  "ticker": "PGR",
+  "name": "Progressive Corporation (The)",
+  "sector": "金融",
+  "market_cap": 136602009600
+ },
+ {
+  "ticker": "VRTX",
+  "name": "Vertex Pharmaceuticals Incorpor",
+  "sector": "ヘルスケア",
+  "market_cap": 136555388928
+ },
+ {
+  "ticker": "BA",
+  "name": "Boeing Company (The)",
+  "sector": "資本財・サービス",
+  "market_cap": 135905165312
+ },
+ {
+  "ticker": "APP",
+  "name": "Applovin",
+  "sector": "通信サービス",
+  "market_cap": 135543824384
+ },
+ {
+  "ticker": "MDT",
+  "name": "Medtronic plc.",
+  "sector": "ヘルスケア",
+  "market_cap": 131572129792
+ },
+ {
+  "ticker": "MO",
+  "name": "Altria",
+  "sector": "生活必需品",
+  "market_cap": 130812682240
+ },
+ {
+  "ticker": "BMY",
+  "name": "Bristol-Myers Squibb",
+  "sector": "ヘルスケア",
+  "market_cap": 129656365056
+ },
+ {
+  "ticker": "LOW",
+  "name": "Lowe's Companies",
+  "sector": "一般消費財",
+  "market_cap": 127768829952
+ },
+ {
+  "ticker": "MCK",
+  "name": "McKesson",
+  "sector": "ヘルスケア",
+  "market_cap": 127326773248
+ },
+ {
+  "ticker": "SNDK",
+  "name": "Sandisk",
+  "sector": "テクノロジー",
+  "market_cap": 125927505920
+ },
+ {
+  "ticker": "SPOT",
+  "name": "Spotify Technology",
+  "sector": "通信サービス",
+  "market_cap": 125911064576
+ },
+ {
+  "ticker": "PLD",
+  "name": "Prologis",
+  "sector": "不動産",
+  "market_cap": 125102104576
+ },
+ {
+  "ticker": "ADP",
+  "name": "Automatic Data Processing",
+  "sector": "テクノロジー",
+  "market_cap": 122347782144
+ },
+ {
+  "ticker": "SBUX",
+  "name": "Starbucks",
+  "sector": "一般消費財",
+  "market_cap": 121352241152
+ },
+ {
+  "ticker": "STX",
+  "name": "Seagate Technology",
+  "sector": "テクノロジー",
+  "market_cap": 121274826752
+ },
+ {
+  "ticker": "PH",
+  "name": "Parker-Hannifin",
+  "sector": "資本財・サービス",
+  "market_cap": 120508178432
+ },
+ {
+  "ticker": "BKNG",
+  "name": "Booking Holdings Inc. Common St",
+  "sector": "一般消費財",
+  "market_cap": 118679846912
+ },
+ {
+  "ticker": "SYK",
+  "name": "Stryker",
+  "sector": "ヘルスケア",
+  "market_cap": 117877170176
+ },
+ {
+  "ticker": "BP",
+  "name": "BP p.l.c.",
+  "sector": "エネルギー",
+  "market_cap": 117707300864
+ },
+ {
+  "ticker": "NEM",
+  "name": "Newmont",
+  "sector": "素材",
+  "market_cap": 117574320128
+ },
+ {
+  "ticker": "COF",
+  "name": "Capital One Financial Corporati",
+  "sector": "金融",
+  "market_cap": 117347098624
+ },
+ {
+  "ticker": "CVS",
+  "name": "CVS Health",
+  "sector": "ヘルスケア",
+  "market_cap": 114321014784
+ },
+ {
+  "ticker": "CME",
+  "name": "CME",
+  "sector": "金融",
+  "market_cap": 113812242432
+ },
+ {
+  "ticker": "MPC",
+  "name": "Marathon Petroleum",
+  "sector": "エネルギー",
+  "market_cap": 112901840896
+ },
+ {
+  "ticker": "ABNB",
+  "name": "Airbnb",
+  "sector": "一般消費財",
+  "market_cap": 111459508224
+ },
+ {
+  "ticker": "WDC",
+  "name": "Western Digital",
+  "sector": "テクノロジー",
+  "market_cap": 110668668928
+ },
+ {
+  "ticker": "NET",
+  "name": "Cloudflare",
+  "sector": "テクノロジー",
+  "market_cap": 109599932416
+ },
+ {
+  "ticker": "MAR",
+  "name": "Marriott International",
+  "sector": "一般消費財",
+  "market_cap": 108965560320
+ },
+ {
+  "ticker": "SO",
+  "name": "Southern Company (The)",
+  "sector": "公益事業",
+  "market_cap": 108963184640
+ },
+ {
+  "ticker": "CVNA",
+  "name": "Carvana Co.",
+  "sector": "一般消費財",
+  "market_cap": 107969396736
+ },
+ {
+  "ticker": "NOW",
+  "name": "ServiceNow",
+  "sector": "テクノロジー",
+  "market_cap": 106127015936
+ },
+ {
+  "ticker": "VLO",
+  "name": "Valero Energy",
+  "sector": "エネルギー",
+  "market_cap": 105928663040
+ },
+ {
+  "ticker": "EQIX",
+  "name": "Equinix",
+  "sector": "不動産",
+  "market_cap": 104312905728
+ },
+ {
+  "ticker": "HCA",
+  "name": "HCA Healthcare",
+  "sector": "ヘルスケア",
+  "market_cap": 104247795712
+ },
+ {
+  "ticker": "PSX",
+  "name": "Phillips 66",
+  "sector": "エネルギー",
+  "market_cap": 103330160640
+ },
+ {
+  "ticker": "BNY",
+  "name": "The Bank of New York Mellon Cor",
+  "sector": "金融",
+  "market_cap": 103229358080
+ },
+ {
+  "ticker": "SNOW",
+  "name": "Snowflake",
+  "sector": "テクノロジー",
+  "market_cap": 102664798208
+ },
+ {
+  "ticker": "DUK",
+  "name": "Duke Energy Corporation (Holdin",
+  "sector": "公益事業",
+  "market_cap": 100707123200
+ },
+ {
+  "ticker": "ICE",
+  "name": "Intercontinental Exchange",
+  "sector": "金融",
+  "market_cap": 99761815552
+ },
+ {
+  "ticker": "REGN",
+  "name": "Regeneron Pharmaceuticals",
+  "sector": "ヘルスケア",
+  "market_cap": 98841321472
+ },
+ {
+  "ticker": "MRSH",
+  "name": "Marsh",
+  "sector": "金融",
+  "market_cap": 98802368512
+ },
+ {
+  "ticker": "CEG",
+  "name": "Constellation Energy Corporatio",
+  "sector": "公益事業",
+  "market_cap": 98520711168
+ },
+ {
+  "ticker": "GLW",
+  "name": "Corning Incorporated",
+  "sector": "テクノロジー",
+  "market_cap": 98268635136
+ },
+ {
+  "ticker": "GD",
+  "name": "General Dynamics",
+  "sector": "資本財・サービス",
+  "market_cap": 98215510016
+ },
+ {
+  "ticker": "WM",
+  "name": "Waste Management",
+  "sector": "資本財・サービス",
+  "market_cap": 96955318272
+ },
+ {
+  "ticker": "CSX",
+  "name": "CSX",
+  "sector": "資本財・サービス",
+  "market_cap": 95948881920
+ },
+ {
+  "ticker": "UPS",
+  "name": "United Parcel Service",
+  "sector": "資本財・サービス",
+  "market_cap": 95705161728
+ },
+ {
+  "ticker": "USB",
+  "name": "U.S. Bancorp",
+  "sector": "金融",
+  "market_cap": 95035154432
+ },
+ {
+  "ticker": "MMM",
+  "name": "3M",
+  "sector": "資本財・サービス",
+  "market_cap": 94902550528
+ },
+ {
+  "ticker": "ADBE",
+  "name": "Adobe",
+  "sector": "テクノロジー",
+  "market_cap": 94606737408
+ },
+ {
+  "ticker": "FTNT",
+  "name": "Fortinet",
+  "sector": "テクノロジー",
+  "market_cap": 93469777920
+ },
+ {
+  "ticker": "ELV",
+  "name": "Elevance Health",
+  "sector": "ヘルスケア",
+  "market_cap": 92837052416
+ },
+ {
+  "ticker": "PNC",
+  "name": "PNC Financial Services Group, I",
+  "sector": "金融",
+  "market_cap": 92167561216
+ },
+ {
+  "ticker": "TT",
+  "name": "Trane Technologies",
+  "sector": "資本財・サービス",
+  "market_cap": 91496062976
+ },
+ {
+  "ticker": "INTU",
+  "name": "Intuit",
+  "sector": "テクノロジー",
+  "market_cap": 91314544640
+ },
+ {
+  "ticker": "EMR",
+  "name": "Emerson Electric",
+  "sector": "資本財・サービス",
+  "market_cap": 91276066816
+ },
+ {
+  "ticker": "MNST",
+  "name": "Monster Beverage",
+  "sector": "生活必需品",
+  "market_cap": 90946002944
+ },
+ {
+  "ticker": "PWR",
+  "name": "Quanta Services",
+  "sector": "資本財・サービス",
+  "market_cap": 90709155840
+ },
+ {
+  "ticker": "WAT",
+  "name": "Waters",
+  "sector": "ヘルスケア",
+  "market_cap": 90454654976
+ },
+ {
+  "ticker": "MRNA",
+  "name": "Moderna",
+  "sector": "ヘルスケア",
+  "market_cap": 90380181504
+ },
+ {
+  "ticker": "KKR",
+  "name": "KKR & Co.",
+  "sector": "金融",
+  "market_cap": 90019168256
+ },
+ {
+  "ticker": "CTAS",
+  "name": "Cintas",
+  "sector": "資本財・サービス",
+  "market_cap": 89834274816
+ },
+ {
+  "ticker": "CMCSA",
+  "name": "Comcast",
+  "sector": "通信サービス",
+  "market_cap": 89343311872
+ },
+ {
+  "ticker": "AMT",
+  "name": "American Tower Corporation (REI",
+  "sector": "不動産",
+  "market_cap": 88875646976
+ },
+ {
+  "ticker": "CDNS",
+  "name": "Cadence Design Systems",
+  "sector": "テクノロジー",
+  "market_cap": 88627167232
+ },
+ {
+  "ticker": "SPG",
+  "name": "Simon Property",
+  "sector": "不動産",
+  "market_cap": 88187109376
+ },
+ {
+  "ticker": "MSI",
+  "name": "Motorola Solutions",
+  "sector": "テクノロジー",
+  "market_cap": 87825391616
+ },
+ {
+  "ticker": "HWM",
+  "name": "Howmet Aerospace",
+  "sector": "資本財・サービス",
+  "market_cap": 87811391488
+ },
+ {
+  "ticker": "MCO",
+  "name": "Moody's",
+  "sector": "金融",
+  "market_cap": 87625916416
+ },
+ {
+  "ticker": "SNPS",
+  "name": "Synopsys",
+  "sector": "テクノロジー",
+  "market_cap": 87233003520
+ },
+ {
+  "ticker": "ECL",
+  "name": "Ecolab",
+  "sector": "素材",
+  "market_cap": 86740262912
+ },
+ {
+  "ticker": "RCL",
+  "name": "Royal Caribbean Cruises",
+  "sector": "一般消費財",
+  "market_cap": 86465323008
+ },
+ {
+  "ticker": "WMB",
+  "name": "Williams Companies, Inc. (The)",
+  "sector": "エネルギー",
+  "market_cap": 86376488960
+ },
+ {
+  "ticker": "MDLZ",
+  "name": "Mondelez International",
+  "sector": "生活必需品",
+  "market_cap": 85494718464
+ },
+ {
+  "ticker": "FCX",
+  "name": "Freeport-McMoRan",
+  "sector": "素材",
+  "market_cap": 85005615104
+ },
+ {
+  "ticker": "SHW",
+  "name": "Sherwin-Williams Company (The)",
+  "sector": "素材",
+  "market_cap": 84529250304
+ },
+ {
+  "ticker": "JCI",
+  "name": "Johnson Controls International",
+  "sector": "資本財・サービス",
+  "market_cap": 83625828352
+ },
+ {
+  "ticker": "HLT",
+  "name": "Hilton Worldwide",
+  "sector": "一般消費財",
+  "market_cap": 83014148096
+ },
+ {
+  "ticker": "TRV",
+  "name": "The Travelers Companies",
+  "sector": "金融",
+  "market_cap": 82640519168
+ },
+ {
+  "ticker": "EOG",
+  "name": "EOG Resources",
+  "sector": "エネルギー",
+  "market_cap": 82086428672
+ },
+ {
+  "ticker": "ITW",
+  "name": "Illinois Tool Works",
+  "sector": "資本財・サービス",
+  "market_cap": 81713184768
+ },
+ {
+  "ticker": "CL",
+  "name": "Colgate-Palmolive",
+  "sector": "生活必需品",
+  "market_cap": 79229722624
+ },
+ {
+  "ticker": "CI",
+  "name": "The Cigna",
+  "sector": "ヘルスケア",
+  "market_cap": 78260256768
+ },
+ {
+  "ticker": "NOC",
+  "name": "Northrop Grumman",
+  "sector": "資本財・サービス",
+  "market_cap": 78196555776
+ },
+ {
+  "ticker": "VRT",
+  "name": "Vertiv Holdings, LLC",
+  "sector": "資本財・サービス",
+  "market_cap": 77809164288
+ },
+ {
+  "ticker": "RSG",
+  "name": "Republic Services",
+  "sector": "資本財・サービス",
+  "market_cap": 77070786560
+ },
+ {
+  "ticker": "SLB",
+  "name": "SLB",
+  "sector": "エネルギー",
+  "market_cap": 76266446848
+ },
+ {
+  "ticker": "FDX",
+  "name": "FedEx",
+  "sector": "資本財・サービス",
+  "market_cap": 75913388032
+ },
+ {
+  "ticker": "MELI",
+  "name": "MercadoLibre",
+  "sector": "一般消費財",
+  "market_cap": 75613773824
+ },
+ {
+  "ticker": "DASH",
+  "name": "DoorDash",
+  "sector": "一般消費財",
+  "market_cap": 74774298624
+ },
+ {
+  "ticker": "ROST",
+  "name": "Ross Stores",
+  "sector": "一般消費財",
+  "market_cap": 74010894336
+ },
+ {
+  "ticker": "ORLY",
+  "name": "O'Reilly Automotive",
+  "sector": "一般消費財",
+  "market_cap": 73940869120
+ },
+ {
+  "ticker": "NSC",
+  "name": "Norfolk Southern",
+  "sector": "資本財・サービス",
+  "market_cap": 73647316992
+ },
+ {
+  "ticker": "TGT",
+  "name": "Target",
+  "sector": "生活必需品",
+  "market_cap": 73345351680
+ },
+ {
+  "ticker": "APO",
+  "name": "Apollo Global Management",
+  "sector": "金融",
+  "market_cap": 72900714496
+ },
+ {
+  "ticker": "AJG",
+  "name": "Arthur J. Gallagher & Co.",
+  "sector": "金融",
+  "market_cap": 72550064128
+ },
+ {
+  "ticker": "GM",
+  "name": "General Motors",
+  "sector": "一般消費財",
+  "market_cap": 72545255424
+ },
+ {
+  "ticker": "AON",
+  "name": "Aon",
+  "sector": "金融",
+  "market_cap": 71774896128
+ },
+ {
+  "ticker": "KMI",
+  "name": "Kinder Morgan",
+  "sector": "エネルギー",
+  "market_cap": 71108673536
+ },
+ {
+  "ticker": "HON",
+  "name": "Honeywell International",
+  "sector": "資本財・サービス",
+  "market_cap": 70599581696
+ },
+ {
+  "ticker": "APD",
+  "name": "Air Products and Chemicals",
+  "sector": "素材",
+  "market_cap": 70486654976
+ },
+ {
+  "ticker": "AEP",
+  "name": "American Electric Power",
+  "sector": "公益事業",
+  "market_cap": 70341910528
+ },
+ {
+  "ticker": "HOOD",
+  "name": "Robinhood Markets",
+  "sector": "金融",
+  "market_cap": 70112247808
+ },
+ {
+  "ticker": "GWW",
+  "name": "W.W. Grainger",
+  "sector": "資本財・サービス",
+  "market_cap": 69720309760
+ },
+ {
+  "ticker": "URI",
+  "name": "United Rentals",
+  "sector": "資本財・サービス",
+  "market_cap": 69628919808
+ },
+ {
+  "ticker": "DLR",
+  "name": "Digital Realty Trust",
+  "sector": "不動産",
+  "market_cap": 69294514176
+ },
+ {
+  "ticker": "COR",
+  "name": "Cencora",
+  "sector": "ヘルスケア",
+  "market_cap": 68512677888
+ },
+ {
+  "ticker": "MPWR",
+  "name": "Monolithic Power Systems",
+  "sector": "テクノロジー",
+  "market_cap": 67813855232
+ },
+ {
+  "ticker": "KMB",
+  "name": "Kimberly-Clark",
+  "sector": "生活必需品",
+  "market_cap": 67154489344
+ },
+ {
+  "ticker": "NXPI",
+  "name": "NXP Semiconductors",
+  "sector": "テクノロジー",
+  "market_cap": 66816724992
+ },
+ {
+  "ticker": "DDOG",
+  "name": "Datadog",
+  "sector": "テクノロジー",
+  "market_cap": 66489597952
+ },
+ {
+  "ticker": "TDG",
+  "name": "Transdigm Group Incorporated",
+  "sector": "資本財・サービス",
+  "market_cap": 66451116032
+ },
+ {
+  "ticker": "ALL",
+  "name": "Allstate Corporation (The)",
+  "sector": "金融",
+  "market_cap": 66227388416
+ },
+ {
+  "ticker": "CAH",
+  "name": "Cardinal Health",
+  "sector": "ヘルスケア",
+  "market_cap": 64972517376
+ },
+ {
+  "ticker": "MET",
+  "name": "MetLife",
+  "sector": "金融",
+  "market_cap": 64509583360
+ },
+ {
+  "ticker": "BSX",
+  "name": "Boston Scientific",
+  "sector": "ヘルスケア",
+  "market_cap": 64269643776
+ },
+ {
+  "ticker": "HPE",
+  "name": "Hewlett Packard Enterprise Comp",
+  "sector": "テクノロジー",
+  "market_cap": 64103276544
+ },
+ {
+  "ticker": "TRGP",
+  "name": "Targa Resources",
+  "sector": "エネルギー",
+  "market_cap": 63793344512
+ },
+ {
+  "ticker": "FAST",
+  "name": "Fastenal",
+  "sector": "資本財・サービス",
+  "market_cap": 63319568384
+ },
+ {
+  "ticker": "AFL",
+  "name": "AFLAC Incorporated",
+  "sector": "金融",
+  "market_cap": 63116808192
+ },
+ {
+  "ticker": "PSA",
+  "name": "Public Storage",
+  "sector": "不動産",
+  "market_cap": 62142263296
+ },
+ {
+  "ticker": "TEL",
+  "name": "TE Connectivity",
+  "sector": "テクノロジー",
+  "market_cap": 62023618560
+ },
+ {
+  "ticker": "CRH",
+  "name": "CRH",
+  "sector": "素材",
+  "market_cap": 61972897792
+ },
+ {
+  "ticker": "CMI",
+  "name": "Cummins",
+  "sector": "資本財・サービス",
+  "market_cap": 61948657664
+ },
+ {
+  "ticker": "EW",
+  "name": "Edwards Lifesciences Corporatio",
+  "sector": "ヘルスケア",
+  "market_cap": 61611249664
+ },
+ {
+  "ticker": "NDAQ",
+  "name": "Nasdaq",
+  "sector": "金融",
+  "market_cap": 60196810752
+ },
+ {
+  "ticker": "TFC",
+  "name": "Truist Financial",
+  "sector": "金融",
+  "market_cap": 59888467968
+ },
+ {
+  "ticker": "D",
+  "name": "Dominion Energy",
+  "sector": "公益事業",
+  "market_cap": 59511443456
+ },
+ {
+  "ticker": "BDX",
+  "name": "Becton, Dickinson and",
+  "sector": "ヘルスケア",
+  "market_cap": 59388497920
+ },
+ {
+  "ticker": "OXY",
+  "name": "Occidental Petroleum Corporatio",
+  "sector": "エネルギー",
+  "market_cap": 58743816192
+ },
+ {
+  "ticker": "BE",
+  "name": "Bloom Energy",
+  "sector": "資本財・サービス",
+  "market_cap": 56763133952
+ },
+ {
+  "ticker": "DAL",
+  "name": "Delta Air Lines",
+  "sector": "資本財・サービス",
+  "market_cap": 56744943616
+ },
+ {
+  "ticker": "NUE",
+  "name": "Nucor",
+  "sector": "素材",
+  "market_cap": 56625197056
+ },
+ {
+  "ticker": "OKE",
+  "name": "ONEOK",
+  "sector": "エネルギー",
+  "market_cap": 56582926336
+ },
+ {
+  "ticker": "NKE",
+  "name": "Nike",
+  "sector": "一般消費財",
+  "market_cap": 56426885120
+ },
+ {
+  "ticker": "PCAR",
+  "name": "PACCAR",
+  "sector": "資本財・サービス",
+  "market_cap": 56157061120
+ },
+ {
+  "ticker": "O",
+  "name": "Realty Income",
+  "sector": "不動産",
+  "market_cap": 56095387648
+ },
+ {
+  "ticker": "AME",
+  "name": "AMETEK",
+  "sector": "資本財・サービス",
+  "market_cap": 55520182272
+ },
+ {
+  "ticker": "IDXX",
+  "name": "IDEXX Laboratories",
+  "sector": "ヘルスケア",
+  "market_cap": 55483650048
+ },
+ {
+  "ticker": "ADSK",
+  "name": "Autodesk",
+  "sector": "テクノロジー",
+  "market_cap": 55263780864
+ },
+ {
+  "ticker": "GRMN",
+  "name": "Garmin",
+  "sector": "テクノロジー",
+  "market_cap": 54538551296
+ },
+ {
+  "ticker": "LITE",
+  "name": "Lumentum",
+  "sector": "テクノロジー",
+  "market_cap": 54104432640
+ },
+ {
+  "ticker": "HUM",
+  "name": "Humana",
+  "sector": "ヘルスケア",
+  "market_cap": 54046461952
+ },
+ {
+  "ticker": "ETR",
+  "name": "Entergy",
+  "sector": "公益事業",
+  "market_cap": 53110484992
+ },
+ {
+  "ticker": "DVN",
+  "name": "Devon Energy",
+  "sector": "エネルギー",
+  "market_cap": 53087895552
+ },
+ {
+  "ticker": "EBAY",
+  "name": "eBay",
+  "sector": "一般消費財",
+  "market_cap": 53083877376
+ },
+ {
+  "ticker": "AZO",
+  "name": "AutoZone",
+  "sector": "一般消費財",
+  "market_cap": 52462723072
+ },
+ {
+  "ticker": "XEL",
+  "name": "Xcel Energy",
+  "sector": "公益事業",
+  "market_cap": 52383371264
+ },
+ {
+  "ticker": "HONA",
+  "name": "Honeywell Aerospace",
+  "sector": "資本財・サービス",
+  "market_cap": 52313423872
+ },
+ {
+  "ticker": "SRE",
+  "name": "DBA Sempra",
+  "sector": "公益事業",
+  "market_cap": 52028674048
+ },
+ {
+  "ticker": "FANG",
+  "name": "Diamondback Energy",
+  "sector": "エネルギー",
+  "market_cap": 51626508288
+ },
+ {
+  "ticker": "XYZ",
+  "name": "Block",
+  "sector": "テクノロジー",
+  "market_cap": 51130470400
+ },
+ {
+  "ticker": "LHX",
+  "name": "L3Harris Technologies",
+  "sector": "資本財・サービス",
+  "market_cap": 50711773184
+ },
+ {
+  "ticker": "KEYS",
+  "name": "Keysight Technologies",
+  "sector": "テクノロジー",
+  "market_cap": 50678456320
+ },
+ {
+  "ticker": "WAB",
+  "name": "Westinghouse Air Brake Technolo",
+  "sector": "資本財・サービス",
+  "market_cap": 49998397440
+ },
+ {
+  "ticker": "VMRK",
+  "name": "Vivmark Residential",
+  "sector": "不動産",
+  "market_cap": 49757560832
+ },
+ {
+  "ticker": "FERG",
+  "name": "Ferguson Enterprises",
+  "sector": "資本財・サービス",
+  "market_cap": 49665056768
+ },
+ {
+  "ticker": "KDP",
+  "name": "Keurig Dr Pepper",
+  "sector": "生活必需品",
+  "market_cap": 49456865280
+ },
+ {
+  "ticker": "FITB",
+  "name": "Fifth Third Bancorp",
+  "sector": "金融",
+  "market_cap": 49248694272
+ },
+ {
+  "ticker": "PYPL",
+  "name": "PayPal",
+  "sector": "金融",
+  "market_cap": 49241423872
+ },
+ {
+  "ticker": "BKR",
+  "name": "Baker Hughes",
+  "sector": "エネルギー",
+  "market_cap": 49097797632
+ },
+ {
+  "ticker": "A",
+  "name": "Agilent Technologies",
+  "sector": "ヘルスケア",
+  "market_cap": 49044348928
+ },
+ {
+  "ticker": "VEEV",
+  "name": "Veeva Systems",
+  "sector": "ヘルスケア",
+  "market_cap": 48820375552
+ },
+ {
+  "ticker": "VYLR",
+  "name": "Vylor",
+  "sector": "金融",
+  "market_cap": 48406163456
+ },
+ {
+  "ticker": "EXC",
+  "name": "Exelon",
+  "sector": "公益事業",
+  "market_cap": 47863971840
+ },
+ {
+  "ticker": "F",
+  "name": "Ford Motor",
+  "sector": "一般消費財",
+  "market_cap": 47559221248
+ },
+ {
+  "ticker": "ROP",
+  "name": "Roper Technologies",
+  "sector": "テクノロジー",
+  "market_cap": 47535013888
+ },
+ {
+  "ticker": "WDAY",
+  "name": "Workday",
+  "sector": "テクノロジー",
+  "market_cap": 47344447488
+ },
+ {
+  "ticker": "STT",
+  "name": "State Street",
+  "sector": "金融",
+  "market_cap": 47191937024
+ },
+ {
+  "ticker": "MSCI",
+  "name": "MSCI",
+  "sector": "金融",
+  "market_cap": 47059152896
+ },
+ {
+  "ticker": "VTR",
+  "name": "Ventas",
+  "sector": "不動産",
+  "market_cap": 47022673920
+ },
+ {
+  "ticker": "SE",
+  "name": "Sea",
+  "sector": "一般消費財",
+  "market_cap": 46156836864
+ },
+ {
+  "ticker": "VST",
+  "name": "Vistra",
+  "sector": "公益事業",
+  "market_cap": 45142884352
+ },
+ {
+  "ticker": "AMP",
+  "name": "Ameriprise Financial",
+  "sector": "金融",
+  "market_cap": 45093003264
+ },
+ {
+  "ticker": "ED",
+  "name": "Consolidated Edison",
+  "sector": "公益事業",
+  "market_cap": 44907184128
+ },
+ {
+  "ticker": "ARES",
+  "name": "Ares Management",
+  "sector": "金融",
+  "market_cap": 44684627968
+ },
+ {
+  "ticker": "CMG",
+  "name": "Chipotle Mexican Grill",
+  "sector": "一般消費財",
+  "market_cap": 44628316160
+ },
+ {
+  "ticker": "CARR",
+  "name": "Carrier Global",
+  "sector": "資本財・サービス",
+  "market_cap": 44344283136
+ },
+ {
+  "ticker": "ROK",
+  "name": "Rockwell Automation",
+  "sector": "資本財・サービス",
+  "market_cap": 44173475840
+ },
+ {
+  "ticker": "IQV",
+  "name": "IQVIA",
+  "sector": "ヘルスケア",
+  "market_cap": 43691773952
+ },
+ {
+  "ticker": "YUM",
+  "name": "Yum! Brands",
+  "sector": "一般消費財",
+  "market_cap": 43278168064
+ },
+ {
+  "ticker": "COHR",
+  "name": "Coherent",
+  "sector": "テクノロジー",
+  "market_cap": 42966532096
+ },
+ {
+  "ticker": "AIG",
+  "name": "American International Group, I",
+  "sector": "金融",
+  "market_cap": 42957844480
+ },
+ {
+  "ticker": "TTWO",
+  "name": "Take-Two Interactive Software,",
+  "sector": "通信サービス",
+  "market_cap": 42650976256
+ },
+ {
+  "ticker": "PRU",
+  "name": "Prudential Financial",
+  "sector": "金融",
+  "market_cap": 42377650176
+ },
+ {
+  "ticker": "LYV",
+  "name": "Live Nation Entertainment",
+  "sector": "通信サービス",
+  "market_cap": 42060046336
+ },
+ {
+  "ticker": "KR",
+  "name": "Kroger Company (The)",
+  "sector": "生活必需品",
+  "market_cap": 41813680128
+ },
+ {
+  "ticker": "PAYX",
+  "name": "Paychex",
+  "sector": "テクノロジー",
+  "market_cap": 41179820032
+ },
+ {
+  "ticker": "EL",
+  "name": "Estee Lauder Companies, Inc. (T",
+  "sector": "生活必需品",
+  "market_cap": 40490430464
+ },
+ {
+  "ticker": "CIEN",
+  "name": "Ciena",
+  "sector": "テクノロジー",
+  "market_cap": 39782965248
+ },
+ {
+  "ticker": "DHI",
+  "name": "D.R. Horton",
+  "sector": "一般消費財",
+  "market_cap": 39507456000
+ },
+ {
+  "ticker": "CCL",
+  "name": "Carnival Corporation",
+  "sector": "一般消費財",
+  "market_cap": 39302955008
+ },
+ {
+  "ticker": "CBOE",
+  "name": "Cboe Global Markets",
+  "sector": "金融",
+  "market_cap": 39167655936
+ },
+ {
+  "ticker": "TER",
+  "name": "Teradyne",
+  "sector": "テクノロジー",
+  "market_cap": 38960930816
+ },
+ {
+  "ticker": "FIX",
+  "name": "Comfort Systems USA",
+  "sector": "資本財・サービス",
+  "market_cap": 38921818112
+ },
+ {
+  "ticker": "FOXA",
+  "name": "Fox",
+  "sector": "通信サービス",
+  "market_cap": 38856114176
+ },
+ {
+  "ticker": "WEC",
+  "name": "WEC Energy",
+  "sector": "公益事業",
+  "market_cap": 38689497088
+ },
+ {
+  "ticker": "CCI",
+  "name": "Crown Castle",
+  "sector": "不動産",
+  "market_cap": 38646456320
+ },
+ {
+  "ticker": "CBRE",
+  "name": "CBRE",
+  "sector": "不動産",
+  "market_cap": 38364684288
+ },
+ {
+  "ticker": "SYY",
+  "name": "Sysco",
+  "sector": "生活必需品",
+  "market_cap": 37954072576
+ },
+ {
+  "ticker": "SKYD",
+  "name": "Skydance",
+  "sector": "通信サービス",
+  "market_cap": 37932552192
+ },
+ {
+  "ticker": "PEG",
+  "name": "Public Service Enterprise",
+  "sector": "公益事業",
+  "market_cap": 37827350528
+ },
+ {
+  "ticker": "TEAM",
+  "name": "Atlassian",
+  "sector": "テクノロジー",
+  "market_cap": 37775429632
+ },
+ {
+  "ticker": "GEHC",
+  "name": "GE HealthCare Technologies",
+  "sector": "ヘルスケア",
+  "market_cap": 37536481280
+ },
+ {
+  "ticker": "BIIB",
+  "name": "Biogen",
+  "sector": "ヘルスケア",
+  "market_cap": 37457645568
+ },
+ {
+  "ticker": "TKO",
+  "name": "TKO",
+  "sector": "通信サービス",
+  "market_cap": 36855988224
+ },
+ {
+  "ticker": "HIG",
+  "name": "The Hartford Insurance Group, I",
+  "sector": "金融",
+  "market_cap": 36763992064
+ },
+ {
+  "ticker": "MLM",
+  "name": "Martin Marietta Materials",
+  "sector": "素材",
+  "market_cap": 36527165440
+ },
+ {
+  "ticker": "P",
+  "name": "Everpure",
+  "sector": "テクノロジー",
+  "market_cap": 35985211392
+ },
+ {
+  "ticker": "ODFL",
+  "name": "Old Dominion Freight Line",
+  "sector": "資本財・サービス",
+  "market_cap": 35962200064
+ },
+ {
+  "ticker": "VMC",
+  "name": "Vulcan Materials Company (Holdi",
+  "sector": "素材",
+  "market_cap": 35760607232
+ },
+ {
+  "ticker": "RBLX",
+  "name": "Roblox",
+  "sector": "通信サービス",
+  "market_cap": 35721252864
+ },
+ {
+  "ticker": "ACGL",
+  "name": "Arch Capital",
+  "sector": "金融",
+  "market_cap": 35680833536
+ },
+ {
+  "ticker": "NTAP",
+  "name": "NetApp",
+  "sector": "テクノロジー",
+  "market_cap": 35624513536
+ },
+ {
+  "ticker": "UAL",
+  "name": "United Airlines",
+  "sector": "資本財・サービス",
+  "market_cap": 35514204160
+ },
+ {
+  "ticker": "CNC",
+  "name": "Centene",
+  "sector": "ヘルスケア",
+  "market_cap": 35283492864
+ },
+ {
+  "ticker": "HSY",
+  "name": "The Hershey",
+  "sector": "生活必需品",
+  "market_cap": 35024850944
+ },
+ {
+  "ticker": "ADM",
+  "name": "Archer-Daniels-Midland",
+  "sector": "生活必需品",
+  "market_cap": 34694508544
+ },
+ {
+  "ticker": "MTD",
+  "name": "Mettler-Toledo International, I",
+  "sector": "ヘルスケア",
+  "market_cap": 34587623424
+ },
+ {
+  "ticker": "EXR",
+  "name": "Extra Space Storage",
+  "sector": "不動産",
+  "market_cap": 34577219584
+ },
+ {
+  "ticker": "ZTS",
+  "name": "Zoetis",
+  "sector": "ヘルスケア",
+  "market_cap": 34057420800
+ },
+ {
+  "ticker": "IRM",
+  "name": "Iron Mountain Incorporated (Del",
+  "sector": "不動産",
+  "market_cap": 33878593536
+ },
+ {
+  "ticker": "COIN",
+  "name": "Coinbase Global",
+  "sector": "金融",
+  "market_cap": 33795727360
+ },
+ {
+  "ticker": "RMD",
+  "name": "ResMed",
+  "sector": "ヘルスケア",
+  "market_cap": 33691588608
+ },
+ {
+  "ticker": "MCHP",
+  "name": "Microchip Technology Incorporat",
+  "sector": "テクノロジー",
+  "market_cap": 33567713280
+ },
+ {
+  "ticker": "EQT",
+  "name": "EQT",
+  "sector": "エネルギー",
+  "market_cap": 33035266048
+ },
+ {
+  "ticker": "TWLO",
+  "name": "Twilio",
+  "sector": "テクノロジー",
+  "market_cap": 32681375744
+ },
+ {
+  "ticker": "IR",
+  "name": "Ingersoll Rand",
+  "sector": "資本財・サービス",
+  "market_cap": 32664721408
+ },
+ {
+  "ticker": "STLD",
+  "name": "Steel Dynamics",
+  "sector": "素材",
+  "market_cap": 32628957184
+ },
+ {
+  "ticker": "RJF",
+  "name": "Raymond James Financial",
+  "sector": "金融",
+  "market_cap": 32439879680
+ },
+ {
+  "ticker": "NTRS",
+  "name": "Northern Trust",
+  "sector": "金融",
+  "market_cap": 32282439680
+ },
+ {
+  "ticker": "OKTA",
+  "name": "Okta",
+  "sector": "テクノロジー",
+  "market_cap": 31969503232
+ },
+ {
+  "ticker": "HBAN",
+  "name": "Huntington Bancshares Incorpora",
+  "sector": "金融",
+  "market_cap": 31883425792
+ },
+ {
+  "ticker": "AEE",
+  "name": "Ameren",
+  "sector": "公益事業",
+  "market_cap": 31784116224
+ },
+ {
+  "ticker": "MTB",
+  "name": "M&T Bank",
+  "sector": "金融",
+  "market_cap": 31716220928
+ },
+ {
+  "ticker": "ZS",
+  "name": "Zscaler",
+  "sector": "テクノロジー",
+  "market_cap": 31383138304
+ },
+ {
+  "ticker": "ILMN",
+  "name": "Illumina",
+  "sector": "ヘルスケア",
+  "market_cap": 31299911680
+ },
+ {
+  "ticker": "DXCM",
+  "name": "DexCom",
+  "sector": "ヘルスケア",
+  "market_cap": 31078000640
+ },
+ {
+  "ticker": "WTW",
+  "name": "Willis Towers Watson Public Lim",
+  "sector": "金融",
+  "market_cap": 30923790336
+ },
+ {
+  "ticker": "CCJ",
+  "name": "Cameco",
+  "sector": "エネルギー",
+  "market_cap": 30805250048
+ },
+ {
+  "ticker": "EXPE",
+  "name": "Expedia",
+  "sector": "一般消費財",
+  "market_cap": 30588612608
+ },
+ {
+  "ticker": "LH",
+  "name": "Labcorp",
+  "sector": "ヘルスケア",
+  "market_cap": 30082977792
+ },
+ {
+  "ticker": "WSM",
+  "name": "Williams-Sonoma",
+  "sector": "一般消費財",
+  "market_cap": 29918961664
+ },
+ {
+  "ticker": "ATO",
+  "name": "Atmos Energy",
+  "sector": "公益事業",
+  "market_cap": 29792684032
+ },
+ {
+  "ticker": "AWK",
+  "name": "American Water Works Company, I",
+  "sector": "公益事業",
+  "market_cap": 29786058752
+ },
+ {
+  "ticker": "KHC",
+  "name": "The Kraft Heinz",
+  "sector": "生活必需品",
+  "market_cap": 29725945856
+ },
+ {
+  "ticker": "TDY",
+  "name": "Teledyne Technologies Incorpora",
+  "sector": "テクノロジー",
+  "market_cap": 29635020800
+ },
+ {
+  "ticker": "DG",
+  "name": "Dollar General",
+  "sector": "生活必需品",
+  "market_cap": 29593534464
+ },
+ {
+  "ticker": "CPAY",
+  "name": "Corpay",
+  "sector": "テクノロジー",
+  "market_cap": 29569058816
+ },
+ {
+  "ticker": "OTIS",
+  "name": "Otis Worldwide",
+  "sector": "資本財・サービス",
+  "market_cap": 29505064960
+ },
+ {
+  "ticker": "CPRT",
+  "name": "Copart",
+  "sector": "資本財・サービス",
+  "market_cap": 29486610432
+ },
+ {
+  "ticker": "PCG",
+  "name": "Pacific Gas & Electric Co.",
+  "sector": "公益事業",
+  "market_cap": 29182193664
+ },
+ {
+  "ticker": "CINF",
+  "name": "Cincinnati Financial Corporatio",
+  "sector": "金融",
+  "market_cap": 29113231360
+ },
+ {
+  "ticker": "ECHO",
+  "name": "EchoStar",
+  "sector": "通信サービス",
+  "market_cap": 29097814016
+ },
+ {
+  "ticker": "DTE",
+  "name": "DTE Energy",
+  "sector": "公益事業",
+  "market_cap": 29084547072
+ },
+ {
+  "ticker": "WST",
+  "name": "West Pharmaceutical Services, I",
+  "sector": "ヘルスケア",
+  "market_cap": 29008250880
+ },
+ {
+  "ticker": "EME",
+  "name": "EMCOR",
+  "sector": "資本財・サービス",
+  "market_cap": 28868102144
+ },
+ {
+  "ticker": "WRB",
+  "name": "W.R. Berkley",
+  "sector": "金融",
+  "market_cap": 28770183168
+ },
+ {
+  "ticker": "VLTO",
+  "name": "Veralto",
+  "sector": "資本財・サービス",
+  "market_cap": 28751519744
+ },
+ {
+  "ticker": "DGX",
+  "name": "Quest Diagnostics Incorporated",
+  "sector": "ヘルスケア",
+  "market_cap": 28560951296
+ },
+ {
+  "ticker": "ULTA",
+  "name": "Ulta Beauty",
+  "sector": "一般消費財",
+  "market_cap": 28248150016
+ },
+ {
+  "ticker": "CTSH",
+  "name": "Cognizant Technology Solutions",
+  "sector": "テクノロジー",
+  "market_cap": 28167387136
+ },
+ {
+  "ticker": "VRSN",
+  "name": "VeriSign",
+  "sector": "テクノロジー",
+  "market_cap": 28077893632
+ },
+ {
+  "ticker": "HAL",
+  "name": "Halliburton",
+  "sector": "エネルギー",
+  "market_cap": 27940327424
+ },
+ {
+  "ticker": "DOV",
+  "name": "Dover",
+  "sector": "資本財・サービス",
+  "market_cap": 27924963328
+ },
+ {
+  "ticker": "FLEX",
+  "name": "Flex",
+  "sector": "テクノロジー",
+  "market_cap": 27702171648
+ },
+ {
+  "ticker": "ON",
+  "name": "ON Semiconductor",
+  "sector": "テクノロジー",
+  "market_cap": 27662555136
+ },
+ {
+  "ticker": "VICI",
+  "name": "VICI Properties",
+  "sector": "不動産",
+  "market_cap": 27538149376
+ },
+ {
+  "ticker": "CFG",
+  "name": "Citizens Financial",
+  "sector": "金融",
+  "market_cap": 27356669952
+ },
+ {
+  "ticker": "CNP",
+  "name": "CenterPoint Energy, Inc (Holdin",
+  "sector": "公益事業",
+  "market_cap": 27304009728
+ },
+ {
+  "ticker": "FE",
+  "name": "FirstEnergy",
+  "sector": "公益事業",
+  "market_cap": 27207985152
+ },
+ {
+  "ticker": "PPG",
+  "name": "PPG Industries",
+  "sector": "素材",
+  "market_cap": 27073503232
+ },
+ {
+  "ticker": "ES",
+  "name": "Eversource Energy (D/B/A)",
+  "sector": "公益事業",
+  "market_cap": 27018881024
+ },
+ {
+  "ticker": "PPL",
+  "name": "PPL",
+  "sector": "公益事業",
+  "market_cap": 26850514944
+ },
+ {
+  "ticker": "CHD",
+  "name": "Church & Dwight",
+  "sector": "生活必需品",
+  "market_cap": 26671622144
+ },
+ {
+  "ticker": "VRSK",
+  "name": "Verisk Analytics",
+  "sector": "資本財・サービス",
+  "market_cap": 26660483072
+ },
+ {
+  "ticker": "HPQ",
+  "name": "HP",
+  "sector": "テクノロジー",
+  "market_cap": 26476582912
+ },
+ {
+  "ticker": "CASY",
+  "name": "Caseys General Stores",
+  "sector": "一般消費財",
+  "market_cap": 26318596096
+ },
+ {
+  "ticker": "JBL",
+  "name": "Jabil",
+  "sector": "テクノロジー",
+  "market_cap": 26181259264
+ },
+ {
+  "ticker": "TPR",
+  "name": "Tapestry",
+  "sector": "一般消費財",
+  "market_cap": 26020749312
+ },
+ {
+  "ticker": "DLTR",
+  "name": "Dollar Tree",
+  "sector": "生活必需品",
+  "market_cap": 25907992576
+ },
+ {
+  "ticker": "DRI",
+  "name": "Darden Restaurants",
+  "sector": "一般消費財",
+  "market_cap": 25880381440
+ },
+ {
+  "ticker": "AXON",
+  "name": "Axon Enterprise",
+  "sector": "資本財・サービス",
+  "market_cap": 25686319104
+ },
+ {
+  "ticker": "STE",
+  "name": "STERIS plc (Ireland)",
+  "sector": "ヘルスケア",
+  "market_cap": 25667330048
+ },
+ {
+  "ticker": "LVS",
+  "name": "Las Vegas Sands",
+  "sector": "一般消費財",
+  "market_cap": 25324132352
+ },
+ {
+  "ticker": "EXPD",
+  "name": "Expeditors International of Was",
+  "sector": "資本財・サービス",
+  "market_cap": 25150758912
+ },
+ {
+  "ticker": "CHTR",
+  "name": "Charter Communications",
+  "sector": "通信サービス",
+  "market_cap": 24778944512
+ },
+ {
+  "ticker": "Q",
+  "name": "Qnity Electronics",
+  "sector": "テクノロジー",
+  "market_cap": 24742371328
+ },
+ {
+  "ticker": "INCY",
+  "name": "Incyte",
+  "sector": "ヘルスケア",
+  "market_cap": 24657616896
+ },
+ {
+  "ticker": "STZ",
+  "name": "Constellation Brands",
+  "sector": "生活必需品",
+  "market_cap": 24640739328
+ },
+ {
+  "ticker": "RF",
+  "name": "Regions Financial",
+  "sector": "金融",
+  "market_cap": 24497735680
+ },
+ {
+  "ticker": "GPN",
+  "name": "Global Payments",
+  "sector": "資本財・サービス",
+  "market_cap": 24320030720
+ },
+ {
+  "ticker": "PFG",
+  "name": "Principal Financial",
+  "sector": "金融",
+  "market_cap": 24115347456
+ },
+ {
+  "ticker": "OMC",
+  "name": "Omnicom",
+  "sector": "通信サービス",
+  "market_cap": 24005120000
+ },
+ {
+  "ticker": "DOW",
+  "name": "Dow",
+  "sector": "素材",
+  "market_cap": 23917060096
+ },
+ {
+  "ticker": "VTRS",
+  "name": "Viatris",
+  "sector": "ヘルスケア",
+  "market_cap": 23869188096
+ },
+ {
+  "ticker": "BRO",
+  "name": "Brown & Brown",
+  "sector": "金融",
+  "market_cap": 23858593792
+ },
+ {
+  "ticker": "PHM",
+  "name": "PulteGroup",
+  "sector": "一般消費財",
+  "market_cap": 23380858880
+ },
+ {
+  "ticker": "TROW",
+  "name": "T. Rowe Price",
+  "sector": "金融",
+  "market_cap": 23237595136
+ },
+ {
+  "ticker": "EIX",
+  "name": "Edison International",
+  "sector": "公益事業",
+  "market_cap": 23156496384
+ },
+ {
+  "ticker": "HUBB",
+  "name": "Hubbell",
+  "sector": "資本財・サービス",
+  "market_cap": 23087855616
+ },
+ {
+  "ticker": "RL",
+  "name": "Ralph Lauren",
+  "sector": "一般消費財",
+  "market_cap": 22830989312
+ },
+ {
+  "ticker": "KEY",
+  "name": "KeyCorp",
+  "sector": "金融",
+  "market_cap": 22661324800
+ },
+ {
+  "ticker": "L",
+  "name": "Loews",
+  "sector": "金融",
+  "market_cap": 22629003264
+ },
+ {
+  "ticker": "SYF",
+  "name": "Synchrony Financial",
+  "sector": "金融",
+  "market_cap": 22499002368
+ },
+ {
+  "ticker": "PKG",
+  "name": "Packaging Corporation of Americ",
+  "sector": "一般消費財",
+  "market_cap": 22364542976
+ },
+ {
+  "ticker": "SW",
+  "name": "Smurfit WestRock",
+  "sector": "一般消費財",
+  "market_cap": 22213715968
+ },
+ {
+  "ticker": "NI",
+  "name": "NiSource",
+  "sector": "公益事業",
+  "market_cap": 22088740864
+ },
+ {
+  "ticker": "CMS",
+  "name": "CMS Energy",
+  "sector": "公益事業",
+  "market_cap": 22072971264
+ },
+ {
+  "ticker": "EFX",
+  "name": "Equifax",
+  "sector": "資本財・サービス",
+  "market_cap": 22013270016
+ },
+ {
+  "ticker": "LUV",
+  "name": "Southwest Airlines",
+  "sector": "資本財・サービス",
+  "market_cap": 22002728960
+ },
+ {
+  "ticker": "BBY",
+  "name": "Best Buy Co.",
+  "sector": "一般消費財",
+  "market_cap": 21826361344
+ },
+ {
+  "ticker": "BR",
+  "name": "Broadridge Financial Solutions,",
+  "sector": "テクノロジー",
+  "market_cap": 21767294976
+ },
+ {
+  "ticker": "JBHT",
+  "name": "J.B. Hunt Transport Services, I",
+  "sector": "資本財・サービス",
+  "market_cap": 21705979904
+ },
+ {
+  "ticker": "XYL",
+  "name": "Xylem",
+  "sector": "資本財・サービス",
+  "market_cap": 21598732288
+ },
+ {
+  "ticker": "CDW",
+  "name": "CDW",
+  "sector": "テクノロジー",
+  "market_cap": 21423519744
+ },
+ {
+  "ticker": "PTC",
+  "name": "PTC",
+  "sector": "テクノロジー",
+  "market_cap": 21292097536
+ },
+ {
+  "ticker": "SWKS",
+  "name": "Skyworks Solutions",
+  "sector": "テクノロジー",
+  "market_cap": 21122826240
+ },
+ {
+  "ticker": "LYB",
+  "name": "LyondellBasell Industries NV",
+  "sector": "素材",
+  "market_cap": 20826513408
+ },
+ {
+  "ticker": "EVRG",
+  "name": "Evergy",
+  "sector": "公益事業",
+  "market_cap": 20817440768
+ },
+ {
+  "ticker": "TSN",
+  "name": "Tyson Foods",
+  "sector": "生活必需品",
+  "market_cap": 20692965376
+ },
+ {
+  "ticker": "EXE",
+  "name": "Expand Energy",
+  "sector": "エネルギー",
+  "market_cap": 20446652416
+ },
+ {
+  "ticker": "NRG",
+  "name": "NRG Energy",
+  "sector": "公益事業",
+  "market_cap": 20393066496
+ },
+ {
+  "ticker": "DD",
+  "name": "DuPont de Nemours",
+  "sector": "素材",
+  "market_cap": 20380821504
+ },
+ {
+  "ticker": "IFF",
+  "name": "International Flavors & Fragran",
+  "sector": "素材",
+  "market_cap": 20321759232
+ },
+ {
+  "ticker": "AMCR",
+  "name": "Amcor",
+  "sector": "一般消費財",
+  "market_cap": 20228841472
+ },
+ {
+  "ticker": "FTV",
+  "name": "Fortive",
+  "sector": "テクノロジー",
+  "market_cap": 20216010752
+ },
+ {
+  "ticker": "TPL",
+  "name": "Texas Pacific Land",
+  "sector": "エネルギー",
+  "market_cap": 20134400000
+ },
+ {
+  "ticker": "FDXF",
+  "name": "FedEx Freight Holding Company,",
+  "sector": "資本財・サービス",
+  "market_cap": 20025380864
+ },
+ {
+  "ticker": "LEN",
+  "name": "Lennar",
+  "sector": "一般消費財",
+  "market_cap": 19890839552
+ },
+ {
+  "ticker": "SBAC",
+  "name": "SBA Communications",
+  "sector": "不動産",
+  "market_cap": 19773440000
+ },
+ {
+  "ticker": "ZBH",
+  "name": "Zimmer Biomet",
+  "sector": "ヘルスケア",
+  "market_cap": 19532894208
+ },
+ {
+  "ticker": "BG",
+  "name": "Bunge",
+  "sector": "生活必需品",
+  "market_cap": 19531415552
+ },
+ {
+  "ticker": "LNT",
+  "name": "Alliant Energy",
+  "sector": "公益事業",
+  "market_cap": 19044925440
+ },
+ {
+  "ticker": "SNA",
+  "name": "Snap-On Incorporated",
+  "sector": "資本財・サービス",
+  "market_cap": 19013873664
+ },
+ {
+  "ticker": "RDDT",
+  "name": "Reddit",
+  "sector": "通信サービス",
+  "market_cap": 19010076672
+ },
+ {
+  "ticker": "TSCO",
+  "name": "Tractor Supply",
+  "sector": "一般消費財",
+  "market_cap": 18902011904
+ },
+ {
+  "ticker": "ESS",
+  "name": "Essex Property Trust",
+  "sector": "不動産",
+  "market_cap": 18859616256
+ },
+ {
+  "ticker": "J",
+  "name": "Jacobs Solutions",
+  "sector": "資本財・サービス",
+  "market_cap": 18683936768
+ },
+ {
+  "ticker": "ROL",
+  "name": "Rollins",
+  "sector": "一般消費財",
+  "market_cap": 18586400768
+ },
+ {
+  "ticker": "BEN",
+  "name": "Franklin Templeton",
+  "sector": "金融",
+  "market_cap": 18460250112
+ },
+ {
+  "ticker": "FSLR",
+  "name": "First Solar",
+  "sector": "テクノロジー",
+  "market_cap": 18421194752
+ },
+ {
+  "ticker": "GIS",
+  "name": "General Mills",
+  "sector": "生活必需品",
+  "market_cap": 18350462976
+ },
+ {
+  "ticker": "CF",
+  "name": "CF Industries",
+  "sector": "素材",
+  "market_cap": 18298779648
+ },
+ {
+  "ticker": "IP",
+  "name": "International Paper",
+  "sector": "一般消費財",
+  "market_cap": 18234214400
+ },
+ {
+  "ticker": "NDSN",
+  "name": "Nordson",
+  "sector": "資本財・サービス",
+  "market_cap": 18093846528
+ },
+ {
+  "ticker": "GEN",
+  "name": "Gen Digital",
+  "sector": "テクノロジー",
+  "market_cap": 18035593216
+ },
+ {
+  "ticker": "RIVN",
+  "name": "Rivian Automotive",
+  "sector": "一般消費財",
+  "market_cap": 17778032640
+ },
+ {
+  "ticker": "HST",
+  "name": "Host Hotels & Resorts",
+  "sector": "不動産",
+  "market_cap": 17711122432
+ },
+ {
+  "ticker": "SMCI",
+  "name": "Super Micro Computer",
+  "sector": "テクノロジー",
+  "market_cap": 17710143488
+ },
+ {
+  "ticker": "FFIV",
+  "name": "F5",
+  "sector": "テクノロジー",
+  "market_cap": 17562554368
+ },
+ {
+  "ticker": "IEX",
+  "name": "IDEX",
+  "sector": "資本財・サービス",
+  "market_cap": 17454589952
+ },
+ {
+  "ticker": "RVTY",
+  "name": "Revvity",
+  "sector": "ヘルスケア",
+  "market_cap": 17235908608
+ },
+ {
+  "ticker": "BALL",
+  "name": "Ball",
+  "sector": "一般消費財",
+  "market_cap": 17041287168
+ },
+ {
+  "ticker": "GPC",
+  "name": "Genuine Parts",
+  "sector": "一般消費財",
+  "market_cap": 17004229632
+ },
+ {
+  "ticker": "KIM",
+  "name": "Kimco Realty Corporation (HC)",
+  "sector": "不動産",
+  "market_cap": 16977684480
+ },
+ {
+  "ticker": "HAS",
+  "name": "Hasbro",
+  "sector": "一般消費財",
+  "market_cap": 16860435456
+ },
+ {
+  "ticker": "TYL",
+  "name": "Tyler Technologies",
+  "sector": "テクノロジー",
+  "market_cap": 16860423168
+ },
+ {
+  "ticker": "SWK",
+  "name": "Stanley Black & Decker",
+  "sector": "資本財・サービス",
+  "market_cap": 16842820608
+ },
+ {
+  "ticker": "ALLE",
+  "name": "Allegion",
+  "sector": "資本財・サービス",
+  "market_cap": 16325361664
+ },
+ {
+  "ticker": "MAS",
+  "name": "Masco",
+  "sector": "資本財・サービス",
+  "market_cap": 16323687424
+ },
+ {
+  "ticker": "APA",
+  "name": "APA",
+  "sector": "エネルギー",
+  "market_cap": 16264019968
+ },
+ {
+  "ticker": "CRL",
+  "name": "Charles River Laboratories Inte",
+  "sector": "ヘルスケア",
+  "market_cap": 16194666496
+ },
+ {
+  "ticker": "LDOS",
+  "name": "Leidos",
+  "sector": "テクノロジー",
+  "market_cap": 15923968000
+ },
+ {
+  "ticker": "EG",
+  "name": "Everest",
+  "sector": "金融",
+  "market_cap": 15824397312
+ },
+ {
+  "ticker": "AIZ",
+  "name": "Assurant",
+  "sector": "金融",
+  "market_cap": 15804922880
+ },
+ {
+  "ticker": "CHRW",
+  "name": "C.H. Robinson Worldwide",
+  "sector": "資本財・サービス",
+  "market_cap": 15589512192
+ },
+ {
+  "ticker": "INVH",
+  "name": "Invitation Homes",
+  "sector": "不動産",
+  "market_cap": 15528727552
+ },
+ {
+  "ticker": "NVR",
+  "name": "NVR",
+  "sector": "一般消費財",
+  "market_cap": 15488231424
+ },
+ {
+  "ticker": "FICO",
+  "name": "Fair Isaac",
+  "sector": "テクノロジー",
+  "market_cap": 15398330368
+ },
+ {
+  "ticker": "ZBRA",
+  "name": "Zebra Technologies",
+  "sector": "テクノロジー",
+  "market_cap": 15256335360
+ },
+ {
+  "ticker": "FIS",
+  "name": "Fidelity National Information S",
+  "sector": "テクノロジー",
+  "market_cap": 15226991616
+ },
+ {
+  "ticker": "SOLV",
+  "name": "Solventum",
+  "sector": "ヘルスケア",
+  "market_cap": 15139760128
+ },
+ {
+  "ticker": "WY",
+  "name": "Weyerhaeuser",
+  "sector": "不動産",
+  "market_cap": 14990358528
+ },
+ {
+  "ticker": "DOC",
+  "name": "Healthpeak Properties",
+  "sector": "不動産",
+  "market_cap": 14505853952
+ },
+ {
+  "ticker": "NWSA",
+  "name": "News",
+  "sector": "通信サービス",
+  "market_cap": 14473841664
+ },
+ {
+  "ticker": "ERIE",
+  "name": "Erie Indemnity",
+  "sector": "金融",
+  "market_cap": 14365595648
+ },
+ {
+  "ticker": "REG",
+  "name": "Regency Centers",
+  "sector": "不動産",
+  "market_cap": 14229774336
+ },
+ {
+  "ticker": "AVY",
+  "name": "Avery Dennison",
+  "sector": "一般消費財",
+  "market_cap": 14198416384
+ },
+ {
+  "ticker": "SJM",
+  "name": "The J.M. Smucker",
+  "sector": "生活必需品",
+  "market_cap": 14174368768
+ },
+ {
+  "ticker": "TXT",
+  "name": "Textron",
+  "sector": "資本財・サービス",
+  "market_cap": 14170308608
+ },
+ {
+  "ticker": "BF-B",
+  "name": "Brown Forman",
+  "sector": "生活必需品",
+  "market_cap": 14064189440
+ },
+ {
+  "ticker": "MAA",
+  "name": "Mid-America Apartment Communiti",
+  "sector": "不動産",
+  "market_cap": 14019857408
+ },
+ {
+  "ticker": "GDDY",
+  "name": "GoDaddy",
+  "sector": "テクノロジー",
+  "market_cap": 13839869952
+ },
+ {
+  "ticker": "BAX",
+  "name": "Baxter International",
+  "sector": "ヘルスケア",
+  "market_cap": 13352756224
+ },
+ {
+  "ticker": "CLX",
+  "name": "Clorox Company (The)",
+  "sector": "生活必需品",
+  "market_cap": 13260793856
+ },
+ {
+  "ticker": "UDR",
+  "name": "UDR",
+  "sector": "不動産",
+  "market_cap": 13227310080
+ },
+ {
+  "ticker": "PNW",
+  "name": "Pinnacle West Capital Corporati",
+  "sector": "公益事業",
+  "market_cap": 12968528896
+ },
+ {
+  "ticker": "TRMB",
+  "name": "Trimble",
+  "sector": "テクノロジー",
+  "market_cap": 12755081216
+ },
+ {
+  "ticker": "IVZ",
+  "name": "Invesco Ltd",
+  "sector": "金融",
+  "market_cap": 12711176192
+ },
+ {
+  "ticker": "MKC",
+  "name": "McCormick & Company, Incorporat",
+  "sector": "生活必需品",
+  "market_cap": 12635268096
+ },
+ {
+  "ticker": "CSGP",
+  "name": "CoStar",
+  "sector": "不動産",
+  "market_cap": 12456364032
+ },
+ {
+  "ticker": "JKHY",
+  "name": "Jack Henry & Associates",
+  "sector": "テクノロジー",
+  "market_cap": 12369156096
+ },
+ {
+  "ticker": "AKAM",
+  "name": "Akamai Technologies",
+  "sector": "テクノロジー",
+  "market_cap": 12317170688
+ },
+ {
+  "ticker": "LULU",
+  "name": "lululemon athletica inc.",
+  "sector": "一般消費財",
+  "market_cap": 12237015040
+ },
+ {
+  "ticker": "HRL",
+  "name": "Hormel Foods",
+  "sector": "生活必需品",
+  "market_cap": 12157248512
+ },
+ {
+  "ticker": "GL",
+  "name": "Globe Life",
+  "sector": "金融",
+  "market_cap": 12126183424
+ },
+ {
+  "ticker": "IT",
+  "name": "Gartner",
+  "sector": "テクノロジー",
+  "market_cap": 12121081856
+ },
+ {
+  "ticker": "HII",
+  "name": "Huntington Ingalls Industries,",
+  "sector": "資本財・サービス",
+  "market_cap": 12067710976
+ },
+ {
+  "ticker": "LII",
+  "name": "Lennox International",
+  "sector": "資本財・サービス",
+  "market_cap": 12042051584
+ },
+ {
+  "ticker": "COO",
+  "name": "The Cooper Companies",
+  "sector": "ヘルスケア",
+  "market_cap": 11913229312
+ },
+ {
+  "ticker": "ALGN",
+  "name": "Align Technology",
+  "sector": "ヘルスケア",
+  "market_cap": 11864381440
+ },
+ {
+  "ticker": "FDS",
+  "name": "FactSet Research Systems",
+  "sector": "金融",
+  "market_cap": 11729205248
+ },
+ {
+  "ticker": "DECK",
+  "name": "Deckers Outdoor",
+  "sector": "一般消費財",
+  "market_cap": 11588731904
+ },
+ {
+  "ticker": "BXP",
+  "name": "BXP",
+  "sector": "不動産",
+  "market_cap": 11521292288
+ },
+ {
+  "ticker": "TECH",
+  "name": "Bio-Techne",
+  "sector": "ヘルスケア",
+  "market_cap": 11436205056
+ },
+ {
+  "ticker": "GNRC",
+  "name": "Generac Holdlings",
+  "sector": "資本財・サービス",
+  "market_cap": 11253328896
+ },
+ {
+  "ticker": "DPZ",
+  "name": "Domino's Pizza",
+  "sector": "一般消費財",
+  "market_cap": 11241240576
+ },
+ {
+  "ticker": "UHS",
+  "name": "Universal Health Services",
+  "sector": "ヘルスケア",
+  "market_cap": 11188546560
+ },
+ {
+  "ticker": "ALB",
+  "name": "Albemarle",
+  "sector": "素材",
+  "market_cap": 11037460480
+ },
+ {
+  "ticker": "DVA",
+  "name": "DaVita",
+  "sector": "ヘルスケア",
+  "market_cap": 10979823616
+ },
+ {
+  "ticker": "PNR",
+  "name": "Pentair plc.",
+  "sector": "資本財・サービス",
+  "market_cap": 10904415232
+ },
+ {
+  "ticker": "AES",
+  "name": "The AES",
+  "sector": "公益事業",
+  "market_cap": 10639249408
+ },
+ {
+  "ticker": "PODD",
+  "name": "Insulet",
+  "sector": "ヘルスケア",
+  "market_cap": 10577695744
+ }
+]

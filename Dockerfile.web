@@ -17,8 +17,8 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# バックエンド本体 + 東証銘柄リスト
-COPY app.py main.py jp_stocks.json ./
+# バックエンド本体 + 東証銘柄リスト + 大型株リスト
+COPY app.py main.py jp_stocks.json large_caps.json ./
 # React のビルド成果物を static/ に配置（main.py が存在を見て配信する）
 COPY --from=frontend /fe/dist ./static
 

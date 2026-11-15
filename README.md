@@ -18,18 +18,27 @@ React（フロントエンド）+ FastAPI（バックエンド）で作る株価
 - **企業概要（日本語）** — どんな会社かの説明
 - **最近のトピック（日本語）** — 関連ニュースの見出し
 
-- **オートコンプリート** — 入力中に東証銘柄（社名・コード）の候補をサジェスト
+- **オートコンプリート** — 入力中に東証銘柄（社名・コード）と米国の大型株（ティッカー・英語社名）の候補をサジェスト。
+  **キーボードだけで選べます**（`↑` `↓` で移動 / `Enter` で決定 / `Esc` で閉じる）
+- **最近見た銘柄** — 直近8件を検索欄の下に表示。ワンクリックで開き直せます
 
 ### 📈 マーケット概況・マイリスト
 - トップに **日経平均・NYダウ・S&P500・ドル円** を表示
 - **ウォッチリスト** — 気になる銘柄を保存して現在値・前日比を一覧表示
-- **ポートフォリオ** — 保有株数・取得単価から **評価額・損益・年間配当合計**（すべて円換算）を表示
+- **ポートフォリオ** — 保有株数・取得単価から **評価額・損益・年間配当合計**（すべて円換算）を表示。
+  銘柄は **社名で検索して追加**できます（「7203.T」形式を覚える必要はありません）
+- **バックアップ** — ウォッチリストと保有銘柄を **JSON ファイルに保存／復元**。機種変更やブラウザ履歴の削除に備えられます
 - ログイン不要（データはブラウザに保存）。スマホは **ホーム画面に追加**してアプリのように使えます（PWA）
+- **配色を切り替え** — 右上のボタンで 自動（端末の設定に追従）／ダーク／ライト
+- 銘柄名をクリックすると **同じ画面のまま**詳細が開きます（中クリック・Ctrl+クリックなら従来どおり別タブ）。
+  開いていたタブは次回アクセス時に復元されます
 
 ### 💡 予算でおすすめ
 - **予算を入力** すると、**日本企業**の中から買える銘柄を **買い時順に最大30社** 表示
 - 固定リストではなく、**その時点の株価（市場状況）に基づいて動的に抽出**
-- **国内／海外／すべて**の地域と、**業界**または**テーマ**（半導体・宇宙/防衛・AI/クラウド・EV/電池・再エネ・ゲーム・フィンテック）で絞り込み可能
+- 対象は **日本株 約400社（時価総額3000億円以上）＋米国株 約500社（時価総額100億ドル以上）** の大型株
+  - 一覧は `large_caps.json`。`python scripts/build_large_caps.py` で最新の時価総額をもとに作り直せます（約10分）
+- **国内／海外／すべて**の地域と、**業界**または**テーマ**（半導体・宇宙/防衛・AI/クラウド・EV/電池・再エネ・ゲーム・フィンテック・高配当・総合商社・医薬/バイオ・ロボット/FA・サイバーセキュリティ・インバウンド・海運/物流・原子力/電力インフラ・食品/飲料）で絞り込み可能
 - **企業名をクリックすると別タブで詳細**（どんな企業か・買い時・予想・ニュース）を表示
 - 株価は一括取得＋キャッシュ＋起動時の先読みで **すばやく表示**
 
@@ -48,15 +57,20 @@ my-first-app/
     ├── Dockerfile       # frontend イメージ（ビルド → nginx で配信）
     ├── nginx.conf       # 静的配信 + /api をバックエンドへ中継
     └── src/
-        ├── App.jsx          # タブ（検索 / おすすめ）
+        ├── App.jsx          # タブ（検索 / おすすめ / マイリスト）と画面間の移動
         ├── StockSearch.jsx  # 銘柄検索の画面
         ├── Recommend.jsx    # 予算おすすめの画面
+        ├── Portfolio.jsx    # マイリスト（ウォッチ・保有・バックアップ）
+        ├── SymbolInput.jsx  # 銘柄オートコンプリート入力（検索・保有追加で共用）
+        ├── ThemeToggle.jsx  # 配色（自動/ダーク/ライト）の切り替えボタン
         ├── RangeBar.jsx     # 52週レンジ表示
+        ├── store.js         # ブラウザ保存（ウォッチ・保有・履歴・バックアップ）
+        ├── theme.js         # 配色の保存と適用
         └── utils.js         # 共通処理
 ```
 
-- **backend コンテナ**: FastAPI（株価 API）。ポート 8000。
-- **frontend コンテナ**: React のビルド成果物を nginx で配信。ポート 3000。
+- **backend コンテナ**: FastAPI（株価 API）。ポート 8100（コンテナ内は 8000）。
+- **frontend コンテナ**: React のビルド成果物を nginx で配信。ポート 3100（コンテナ内は 443）。
   `/api/...` へのリクエストは nginx が backend へ中継するため、ブラウザは frontend だけと通信すれば動きます（CORS 不要）。
 
 ## 起動方法（Docker Compose）
@@ -72,14 +86,14 @@ cd my-first-app
 docker compose up --build
 ```
 
-起動後、ブラウザで <https://localhost:3000> を開きます（**HTTPS**）。
+起動後、ブラウザで <https://localhost:3100> を開きます（**HTTPS**）。
 
 > 🔒 自己署名証明書を使っているため、初回は「この接続ではプライバシーが保護されません」などの警告が出ます。
 > 「詳細設定 →（このサイトに）アクセスする」で続行してください（ローカル/LAN 用のため問題ありません）。
 
 - 停止: `Ctrl+C`（バックグラウンド起動した場合は `docker compose down`）
 - バックグラウンド起動: `docker compose up --build -d`
-- `http://localhost:3000` でアクセスしても自動で `https` に転送されます。
+- `http://localhost:3100` でアクセスしても自動で `https` に転送されます。
 
 ## 開発（ホットリロード）
 
@@ -87,7 +101,7 @@ docker compose up --build
 
 ```bash
 # ターミナル1: バックエンドだけ起動
-docker compose up backend          # → http://localhost:8000
+docker compose up backend          # → http://localhost:8100
 
 # ターミナル2: フロントエンドを開発モードで起動
 cd frontend
@@ -95,7 +109,7 @@ npm install                        # 初回だけ
 npm run dev                        # → http://localhost:5173
 ```
 
-開発サーバー（5173）への `/api` 呼び出しは、Vite が backend（8000）へ転送します。
+開発サーバー（5173）への `/api` 呼び出しは、Vite が backend（8100）へ転送します。
 
 ## API
 
@@ -112,9 +126,9 @@ API はすべて `/api` 配下にあります。
 リクエスト例:
 
 ```bash
-curl "http://localhost:8000/api/stock/apple"
-curl "http://localhost:8000/api/recommendations?budget=500000"
-curl "http://localhost:8000/api/recommendations?sector=テクノロジー&budget=300000"
+curl "http://localhost:8100/api/stock/apple"
+curl "http://localhost:8100/api/recommendations?budget=500000"
+curl "http://localhost:8100/api/recommendations?sector=テクノロジー&budget=300000"
 ```
 
 ## スマホで見る・インターネットに公開する
@@ -122,7 +136,7 @@ curl "http://localhost:8000/api/recommendations?sector=テクノロジー&budget
 フロントエンドは API を相対パス（`/api`）で呼ぶため、どのホスト名・IPでアクセスしても動きます。
 
 ### 同じPCのブラウザ
-<https://localhost:3000>（自己署名証明書のため初回は警告が出ます。続行でOK）
+<https://localhost:3100>（自己署名証明書のため初回は警告が出ます。続行でOK）
 
 ### スマホ（同じWi-Fi）から見る — WSL2 の場合
 WSL2 は Windows 内の仮想ネットワークのため、スマホからは直接見えません。Windows 側で
@@ -130,17 +144,17 @@ WSL2 は Windows 内の仮想ネットワークのため、スマホからは直
 
 ```powershell
 # WSL の IP は WSL 内で `hostname -I` で確認（例: 172.27.174.148）
-netsh interface portproxy add v4tov4 listenport=3000 listenaddress=0.0.0.0 connectport=3000 connectaddress=<WSLのIP>
-netsh advfirewall firewall add rule name="StockPulse" dir=in action=allow protocol=TCP localport=3000
+netsh interface portproxy add v4tov4 listenport=3100 listenaddress=0.0.0.0 connectport=3100 connectaddress=<WSLのIP>
+netsh advfirewall firewall add rule name="StockPulse" dir=in action=allow protocol=TCP localport=3100
 ```
 
-その後、スマホのブラウザで `https://<WindowsのLAN IP>:3000`（`ipconfig` で確認。例: `192.168.0.x`）を開きます。
+その後、スマホのブラウザで `https://<WindowsのLAN IP>:3100`（`ipconfig` で確認。例: `192.168.0.x`）を開きます。
 ※ 自己署名証明書のため警告が出ますが、続行すれば表示できます。
 ※ WSL の IP は再起動で変わることがあります。変わったら `portproxy` を設定し直してください。
 
 ### インターネットに公開する
 - **手軽（ポート開放不要）**: [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-tunnel/)。
-  `cloudflared tunnel --url https://localhost:3000 --no-tls-verify` を実行すると、一時的な公開 URL（https）が発行され、外部から閲覧できます。
+  `cloudflared tunnel --url https://localhost:3100 --no-tls-verify` を実行すると、一時的な公開 URL（https）が発行され、外部から閲覧できます。
   ※ PC と Docker が起動している間だけ有効です。
 - **恒久運用**: VPS に本リポジトリを置いて `docker compose up -d`、または下記の Render に無料デプロイ。
 
@@ -162,7 +176,7 @@ PC を起動していなくても 24 時間アクセスできるようにする�
 メモ:
 - **無料プラン**は 15 分アクセスが無いとスリープし、次のアクセスで起動に数十秒かかります（個人利用なら十分）。
 - 起動直後は全銘柄の株価を裏で先読みするため、最初の「おすすめ」表示まで少し時間がかかります。
-- ローカルでも同じ 1 コンテナ構成を確認できます: `docker build -f Dockerfile.web -t stock-pulse-web . && docker run --rm -p 8000:8000 stock-pulse-web` → <http://localhost:8000>
+- ローカルでも同じ 1 コンテナ構成を確認できます: `docker build -f Dockerfile.web -t stock-pulse-web . && docker run --rm -p 8100:8000 stock-pulse-web` → <http://localhost:8100>
 
 ## 注意事項
 
