@@ -786,22 +786,90 @@ def resolve_ticker(query: str, interactive: bool = True) -> str | None:
     return equities[idx]["symbol"]
 
 
+_INFO_CACHE: dict = {}
+_INFO_TTL = 1800  # 秒
+_INFO_POOR_TTL = 60  # 秒。取得に失敗した結果も短時間覚え、同一リクエスト内の再取得を防ぐ
+# info がこれらのキーを持っていれば「詳細情報が取れた」とみなす
+_INFO_RICH_KEYS = ("fiftyTwoWeekHigh", "twoHundredDayAverage", "longName", "recommendationKey")
+
+
+def get_info(stock: yf.Ticker) -> dict:
+    """stock.info を取得する（失敗・欠損時は1回リトライ、取得できたものはキャッシュ）。
+
+    クラウド環境（Render など）では Yahoo の詳細情報 API が制限されやすく、
+    例外や中身の乏しい辞書が返ることがあるため、呼び出し側はキー欠損を前提に扱うこと。
+
+    Returns:
+        info 辞書。取得できなければ空の辞書。
+    """
+    symbol = stock.ticker.upper()
+    now = time.time()
+    cached = _INFO_CACHE.get(symbol)
+    if cached:
+        cached_at, cached_info, is_rich = cached
+        if now - cached_at < (_INFO_TTL if is_rich else _INFO_POOR_TTL):
+            return cached_info
+
+    info: dict = {}
+    for attempt in range(2):
+        try:
+            info = stock.info or {}
+        except Exception:
+            logging.warning("%s の詳細情報(info)の取得に失敗しました (試行%d回目)", symbol, attempt + 1)
+            info = {}
+        if any(info.get(k) for k in _INFO_RICH_KEYS):
+            _INFO_CACHE[symbol] = (now, info, True)
+            return info
+        if attempt == 0:
+            time.sleep(1)
+
+    logging.warning("%s の詳細情報(info)が不足しています。株価履歴から補完します", symbol)
+    _INFO_CACHE[symbol] = (now, info, False)
+    return info
+
+
+def _fast_info_value(stock: yf.Ticker, attr: str) -> float | str | None:
+    """fast_info（株価チャート由来で取得しやすい）の値を安全に取り出す。"""
+    try:
+        value = getattr(stock.fast_info, attr)
+    except Exception:
+        return None
+    if value is None or (isinstance(value, float) and value != value):  # NaN を除外
+        return None
+    return value
+
+
+def _fallback_name(ticker: str) -> str | None:
+    """info から社名が取れないときに、手元の銘柄リストから表示名を引く。"""
+    upper = ticker.upper()
+    if upper.endswith(".T"):
+        name = _load_jp_stocks().get(upper[:-2])
+        if name:
+            return name
+    meta = _universe_meta().get(upper)
+    return meta[0] if meta else None
+
+
 def fetch_stock_data(ticker: str) -> dict | None:
     """銘柄の株価情報を辞書で返す（CLI/Web 共通）。取得できなければ None。"""
     stock = yf.Ticker(ticker)
-    info = stock.info
+    info = get_info(stock)
 
     current = get_latest_price(stock, info)
     if current is None:
         return None
 
-    name = info.get("longName") or info.get("shortName") or ticker
-    currency = info.get("currency", "")
-    prev_close = info.get("previousClose") or info.get("regularMarketPreviousClose")
+    name = info.get("longName") or info.get("shortName") or _fallback_name(ticker) or ticker
+    currency = info.get("currency") or _fast_info_value(stock, "currency") or ""
+    prev_close = (
+        info.get("previousClose")
+        or info.get("regularMarketPreviousClose")
+        or _fast_info_value(stock, "previous_close")
+    )
     change = current - prev_close if prev_close is not None else None
     change_pct = (change / prev_close * 100) if change is not None and prev_close else None
 
-    market_cap = info.get("marketCap")
+    market_cap = info.get("marketCap") or _fast_info_value(stock, "market_cap")
     cap_str = None
     if market_cap:
         cap_str = f"{market_cap / 1e12:.2f}兆" if market_cap >= 1e12 else f"{market_cap / 1e8:.0f}億"
@@ -814,8 +882,9 @@ def fetch_stock_data(ticker: str) -> dict | None:
         "prev_close": prev_close,
         "change": change,
         "change_pct": change_pct,
-        "high_52w": info.get("fiftyTwoWeekHigh"),
-        "low_52w": info.get("fiftyTwoWeekLow"),
+        "high_52w": info.get("fiftyTwoWeekHigh") or _fast_info_value(stock, "year_high"),
+        "low_52w": info.get("fiftyTwoWeekLow") or _fast_info_value(stock, "year_low"),
+        "ma200": info.get("twoHundredDayAverage") or _fast_info_value(stock, "two_hundred_day_average"),
         "market_cap_str": cap_str,
     }
 
@@ -1168,6 +1237,61 @@ def _movement_analysis(change_pct, range_pct, news) -> str:
     return "".join(parts)
 
 
+def _rec_key_from_counts(counts: dict) -> str:
+    """アナリストの推奨件数（strongBuy〜strongSell）から推奨区分を求める。
+
+    Yahoo の recommendationMean と同じ 1(強い買い)〜5(強い売り) の加重平均で判定する。
+    """
+    weights = {"strongBuy": 1, "buy": 2, "hold": 3, "sell": 4, "strongSell": 5}
+    total = sum(int(counts.get(k) or 0) for k in weights)
+    if total == 0:
+        return "none"
+    mean = sum(w * int(counts.get(k) or 0) for k, w in weights.items()) / total
+    if mean < 1.5:
+        return "strong_buy"
+    if mean < 2.5:
+        return "buy"
+    if mean < 3.5:
+        return "hold"
+    if mean < 4.5:
+        return "sell"
+    return "strong_sell"
+
+
+def _analyst_outlook(stock: yf.Ticker, info: dict) -> dict:
+    """アナリストの目標株価と推奨区分を返す。
+
+    info に無い場合は、個別のアナリスト API（目標株価・推奨件数）で補完する。
+    """
+    result = {
+        "target_mean": info.get("targetMeanPrice"),
+        "target_high": info.get("targetHighPrice"),
+        "target_low": info.get("targetLowPrice"),
+        "rec_key": info.get("recommendationKey") or "none",
+    }
+
+    if result["target_mean"] is None:
+        try:
+            targets = stock.analyst_price_targets or {}
+            result["target_mean"] = targets.get("mean")
+            result["target_high"] = result["target_high"] or targets.get("high")
+            result["target_low"] = result["target_low"] or targets.get("low")
+        except Exception:
+            logging.warning("%s の目標株価の取得に失敗しました", stock.ticker)
+
+    if result["rec_key"] == "none":
+        try:
+            recs = stock.recommendations
+            if recs is not None and not recs.empty:
+                current = recs[recs["period"] == "0m"]
+                row = (current if not current.empty else recs).iloc[0]
+                result["rec_key"] = _rec_key_from_counts(counts=row.to_dict())
+        except Exception:
+            logging.warning("%s のアナリスト推奨の取得に失敗しました", stock.ticker)
+
+    return result
+
+
 def fetch_stock_detail(ticker: str) -> dict | None:
     """1銘柄の詳細情報（株価・買い時・アナリスト予想・企業概要・ニュース）を返す。"""
     base = fetch_stock_data(ticker)
@@ -1175,13 +1299,15 @@ def fetch_stock_detail(ticker: str) -> dict | None:
         return None
 
     stock = yf.Ticker(ticker)
-    info = stock.info
+    info = get_info(stock)
     price = base["current"]
 
-    timing = buy_timing(info, price)
-    target = info.get("targetMeanPrice")
+    # 52週高安・200日平均は info が欠けても株価履歴由来の値（base）で判定できるようにする
+    timing = compute_timing(price, base["high_52w"], base["low_52w"], base["ma200"])
+    analyst = _analyst_outlook(stock=stock, info=info)
+    target = analyst["target_mean"]
     upside = ((target - price) / price * 100) if target else None
-    rec_key = info.get("recommendationKey") or "none"
+    rec_key = analyst["rec_key"]
     sector_en = info.get("sector") or ""
 
     # 企業概要・ニュース見出しを日本語に翻訳する
@@ -1242,8 +1368,8 @@ def fetch_stock_detail(ticker: str) -> dict | None:
         "range_pct": timing["range_pct"],
         # アナリスト予想（今後の値動きの目安）
         "target_mean": _r2(target),
-        "target_high": _r2(info.get("targetHighPrice")),
-        "target_low": _r2(info.get("targetLowPrice")),
+        "target_high": _r2(analyst["target_high"]),
+        "target_low": _r2(analyst["target_low"]),
         "upside": _r2(upside),
         "rec_label": REC_LABEL.get(rec_key, rec_key),
         # 配当・株主優待
