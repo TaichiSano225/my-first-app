@@ -99,7 +99,7 @@ def stock_json(symbol: str):
 
     data = fetch_stock_detail(ticker)
     if data is None:
-        raise HTTPException(status_code=404, detail=f"'{symbol}' の株価データを取得できませんでした。")
+        raise HTTPException(status_code=404, detail=f"'{symbol}' の株価データを取得できませんでした。上場廃止や銘柄コード変更の可能性があります。")
 
     return data
 

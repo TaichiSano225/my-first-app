@@ -2,6 +2,7 @@ import yfinance as yf
 import pandas as pd
 import difflib
 import json
+import logging
 import time
 import sys
 import os
@@ -98,7 +99,7 @@ SECTOR_TICKERS = {
         ("CL", "Colgate-Palmolive"), ("MO", "Altria"), ("PM", "Philip Morris"),
         ("KMB", "Kimberly-Clark"), ("GIS", "General Mills"), ("KHC", "Kraft Heinz"),
         ("HSY", "Hershey"), ("STZ", "Constellation Brands"), ("SYY", "Sysco"),
-        ("KR", "Kroger"), ("ADM", "Archer-Daniels"), ("K", "Kellanova"),
+        ("KR", "Kroger"), ("ADM", "Archer-Daniels"),
         ("CHD", "Church & Dwight"), ("MKC", "McCormick"), ("CLX", "Clorox"),
         ("2914.T", "日本たばこ産業"),
     ],
@@ -116,7 +117,7 @@ SECTOR_TICKERS = {
         ("GOOGL", "Alphabet"), ("META", "Meta Platforms"), ("NFLX", "Netflix"),
         ("DIS", "Disney"), ("CMCSA", "Comcast"), ("T", "AT&T"),
         ("VZ", "Verizon"), ("TMUS", "T-Mobile"), ("CHTR", "Charter"),
-        ("EA", "Electronic Arts"), ("WBD", "Warner Bros. Discovery"), ("TTWO", "Take-Two"),
+        ("TTWO", "Take-Two"),
         ("OMC", "Omnicom"), ("LYV", "Live Nation"), ("PARA", "Paramount"),
         ("FOXA", "Fox"), ("9432.T", "NTT"), ("9433.T", "KDDI"),
         ("9984.T", "ソフトバンクグループ"),
@@ -136,7 +137,7 @@ SECTOR_TICKERS = {
         ("SLB", "SLB"), ("EOG", "EOG Resources"), ("MPC", "Marathon Petroleum"),
         ("PSX", "Phillips 66"), ("VLO", "Valero"), ("OXY", "Occidental"),
         ("WMB", "Williams"), ("KMI", "Kinder Morgan"), ("HAL", "Halliburton"),
-        ("DVN", "Devon Energy"), ("HES", "Hess"), ("BKR", "Baker Hughes"),
+        ("DVN", "Devon Energy"), ("BKR", "Baker Hughes"),
         ("FANG", "Diamondback"), ("OKE", "ONEOK"),
     ],
     "素材": [
@@ -157,7 +158,7 @@ SECTOR_TICKERS = {
         ("PLD", "Prologis"), ("AMT", "American Tower"), ("EQIX", "Equinix"),
         ("CCI", "Crown Castle"), ("PSA", "Public Storage"), ("O", "Realty Income"),
         ("SPG", "Simon Property"), ("WELL", "Welltower"), ("DLR", "Digital Realty"),
-        ("VTR", "Ventas"), ("AVB", "AvalonBay"), ("EQR", "Equity Residential"),
+        ("VTR", "Ventas"),
         ("ESS", "Essex Property"), ("MAA", "Mid-America"), ("ARE", "Alexandria"),
     ],
 }
@@ -176,7 +177,7 @@ JAPAN_TICKERS = [
     ("7752.T", "リコー", "テクノロジー"), ("6770.T", "アルプスアルパイン", "テクノロジー"),
     ("6963.T", "ローム", "テクノロジー"), ("6762.T", "TDK", "テクノロジー"),
     ("6273.T", "SMC", "テクノロジー"), ("4307.T", "野村総合研究所", "テクノロジー"),
-    ("9613.T", "NTTデータグループ", "テクノロジー"), ("4704.T", "トレンドマイクロ", "テクノロジー"),
+    ("4704.T", "トレンドマイクロ", "テクノロジー"),
     ("6532.T", "ベイカレント", "テクノロジー"), ("5802.T", "住友電気工業", "テクノロジー"),
     # 金融
     ("8306.T", "三菱UFJ", "金融"), ("8316.T", "三井住友FG", "金融"),
@@ -270,7 +271,7 @@ THEME_TICKERS = {
         ("SNOW", "Snowflake"), ("NOW", "ServiceNow"), ("CRM", "Salesforce"),
         ("ORCL", "Oracle"), ("ANET", "Arista Networks"), ("DELL", "Dell"),
         ("6098.T", "リクルート"), ("4307.T", "野村総合研究所"),
-        ("9613.T", "NTTデータグループ"), ("6532.T", "ベイカレント"),
+        ("6532.T", "ベイカレント"),
     ],
     "EV・電池": [
         ("TSLA", "Tesla"), ("RIVN", "Rivian"), ("GM", "General Motors"),
@@ -284,17 +285,113 @@ THEME_TICKERS = {
         ("9501.T", "東京電力HD"), ("9531.T", "東京ガス"),
     ],
     "ゲーム・エンタメ": [
-        ("EA", "Electronic Arts"), ("TTWO", "Take-Two"), ("RBLX", "Roblox"),
+        ("TTWO", "Take-Two"), ("RBLX", "Roblox"),
         ("NFLX", "Netflix"), ("DIS", "Disney"),
         ("7974.T", "任天堂"), ("6758.T", "ソニーグループ"), ("7832.T", "バンダイナムコHD"),
         ("9766.T", "コナミグループ"), ("3659.T", "ネクソン"), ("9684.T", "スクウェア・エニックス"),
     ],
     "フィンテック・金融": [
         ("V", "Visa"), ("MA", "Mastercard"), ("PYPL", "PayPal"), ("COIN", "Coinbase"),
-        ("SQ", "Block"), ("JPM", "JPMorgan"), ("GS", "Goldman Sachs"),
+        ("XYZ", "Block"), ("JPM", "JPMorgan"), ("GS", "Goldman Sachs"),
         ("8306.T", "三菱UFJ"), ("8316.T", "三井住友FG"), ("8473.T", "SBI HD"),
         ("8411.T", "みずほFG"),
     ],
+    "高配当": [
+        ("T", "AT&T"), ("VZ", "Verizon"), ("MO", "Altria"), ("PM", "Philip Morris"),
+        ("KO", "Coca-Cola"), ("PEP", "PepsiCo"), ("XOM", "ExxonMobil"),
+        ("CVX", "Chevron"), ("ABBV", "AbbVie"), ("O", "Realty Income"),
+        ("2914.T", "日本たばこ産業"), ("9433.T", "KDDI"), ("9434.T", "ソフトバンク"),
+        ("8058.T", "三菱商事"), ("8306.T", "三菱UFJ"), ("8766.T", "東京海上HD"),
+        ("5401.T", "日本製鉄"), ("9101.T", "日本郵船"), ("1605.T", "INPEX"),
+        ("8591.T", "オリックス"),
+    ],
+    "総合商社": [
+        ("8058.T", "三菱商事"), ("8001.T", "伊藤忠商事"), ("8031.T", "三井物産"),
+        ("8053.T", "住友商事"), ("8002.T", "丸紅"), ("2768.T", "双日"),
+        ("8015.T", "豊田通商"),
+    ],
+    "医薬・バイオ": [
+        ("LLY", "Eli Lilly"), ("NVO", "Novo Nordisk"), ("MRK", "Merck"),
+        ("ABBV", "AbbVie"), ("PFE", "Pfizer"), ("AMGN", "Amgen"),
+        ("GILD", "Gilead"), ("VRTX", "Vertex"), ("REGN", "Regeneron"),
+        ("MRNA", "Moderna"), ("BIIB", "Biogen"),
+        ("4502.T", "武田薬品工業"), ("4568.T", "第一三共"), ("4519.T", "中外製薬"),
+        ("4503.T", "アステラス製薬"), ("4523.T", "エーザイ"), ("4507.T", "塩野義製薬"),
+    ],
+    "ロボット・FA": [
+        ("ISRG", "Intuitive Surgical"), ("ROK", "Rockwell Automation"),
+        ("TER", "Teradyne"), ("ZBRA", "Zebra Technologies"), ("EMR", "Emerson"),
+        ("6954.T", "ファナック"), ("6506.T", "安川電機"), ("6273.T", "SMC"),
+        ("6861.T", "キーエンス"), ("6645.T", "オムロン"), ("6324.T", "ハーモニック・ドライブ"),
+        ("6268.T", "ナブテスコ"),
+    ],
+    "サイバーセキュリティ": [
+        ("PANW", "Palo Alto Networks"), ("CRWD", "CrowdStrike"), ("FTNT", "Fortinet"),
+        ("ZS", "Zscaler"), ("NET", "Cloudflare"), ("OKTA", "Okta"),
+        ("CHKP", "Check Point"), ("S", "SentinelOne"),
+        ("4704.T", "トレンドマイクロ"), ("3692.T", "FFRIセキュリティ"), ("4493.T", "サイバーセキュリティクラウド"),
+    ],
+    "インバウンド・観光": [
+        ("BKNG", "Booking"), ("ABNB", "Airbnb"), ("MAR", "Marriott"),
+        ("HLT", "Hilton"), ("EXPE", "Expedia"), ("DAL", "Delta Air Lines"),
+        ("4661.T", "オリエンタルランド"), ("9201.T", "日本航空"), ("9202.T", "ANA HD"),
+        ("9020.T", "JR東日本"), ("9022.T", "JR東海"), ("3099.T", "三越伊勢丹HD"),
+        ("8233.T", "高島屋"), ("7532.T", "パン・パシフィックHD"), ("4911.T", "資生堂"),
+    ],
+    "海運・物流": [
+        ("UPS", "UPS"), ("FDX", "FedEx"), ("ZIM", "ZIM"), ("MATX", "Matson"),
+        ("9101.T", "日本郵船"), ("9104.T", "商船三井"), ("9107.T", "川崎汽船"),
+        ("9064.T", "ヤマトHD"), ("9147.T", "NIPPON EXPRESS HD"), ("9143.T", "SGホールディングス"),
+    ],
+    "原子力・電力インフラ": [
+        ("CEG", "Constellation Energy"), ("VST", "Vistra"), ("CCJ", "Cameco"),
+        ("GEV", "GE Vernova"), ("ETN", "Eaton"), ("VRT", "Vertiv"),
+        ("6501.T", "日立製作所"), ("7011.T", "三菱重工業"), ("5802.T", "住友電気工業"),
+        ("5801.T", "古河電気工業"), ("5803.T", "フジクラ"), ("9503.T", "関西電力"),
+        ("9501.T", "東京電力HD"),
+    ],
+    "食品・飲料": [
+        ("KO", "Coca-Cola"), ("PEP", "PepsiCo"), ("MDLZ", "Mondelez"),
+        ("HSY", "Hershey"), ("GIS", "General Mills"), ("KHC", "Kraft Heinz"),
+        ("2802.T", "味の素"), ("2503.T", "キリンHD"), ("2502.T", "アサヒグループHD"),
+        ("2269.T", "明治HD"), ("2801.T", "キッコーマン"), ("2587.T", "サントリー食品"),
+        ("2897.T", "日清食品HD"),
+    ],
+}
+
+_LARGE_CAPS: list[tuple[str, str, str]] | None = None  # [(ticker, name, sector)]
+
+
+def _load_large_caps() -> list[tuple[str, str, str]]:
+    """大型株リスト（large_caps.json）を読み込む（初回のみ）。
+
+    scripts/build_large_caps.py で生成した時価総額上位の日米銘柄。
+    ファイルが無い・壊れている場合は空リストを返し、手書きの銘柄リストだけで動作する。
+
+    Returns:
+        (ティッカー, 表示名, 業界) のリスト（時価総額の大きい順）
+    """
+    global _LARGE_CAPS
+    if _LARGE_CAPS is None:
+        path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "large_caps.json")
+        try:
+            with open(path, encoding="utf-8") as f:
+                records = json.load(f)
+            _LARGE_CAPS = [(r["ticker"], r["name"], r["sector"]) for r in records]
+        except FileNotFoundError:
+            _LARGE_CAPS = []
+        except Exception:
+            logging.error("large_caps.json を読み込めませんでした", exc_info=True)
+            _LARGE_CAPS = []
+    return _LARGE_CAPS
+
+
+# テーマにだけ登場する（業界別リスト・大型株リストに無い）銘柄の業界
+THEME_ONLY_SECTORS = {
+    "3692.T": "テクノロジー", "4493.T": "テクノロジー", "CHKP": "テクノロジー",
+    "S": "テクノロジー", "ENPH": "テクノロジー", "SEDG": "テクノロジー",
+    "RUN": "テクノロジー", "QS": "一般消費財", "RKLB": "資本財・サービス",
+    "MATX": "資本財・サービス", "ZIM": "資本財・サービス",
 }
 
 _POOL_CACHE: dict = {}  # region -> [(ticker, name, sector)]（重複除去済み）
@@ -303,16 +400,20 @@ _POOL_CACHE: dict = {}  # region -> [(ticker, name, sector)]（重複除去済�
 def _pool_for_region(region: str) -> list[tuple]:
     """おすすめ対象のユニバースを地域別に組み立てる。
 
+    手書きの代表銘柄リストに大型株リストを加える（重複時は手書き側の表示名・業界を優先）。
     region: "jp"=国内（日本株）, "us"=海外（米国株）, "all"=すべて
     """
     region = region if region in ("jp", "us", "all") else "jp"
     if region not in _POOL_CACHE:
+        large_caps = _load_large_caps()
         jp = [(t, n, s) for (t, n, s) in JAPAN_TICKERS]
+        jp += [x for x in large_caps if x[0].endswith(".T")]
         us = [
             (t, n, sector)
             for sector, entries in SECTOR_TICKERS.items()
             for (t, n) in entries
         ]
+        us += [x for x in large_caps if not x[0].endswith(".T")]
         if region == "us":
             base = [x for x in us if not x[0].endswith(".T")]  # 海外は .T を除外
         elif region == "all":
@@ -369,13 +470,16 @@ _CATALOG = None  # 表示名(小文字) → ティッカー のキャッシュ
 
 
 def _catalog() -> dict:
-    """SECTOR_TICKERS から「表示名→ティッカー」の辞書を組み立てる（初回のみ）。"""
+    """SECTOR_TICKERS と大型株リスト（海外）から「表示名→ティッカー」の辞書を組み立てる（初回のみ）。"""
     global _CATALOG
     if _CATALOG is None:
         cat = {}
+        for ticker, name, _ in _load_large_caps():
+            if not ticker.endswith(".T"):
+                cat[name.lower()] = ticker
         for entries in SECTOR_TICKERS.values():
             for ticker, name in entries:
-                cat[name.lower()] = ticker
+                cat[name.lower()] = ticker  # 手書きの表示名を優先
         _CATALOG = cat
     return _CATALOG
 
@@ -907,7 +1011,10 @@ def screen_recommendations(budget_jpy: int = 300000, sector_jp: str | None = Non
     if sector_jp in THEME_TICKERS:
         # テーマ選択: そのテーマの銘柄群を使い、地域で絞り込む
         meta = _universe_meta()
-        pool = [(t, name, meta.get(t, (name, ""))[1]) for (t, name) in THEME_TICKERS[sector_jp]]
+        pool = [
+            (t, name, meta.get(t, (name, THEME_ONLY_SECTORS.get(t, "")))[1])
+            for (t, name) in THEME_TICKERS[sector_jp]
+        ]
         if region == "jp":
             pool = [u for u in pool if u[0].endswith(".T")]
         elif region == "us":
@@ -1187,7 +1294,7 @@ def fetch_history(symbol: str, range_key: str = "6mo") -> list[dict]:
 
 
 def suggest(query: str, limit: int = 10) -> list[dict]:
-    """入力中の文字列から、東証銘柄の候補を返す（オートコンプリート用）。"""
+    """入力中の文字列から、東証銘柄と海外大型株の候補を返す（オートコンプリート用）。"""
     q = query.strip()
     if not q:
         return []
@@ -1213,9 +1320,62 @@ def suggest(query: str, limit: int = 10) -> list[dict]:
                     seen.add(t)
                     out.append({"symbol": t, "name": name})
 
-    # 前方一致を優先し、短い社名を上に
-    out.sort(key=lambda x: (not _norm(x["name"]).startswith(nq), len(x["name"])))
+        # 海外大型株: ティッカーの前方一致 または 英語社名の部分一致
+        q_upper = q.upper()
+        for ticker, name in _overseas_catalog():
+            if ticker.startswith(q_upper) or (nq and nq in _norm(name)):
+                if ticker not in seen:
+                    seen.add(ticker)
+                    out.append({"symbol": ticker, "name": name})
+
+    # ティッカー完全一致 → 前方一致 → 大型株（時価総額順） の順に優先し、残りは短い社名を上に
+    cap_rank = _large_cap_rank()
+
+    def _sort_key(item: dict) -> tuple[bool, bool, int, int]:
+        is_exact_symbol = item["symbol"].upper() == q.upper()
+        is_prefix = _norm(item["name"]).startswith(nq) or item["symbol"].startswith(q.upper())
+        rank = cap_rank.get(item["symbol"], len(cap_rank))
+        return (not is_exact_symbol, not is_prefix, rank, len(item["name"]))
+
+    out.sort(key=_sort_key)
     return out[:limit]
+
+
+def _large_cap_rank() -> dict[str, int]:
+    """大型株リストの ティッカー → 時価総額順位（0始まり） の対応表を返す。
+
+    Returns:
+        ティッカー → 順位 の辞書
+    """
+    return {ticker: rank for rank, (ticker, _, _) in enumerate(_load_large_caps())}
+
+
+_OVERSEAS_CATALOG: list[tuple[str, str]] | None = None  # [(ticker, name)]
+
+
+def _overseas_catalog() -> list[tuple[str, str]]:
+    """オートコンプリート用の海外銘柄一覧（手書きリスト＋大型株リスト）を返す（初回のみ組み立て）。
+
+    Returns:
+        (ティッカー, 表示名) のリスト（重複除去済み）
+    """
+    global _OVERSEAS_CATALOG
+    if _OVERSEAS_CATALOG is None:
+        entries = [
+            (ticker, name)
+            for sector_entries in SECTOR_TICKERS.values()
+            for ticker, name in sector_entries
+        ]
+        entries += [
+            (ticker, name)
+            for theme_entries in THEME_TICKERS.values()
+            for ticker, name in theme_entries
+        ]
+        entries += [(ticker, name) for ticker, name, _ in _load_large_caps()]
+        _OVERSEAS_CATALOG = list(
+            {t: (t, n) for t, n in reversed(entries) if not t.endswith(".T")}.values()
+        )
+    return _OVERSEAS_CATALOG
 
 
 _MARKET_INDICES = [

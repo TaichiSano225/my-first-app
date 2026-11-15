@@ -1,23 +1,24 @@
 import { useEffect, useState } from 'react'
 import { API_BASE, formatSigned, timingClass } from './utils.js'
-import { isWatched, toggleWatch } from './store.js'
+import { isWatched, toggleWatch, getRecent, pushRecent, clearRecent } from './store.js'
+import SymbolInput from './SymbolInput.jsx'
 import RangeBar from './RangeBar.jsx'
 import Chart from './Chart.jsx'
 import Summary from './Summary.jsx'
 
 // 銘柄を1つ検索して、株価・買い時・アナリスト予想・企業概要・ニュースを表示する画面
-export default function StockSearch({ initialQuery = '' }) {
+// openRequest: 他のタブ（マイリスト・おすすめ）から「この銘柄を開いて」と渡される
+//              {symbol, seq}。同じ銘柄を続けて開けるよう seq で変化を検知する。
+export default function StockSearch({ initialQuery = '', openRequest = null }) {
   const [query, setQuery] = useState(initialQuery)
   const [result, setResult] = useState(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const [suggestions, setSuggestions] = useState([])
-  const [showSug, setShowSug] = useState(false)
   const [watched, setWatched] = useState(false)
+  const [recent, setRecent] = useState(getRecent())
 
   async function runSearch(symbol) {
     if (!symbol) return
-    setShowSug(false)
     setLoading(true)
     setError('')
     setResult(null)
@@ -30,6 +31,8 @@ export default function StockSearch({ initialQuery = '' }) {
       const data = await res.json()
       setResult(data)
       setWatched(isWatched(data.symbol))
+      // 見られた銘柄は履歴に残し、次回ワンタップで開けるようにする
+      setRecent(pushRecent({ symbol: data.symbol, name: data.name || data.symbol }))
     } catch (err) {
       setError(err.message)
     } finally {
@@ -43,21 +46,13 @@ export default function StockSearch({ initialQuery = '' }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialQuery])
 
-  // 入力に応じて候補を取得（オートコンプリート、軽くデバウンス）
+  // 他のタブから銘柄を指定して開かれたとき
   useEffect(() => {
-    const q = query.trim()
-    if (q.length < 1) {
-      setSuggestions([])
-      return
-    }
-    const id = setTimeout(() => {
-      fetch(`${API_BASE}/suggest?q=${encodeURIComponent(q)}`)
-        .then((r) => r.json())
-        .then((d) => setSuggestions(d.results || []))
-        .catch(() => setSuggestions([]))
-    }, 180)
-    return () => clearTimeout(id)
-  }, [query])
+    if (!openRequest) return
+    setQuery(openRequest.symbol)
+    runSearch(openRequest.symbol)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [openRequest])
 
   function handleSearch(e) {
     e.preventDefault()
@@ -66,7 +61,6 @@ export default function StockSearch({ initialQuery = '' }) {
 
   function pickSuggestion(s) {
     setQuery(s.name)
-    setShowSug(false)
     runSearch(s.symbol)
   }
 
@@ -81,33 +75,46 @@ export default function StockSearch({ initialQuery = '' }) {
   return (
     <div>
       <form className="field" onSubmit={handleSearch} autoComplete="off">
-        <div className="search-box">
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => {
-              setQuery(e.target.value)
-              setShowSug(true)
-            }}
-            onFocus={() => setShowSug(true)}
-            onBlur={() => setTimeout(() => setShowSug(false), 150)}
-            placeholder="会社名・コードでOK（例: トヨタ / 7203 / apple）"
-          />
-          {showSug && suggestions.length > 0 && (
-            <ul className="suggest">
-              {suggestions.map((s) => (
-                <li key={s.symbol} onMouseDown={() => pickSuggestion(s)}>
-                  <span className="sug-name">{s.name}</span>
-                  <span className="sug-sym">{s.symbol}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+        <SymbolInput
+          value={query}
+          onChange={setQuery}
+          onPick={pickSuggestion}
+          placeholder="会社名・コードでOK（例: トヨタ / 7203 / apple）"
+          clearable
+        />
         <button type="submit" disabled={loading}>
           {loading ? '取得中…' : '検索'}
         </button>
       </form>
+
+      {/* 最近見た銘柄：クリックですぐ開き直せる */}
+      {recent.length > 0 && (
+        <div className="recent">
+          <span className="recent-label">最近見た銘柄</span>
+          {recent.map((r) => (
+            <button
+              key={r.symbol}
+              type="button"
+              className="recent-chip"
+              onClick={() => {
+                setQuery(r.name)
+                runSearch(r.symbol)
+              }}
+              title={r.symbol}
+            >
+              {r.name}
+            </button>
+          ))}
+          <button
+            type="button"
+            className="recent-clear"
+            onClick={() => setRecent(clearRecent())}
+            title="履歴を消す"
+          >
+            履歴を消す
+          </button>
+        </div>
+      )}
 
       {error && <p className="error">{error}</p>}
       {loading && <p className="hint">株価とニュースを取得しています…</p>}
